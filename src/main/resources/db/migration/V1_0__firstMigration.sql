@@ -1,10 +1,10 @@
-CREATE TABLE 'admin' (
-                       'ADMIN_ID'             INT NOT NULL,
-                       'ADMIN_NAME'           VARCHAR(255) NOT NULL,
-                       'ADMIN_EMAIL'          VARCHAR(255) NOT NULL,
-                       'PASSWORD'             VARCHAR(255) NOT NULL,
-                       'CREATED_DATE'         TIMESTAMP NOT NULL,
-                       'LAST_MODIFIED_DATE'   TIMESTAMP NOT NULL,
+CREATE TABLE admin (
+                       ADMIN_ID             INT NOT NULL,
+                       ADMIN_NAME           VARCHAR(255) NOT NULL,
+                       ADMIN_EMAIL          VARCHAR(255) NOT NULL,
+                       PASSWORD             VARCHAR(255) NOT NULL,
+                       CREATED_DATE         TIMESTAMP NOT NULL,
+                       LAST_MODIFIED_DATE   TIMESTAMP NOT NULL,
                        PRIMARY KEY (ADMIN_ID)
 );
 
