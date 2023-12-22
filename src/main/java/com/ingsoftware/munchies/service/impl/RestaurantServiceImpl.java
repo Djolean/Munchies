@@ -40,4 +40,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     public void deleteById(Integer restaurantId) {
         restaurantRepository.deleteById(restaurantId);
     }
+
+
 }

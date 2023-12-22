@@ -1,0 +1,2 @@
+ALTER TABLE restaurant
+    ADD COLUMN UUID UUID

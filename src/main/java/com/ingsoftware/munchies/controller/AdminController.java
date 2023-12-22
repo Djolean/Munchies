@@ -1,5 +1,6 @@
 package com.ingsoftware.munchies.controller;
 
+import com.ingsoftware.munchies.model.entity.Restaurant;
 import com.ingsoftware.munchies.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,9 +15,16 @@ public class AdminController {
 
     private final RestaurantService restaurantService;
 
-    @GetMapping({"/allRestaurants"})
-        public String getAllRestaurants(Model model) {
+    @GetMapping({"/restaurants"})
+    public String getAllRestaurants(Model model) {
         model.addAttribute("restaurants", restaurantService.findAll());
-        return "admin/allRestaurants";
+        return "restaurants";
+    }
+
+    @GetMapping({"/createRestaurant"})
+    public String showCreateForm(Model model) {
+        Restaurant restaurant = new Restaurant();
+        model.addAttribute("restaurant", restaurant);
+        return "admin/restaurants";
     }
 }

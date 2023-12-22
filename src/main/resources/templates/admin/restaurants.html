@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <title>Restaurant List Admin</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<div class="container mt-4">
+    <h2>Restaurant List</h2>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Restaurant Name</th>
+            <th>Address</th>
+            <th>Phone Number</th>
+            <th>Menu URL</th>
+            <th>Created Date</th>
+            <th>Last Modified Date</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="restaurant : ${restaurants}">
+            <td th:text="${restaurant.id}"></td>
+            <td th:text="${restaurant.restaurantName}"></td>
+            <td th:text="${restaurant.address}"></td>
+            <td th:text="${restaurant.phoneNumber}"></td>
+            <td th:text="${restaurant.menuUrl}"></td>
+            <td th:text="${restaurant.createdDate}"></td>
+            <td th:text="${restaurant.lastModifiedDate}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
