@@ -1,28 +1,34 @@
 package com.ingsoftware.munchies.controller;
 
-import com.ingsoftware.munchies.model.dto.RestaurantCreationDTO;
+import com.ingsoftware.munchies.controller.request.RestaurantRequestDTO;
+import com.ingsoftware.munchies.service.mapper.RestaurantMapper;
 import com.ingsoftware.munchies.model.entity.Restaurant;
-import com.ingsoftware.munchies.repository.RestaurantRepository;
 import com.ingsoftware.munchies.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/admins")
+@RequestMapping("/admin")
 public class AdminController {
 
     private final RestaurantService restaurantService;
-    private final RestaurantRepository restaurantRepository;
 
     @GetMapping({"/restaurants"})
     public String getAllRestaurants(Model model) {
-        model.addAttribute("restaurants", restaurantService.findAll());
+
+        model.addAttribute("restaurants", restaurantService.findAll()
+                .stream()
+                .map(RestaurantMapper::toResponse)
+                .collect(Collectors.toList()));
         return "admin/restaurants";
     }
 
@@ -40,11 +46,10 @@ public class AdminController {
         return "admin/restaurants";
     }
 
-    @PostMapping({"/createRestaurant"})
-    public String createRestaurant(@ModelAttribute("restaurant") Restaurant restaurant) {
-        restaurantService.save(restaurant);
-        return "redirect:/restaurants";
-    }
+//    @PostMapping({"/createRestaurant"})
+//    public ResponseEntity<RestaurantRequestDTO> createRestaurant(@RequestBody RestaurantRequestDTO restaurantDto, @Valid RestaurantRequestDTO restaurantRequestDTO) {
+//
+//    }
 
     @GetMapping({"/editRestaurant/{id}"})
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
@@ -56,7 +61,7 @@ public class AdminController {
     @PostMapping("/updateRestaurant/{id}")
     public String updateRestaurant(@PathVariable("id") Integer id, @Valid Restaurant restaurant, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            restaurant.setId(id);
+            restaurant.setRestaurantId(id);
             return "admin/update-restaurant";
         }
         restaurantService.save(restaurant);
@@ -66,7 +71,13 @@ public class AdminController {
 
     @GetMapping("/deleteRestaurant/{id}")
     public String deleteRestaurant(@PathVariable Integer id) {
-    restaurantService.deleteById(id);
+        restaurantService.deleteById(id);
         return "redirect:/restaurants";
+    }
+
+
+    @GetMapping("/login")
+    public String showLoginPage() {
+        return "admin/admin-login";
     }
 }

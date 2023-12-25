@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 
 import java.time.Instant;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -35,16 +36,7 @@ public class GroupOrder {
     @Column(name = "last_modified_date", nullable = false)
     private Instant lastModifiedDate;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        GroupOrder that = (GroupOrder) o;
-        return getId() != null && Objects.equals(getId(), that.getId());
-    }
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID uuid;
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }
