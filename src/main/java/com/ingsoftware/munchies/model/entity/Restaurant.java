@@ -1,11 +1,13 @@
 package com.ingsoftware.munchies.model.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.Instant;
-import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -15,42 +17,37 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class Restaurant {
     @Id
-    @Column(name = "restaurant_id", nullable = false)
-    private Integer id;
+    @Column(nullable = false)
+    private Integer restaurantId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "delivery_fk", nullable = false)
+    @JoinColumn(nullable = false, name = "delivery_fk")
     @ToString.Exclude
-    private DeliveryInfo deliveryFk;
-
-    @Column(name = "restaurant_name", nullable = false)
+    private DeliveryInfo deliveryInfo;
+    @Column(nullable = false)
     private String restaurantName;
 
-    @Column(name = "address", nullable = false)
+    @Column(nullable = false)
     private String address;
 
-    @Column(name = "phone_number", nullable = false, length = 15)
+    @Column(nullable = false, length = 15)
     private String phoneNumber;
 
-    @Column(name = "menu_url", nullable = false)
+    @Column(nullable = false)
     private String menuUrl;
 
-    @Column(name = "created_date", nullable = false)
+    @Column(nullable = false)
     private Instant createdDate;
 
-    @Column(name = "last_modified_date", nullable = false)
+    @Column(nullable = false)
     private Instant lastModifiedDate;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID uuid;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Restaurant that = (Restaurant) o;
-        return getId() != null && Objects.equals(getId(), that.getId());
-    }
+    @Column(nullable = false)
+    private String shortName;
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
+//    public Restaurant() {
+//        this.createdDate = Instant.from(LocalDateTime.now());
+//    }
 }

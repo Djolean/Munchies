@@ -1,14 +1,12 @@
 package com.ingsoftware.munchies.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.time.Instant;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -35,17 +33,7 @@ public class Admin {
 
     @Column(name = "last_modified_date", nullable = false)
     private Instant lastModifiedDate;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID uuid;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Admin admin = (Admin) o;
-        return getId() != null && Objects.equals(getId(), admin.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }

@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 
 import java.time.Instant;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -34,17 +35,7 @@ public class Item {
 
     @Column(name = "last_modified_date", nullable = false)
     private Instant lastModifiedDate;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID uuid;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Item item = (Item) o;
-        return getId() != null && Objects.equals(getId(), item.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }
