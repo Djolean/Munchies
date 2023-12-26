@@ -1,8 +1,10 @@
 package com.ingsoftware.munchies.service.impl;
 
+import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
 import com.ingsoftware.munchies.model.entity.Restaurant;
 import com.ingsoftware.munchies.repository.RestaurantRepository;
 import com.ingsoftware.munchies.service.RestaurantService;
+import com.ingsoftware.munchies.mapper.RestaurantMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,12 @@ import java.util.NoSuchElementException;
 public class RestaurantServiceImpl implements RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
+    private final RestaurantMapper restaurantMapper;
 
     @Override
-    public List<Restaurant> findAll() {
-        return restaurantRepository.findAll();
+    public List<RestaurantResponseDTO> findAll() {
+        List<Restaurant> restaurants = restaurantRepository.findAll();
+        return restaurantMapper.mapRestaurantsToDTO(restaurants);
     }
 
     @Override
