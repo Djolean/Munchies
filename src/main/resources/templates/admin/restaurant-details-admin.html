@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <title>Restaurant Detailed View</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<div class="container mt-4">
+    <h2>Restaurant Detailed View</h2>
+
+    <div>
+        <h3>General Information</h3>
+        <p>ID: <span th:text="${restaurant.restaurantId}"></span></p>
+        <p>Name: <span th:text="${restaurant.restaurantName}"></span></p>
+        <p>Address: <span th:text="${restaurant.address}"></span></p>
+        <p>Phone Number: <span th:text="${restaurant.phoneNumber}"></span></p>
+        <p>Menu URL: <span th:text="${restaurant.menuUrl}"></span></p>
+        <p>Created Date: <span th:text="${restaurant.createdDate}"></span></p>
+        <p>Last Modified Date: <span th:text="${restaurant.lastModifiedDate}"></span></p>
+        <p>UUID: <span th:text="${restaurant.uuid}"></span></p>
+        <p>Short Name: <span th:text="${restaurant.shortName}"></span></p>
+
+        <h3>Delivery Information</h3>
+        <p>Delivery ID: <span th:text="${restaurant.deliveryInfo.deliveryId}"></span></p>
+        <p>Delivery Time: <span th:text="${restaurant.deliveryInfo.deliveryTime}"></span></p>
+        <p>Additional Charges: <span th:text="${restaurant.deliveryInfo.additionalCharges}"></span></p>
+        <p>Delivery Created Date: <span th:text="${restaurant.deliveryInfo.createdDate}"></span></p>
+        <p>Delivery Last Modified Date: <span th:text="${restaurant.deliveryInfo.lastModifiedDate}"></span></p>
+        <p>Delivery UUID: <span th:text="${restaurant.deliveryInfo.uuid}"></span></p>
+    </div>
+
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
