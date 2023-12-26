@@ -21,7 +21,7 @@ public class DeliveryInfo {
     @Column(nullable = false)
     private Integer deliveryId;
     @Column(nullable = false)
-    private LocalTime deliveryTime;
+    private String deliveryTime;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal additionalCharges;

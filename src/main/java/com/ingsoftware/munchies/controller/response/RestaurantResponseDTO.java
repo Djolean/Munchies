@@ -1,21 +1,27 @@
 package com.ingsoftware.munchies.controller.response;
 
-import lombok.*;
+import com.ingsoftware.munchies.controller.response.DeliveryInfoResponseDTO;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.time.Instant;
-import java.time.LocalTime;
+import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @Builder
 public class RestaurantResponseDTO {
-    private Integer id;
+
+    private Integer restaurantId;
     private String restaurantName;
     private String address;
     private String phoneNumber;
     private String menuUrl;
-    private LocalTime deliveryTime;
-    private BigDecimal additionalCharges;
-    private Instant  timeCreated;
-    private Instant lastDateModified;
+    private Instant createdDate;
+    private Instant lastModifiedDate;
+    private UUID uuid;
+    private String shortName;
+    private DeliveryInfoResponseDTO deliveryInfo;
+
 }

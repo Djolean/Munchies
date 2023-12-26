@@ -1,19 +1,19 @@
 package com.ingsoftware.munchies.controller;
 
-import com.ingsoftware.munchies.controller.request.RestaurantRequestDTO;
-import com.ingsoftware.munchies.service.mapper.RestaurantMapper;
+import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
 import com.ingsoftware.munchies.model.entity.Restaurant;
 import com.ingsoftware.munchies.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,11 +24,9 @@ public class AdminController {
 
     @GetMapping({"/restaurants"})
     public String getAllRestaurants(Model model) {
+        List<RestaurantResponseDTO> restaurants = restaurantService.findAll();
+        model.addAttribute("restaurants", restaurants);
 
-        model.addAttribute("restaurants", restaurantService.findAll()
-                .stream()
-                .map(RestaurantMapper::toResponse)
-                .collect(Collectors.toList()));
         return "admin/restaurants";
     }
 
