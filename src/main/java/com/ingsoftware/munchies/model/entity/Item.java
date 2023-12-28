@@ -16,8 +16,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class Item {
     @Id
-    @Column(name = "item_id", nullable = false)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(nullable = false)
+    private String itemId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "group_order_fk", nullable = false)
@@ -30,12 +31,10 @@ public class Item {
     @Column(name = "employee_name", length = 10)
     private String employeeName;
 
-    @Column(name = "created_date", nullable = false)
+    @Column(name = "created_date", nullable = false, updatable = false)
     private Instant createdDate;
 
     @Column(name = "last_modified_date", nullable = false)
     private Instant lastModifiedDate;
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID uuid;
 
 }

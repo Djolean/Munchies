@@ -2,35 +2,33 @@ package com.ingsoftware.munchies.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.time.LocalTime;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
+@Builder
 @ToString
 @RequiredArgsConstructor
 @Table(name = "delivery_info")
+@AllArgsConstructor
 public class DeliveryInfo {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(nullable = false)
-    private Integer deliveryId;
+    private String deliveryId;
     @Column(nullable = false)
     private String deliveryTime;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal additionalCharges;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private Instant createdDate;
 
     @Column(nullable = false)
     private Instant lastModifiedDate;
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID uuid;
 }

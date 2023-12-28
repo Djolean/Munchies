@@ -15,25 +15,25 @@ import java.util.UUID;
 @Table(name = "admin")
 @RequiredArgsConstructor
 public class Admin {
-    @Id
-    @Column(name = "admin_id", nullable = false)
-    private Integer id;
 
-    @Column(name = "admin_name", nullable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(nullable = false)
+    private String adminId;
+
+    @Column(nullable = false)
     private String adminName;
 
-    @Column(name = "admin_email", nullable = false)
+    @Column(nullable = false)
     private String adminEmail;
 
-    @Column(name = "password", nullable = false)
+    @Column(nullable = false)
     private String password;
 
-    @Column(name = "created_date", nullable = false)
+    @Column(nullable = false, updatable = false)
     private Instant createdDate;
 
-    @Column(name = "last_modified_date", nullable = false)
+    @Column(nullable = false)
     private Instant lastModifiedDate;
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID uuid;
 
 }

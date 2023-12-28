@@ -1,10 +1,7 @@
 package com.ingsoftware.munchies.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -12,13 +9,16 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@Builder
 @ToString
 @Table(name = "restaurant")
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class Restaurant {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(nullable = false)
-    private Integer restaurantId;
+    private String restaurantId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(nullable = false, name = "delivery_fk")
@@ -36,18 +36,12 @@ public class Restaurant {
     @Column(nullable = false)
     private String menuUrl;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private Instant createdDate;
 
     @Column(nullable = false)
     private Instant lastModifiedDate;
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID uuid;
 
     @Column(nullable = false)
     private String shortName;
-
-//    public Restaurant() {
-//        this.createdDate = Instant.from(LocalDateTime.now());
-//    }
 }
