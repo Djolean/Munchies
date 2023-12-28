@@ -16,8 +16,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class GroupOrder {
     @Id
-    @Column(name = "group_order_id", nullable = false)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(nullable = false)
+    private String groupOrderId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "restaurant_fk", nullable = false)
@@ -30,13 +31,10 @@ public class GroupOrder {
     @Column(name = "group_order_timeout", nullable = false)
     private Integer groupOrderTimeout;
 
-    @Column(name = "created_date", nullable = false)
+    @Column(name = "created_date", nullable = false, updatable = false)
     private Instant createdDate;
 
     @Column(name = "last_modified_date", nullable = false)
     private Instant lastModifiedDate;
-
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID uuid;
 
 }
