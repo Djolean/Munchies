@@ -1,40 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-
 <head>
-    <title>Add Restaurant</title>
+    <title>Create restaurant</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-
 <body>
-
 <div class="container mt-4">
-    <h2>Add Restaurant</h2>
+    <h2 style="text-align: center">Create Restaurant</h2>
 
-    <form th:action="@{/admin/addRestaurant}" method="post">
+    <form action="#" th:action="@{/admin/restaurant/save}" th:object="${requestDTO}" method="post">
+
 
         <div class="form-group">
             <label for="restaurantName">Restaurant Name:</label>
-            <input type="text" class="form-control" id="restaurantName" name="restaurantName" required>
+            <input type="text" name="restaurantName" id="restaurantName" th:field="*{restaurantName}" class="form-control"/>
         </div>
 
         <div class="form-group">
             <label for="address">Address:</label>
-            <input type="text" class="form-control" id="address" name="address" required>
+            <input type="text" name="address" id="address" th:field="*{address}" class="form-control"/>
         </div>
 
         <div class="form-group">
             <label for="phoneNumber">Phone Number:</label>
-            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" required>
+            <input type="text" name="phoneNumber" id="phoneNumber" th:field="*{phoneNumber}" class="form-control"/>
         </div>
 
         <div class="form-group">
             <label for="menuUrl">Menu URL:</label>
-            <input type="text" class="form-control" id="menuUrl" name="menuUrl" required>
+            <input type="text" name="menuUrl" id="menuUrl" th:field="*{menuUrl}" class="form-control"/>
         </div>
 
-        <button type="submit" class="btn btn-primary">Save</button>
+        <div class="form-group">
+            <label for="deliveryTime">Delivery Time:</label>
+            <input type="text" name="deliveryTime" id="deliveryTime" th:field="*{deliveryTime}" class="form-control"/>
+        </div>
 
+        <div class="form-group">
+            <label for="additionalCharges">Additional Charges:</label>
+            <input type="text" name="additionalCharges" id="additionalCharges" th:field="*{additionalCharges}" class="form-control"/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Restaurant</button>
     </form>
 
 </div>
