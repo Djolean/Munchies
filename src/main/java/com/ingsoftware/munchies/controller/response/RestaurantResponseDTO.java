@@ -1,12 +1,10 @@
 package com.ingsoftware.munchies.controller.response;
 
-import com.ingsoftware.munchies.controller.response.DeliveryInfoResponseDTO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.Instant;
-import java.util.UUID;
 
 @Getter
 @Setter

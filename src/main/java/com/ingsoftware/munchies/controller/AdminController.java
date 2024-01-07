@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 public class AdminController {
 
     private final RestaurantService restaurantService;
-    private  final RestaurantMapper mapper;
+    private final RestaurantMapper mapper;
 
     @GetMapping({"/restaurants"})
     public String getAllRestaurants(Model model) {
-        model.addAttribute("restaurants",  restaurantService.findAll().stream()
+        model.addAttribute("restaurants", restaurantService.findAll().stream()
                 .map(mapper::mapToDTO)
                 .collect(Collectors.toList()));
         return "admin/restaurants";
@@ -30,23 +30,23 @@ public class AdminController {
 
     @GetMapping("/restaurant-details/{id}")
     public String getRestaurantDetails(@PathVariable("id") String id, Model model) {
-        model.addAttribute("restaurantDTO",  mapper.mapToDTO(restaurantService.findById(id)));
+        model.addAttribute("restaurantDTO", mapper.mapToDTO(restaurantService.findById(id)));
         return "admin/restaurant-details";
     }
 
 
     @GetMapping({"/restaurant/{id}"})
     public String getRestaurantById(@PathVariable String id, Model model) {
-        model.addAttribute("restaurant", restaurantService.findById(id));
-        return "admin/restaurant-details-admin";
+        model.addAttribute("restaurant", mapper.mapToDTO(restaurantService.findById(id)));
+        return "admin/restaurant-details";
     }
 
 
     @PostMapping("/restaurant/save")
-    public String saveRestaurant(@ModelAttribute @Valid RestaurantRequestDTO requestDTO,
-                                 BindingResult result){
-        if(result.hasErrors()){
-            return "admin/add-restaurant";
+    public String saveRestaurant(@ModelAttribute("request") @Valid RestaurantRequestDTO requestDTO,
+                                 BindingResult result) {
+        if (result.hasErrors()) {
+            return "admin/create-restaurant";
         }
         restaurantService.save(mapper.mapToEntity(requestDTO));
         return "redirect:/admin/restaurants";
@@ -54,19 +54,19 @@ public class AdminController {
 
     @GetMapping({"/update-restaurant/{id}"})
     public String updateRestaurant(@PathVariable("id") String id,
-                                   @ModelAttribute(name = "request") @Valid RestaurantRequestDTO request,
+                                   @ModelAttribute("request") @Valid RestaurantRequestDTO request,
                                    BindingResult result) {
         if (result.hasErrors()) {
             return "admin/update-restaurant";
         }
-        restaurantService.update(mapper.mapToEntity(request, id));
+        restaurantService.save(mapper.mapToEntity(request, id));
         return "redirect:/admin/restaurants";
     }
 
     @GetMapping("/delete-restaurant/{id}")
     public String deleteRestaurant(@PathVariable("id") String id) {
         restaurantService.delete(id);
-        return "redirect:/restaurants";
+        return "redirect:/admin/restaurants";
     }
 
     //SHOW PAGE METHODS
@@ -75,11 +75,11 @@ public class AdminController {
         return "admin/admin-login";
     }
 
-    @GetMapping("/restaurant/add")
-    public String restaurant(Model model){
-        model.addAttribute("request", RestaurantRequestDTO.builder().build());
-        return "admin/add-restaurant";
+    @GetMapping("/create")
+    public String showCreateForm(Model model) {
+        RestaurantRequestDTO request = new RestaurantRequestDTO();
+        model.addAttribute("request", request);
+        return "admin/create-restaurant";
     }
-
 
 }
