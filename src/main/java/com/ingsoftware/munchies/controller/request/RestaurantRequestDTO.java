@@ -1,6 +1,7 @@
 package com.ingsoftware.munchies.controller.request;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.URL;
@@ -10,11 +11,9 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.time.LocalTime;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Builder
 public class RestaurantRequestDTO {
     @NotBlank(message = "Required!")
     @Size(min = 2, max = 100, message = "Minimum size is 2, maximum size is 100 characters!")
@@ -30,7 +29,7 @@ public class RestaurantRequestDTO {
     @URL(message = "URL must start with https://")
     private String menuUrl;
     @NotBlank(message = "Required!")
-    private LocalTime deliveryTime;
+    private String deliveryTime;
     @NotBlank(message = "Required!")
     @PositiveOrZero(message = "Number must be zero or positive!")
     private BigDecimal additionalCharges;

@@ -13,14 +13,13 @@ import java.util.UUID;
 @Builder
 public class RestaurantResponseDTO {
 
-    private Integer restaurantId;
+    private String restaurantId;
     private String restaurantName;
     private String address;
     private String phoneNumber;
     private String menuUrl;
     private Instant createdDate;
     private Instant lastModifiedDate;
-    private UUID uuid;
     private String shortName;
     private DeliveryInfoResponseDTO deliveryInfo;
 

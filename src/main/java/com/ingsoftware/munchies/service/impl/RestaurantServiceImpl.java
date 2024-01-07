@@ -1,10 +1,8 @@
 package com.ingsoftware.munchies.service.impl;
 
-import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
 import com.ingsoftware.munchies.model.entity.Restaurant;
 import com.ingsoftware.munchies.repository.RestaurantRepository;
 import com.ingsoftware.munchies.service.RestaurantService;
-import com.ingsoftware.munchies.mapper.RestaurantMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,33 +14,33 @@ import java.util.NoSuchElementException;
 public class RestaurantServiceImpl implements RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
-    private final RestaurantMapper restaurantMapper;
 
     @Override
-    public List<RestaurantResponseDTO> findAll() {
-        List<Restaurant> restaurants = restaurantRepository.findAll();
-        return restaurantMapper.mapRestaurantsToDTO(restaurants);
+    public List<Restaurant> findAll() {
+     return restaurantRepository.findAll();
+
     }
 
     @Override
-    public Restaurant save(Restaurant restaurant) {
-        return restaurantRepository.save(restaurant);
-    }
-
-    @Override
-    public Restaurant update(Restaurant restaurant) {
-        return restaurantRepository.save(restaurant);
-    }
-
-    @Override
-    public Restaurant findById(Integer restaurantId) {
-        return restaurantRepository.findById(restaurantId)
+    public Restaurant findById(String id) {
+       return restaurantRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Restaurant doesn't exist!"));
     }
 
     @Override
-    public void deleteById(Integer restaurantId) {
+    public Restaurant save(final Restaurant restaurant) {
+        return restaurantRepository.save(restaurant);
+    }
+
+    @Override
+    public Restaurant  update(final Restaurant restaurant){
+       return restaurantRepository.save(restaurant);
+    }
+
+    @Override
+    public void delete(String restaurantId) {
         restaurantRepository.deleteById(restaurantId);
     }
+
 
 }

@@ -1,19 +1,23 @@
 package com.ingsoftware.munchies.service;
 
+import com.ingsoftware.munchies.controller.request.RestaurantRequestDTO;
 import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
 import com.ingsoftware.munchies.model.entity.Restaurant;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 public interface RestaurantService {
 
-    List<RestaurantResponseDTO> findAll();
+    List<Restaurant> findAll();
 
+    Restaurant findById(String id);
+
+    @Transactional
     Restaurant save(Restaurant restaurant);
 
-    Restaurant update(Restaurant restaurant);
+    @Transactional
+    Restaurant update (Restaurant restaurant);
 
-    Restaurant findById(Integer restaurantId);
-
-    void deleteById(Integer restaurantId);
+    void delete(String id);
 }
