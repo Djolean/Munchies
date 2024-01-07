@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Instant;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -12,15 +11,15 @@ import java.util.UUID;
 @Builder
 @ToString
 @Table(name = "restaurant")
-@RequiredArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(nullable = false)
     private String restaurantId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(nullable = false, name = "delivery_fk")
     @ToString.Exclude
     private DeliveryInfo deliveryInfo;
