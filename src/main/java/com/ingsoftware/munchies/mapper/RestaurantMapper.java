@@ -13,7 +13,7 @@ import java.time.Instant;
 @Component
 public class RestaurantMapper {
 
-    public RestaurantResponseDTO mapToDTO(Restaurant restaurant) {
+    public RestaurantResponseDTO mapToDTO(final Restaurant restaurant) {
         return RestaurantResponseDTO.builder()
                 .restaurantId(restaurant.getRestaurantId())
                 .restaurantName(restaurant.getRestaurantName())
@@ -52,7 +52,7 @@ public class RestaurantMapper {
         return mapToEntity(restaurantRequestDTO, null);
     }
 
-    private DeliveryInfoResponseDTO mapDeliveryInfoToDTO(DeliveryInfo deliveryInfo) {
+    private DeliveryInfoResponseDTO mapDeliveryInfoToDTO(final DeliveryInfo deliveryInfo) {
 
         return DeliveryInfoResponseDTO.builder()
                 .deliveryId(deliveryInfo.getDeliveryId())
@@ -64,6 +64,9 @@ public class RestaurantMapper {
     }
 
     private String generateShortName(String name) {
+        if(name == null) {
+            return "";
+        }
         return name.replaceAll(" ", "_");
     }
 }

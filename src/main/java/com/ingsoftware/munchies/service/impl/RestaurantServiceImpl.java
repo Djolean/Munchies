@@ -33,11 +33,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public Restaurant  update(final Restaurant restaurant){
-       return restaurantRepository.save(restaurant);
-    }
-
-    @Override
     public void delete(String restaurantId) {
         restaurantRepository.deleteById(restaurantId);
     }

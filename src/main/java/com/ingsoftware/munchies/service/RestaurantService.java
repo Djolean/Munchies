@@ -16,8 +16,5 @@ public interface RestaurantService {
     @Transactional
     Restaurant save(Restaurant restaurant);
 
-    @Transactional
-    Restaurant update (Restaurant restaurant);
-
     void delete(String id);
 }

@@ -6,32 +6,71 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
-<body>
+<body class="bg-light">
 
-<div class="container mt-4">
-    <h2>Restaurant Detailed View</h2>
+<div class="container mt-5 mb-5">
+    <h2 class="text-center mb-4">Restaurant Detailed View</h2>
+    <!--/*@thymesVar id="restaurant" type="com.ingsoftware.munchies.controller.response.RestaurantResponseDTO"*/-->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <h3 class="mb-4 d-flex justify-content-between align-items-center">
+                General Information
 
-    <div>
-        <h3>General Information</h3>
-        <p>ID: <span th:text="${restaurant.restaurantId}"></span></p>
-        <p>Name: <span th:text="${restaurant.restaurantName}"></span></p>
-        <p>Address: <span th:text="${restaurant.address}"></span></p>
-        <p>Phone Number: <span th:text="${restaurant.phoneNumber}"></span></p>
-        <p>Menu URL: <span th:text="${restaurant.menuUrl}"></span></p>
-        <p>Created Date: <span th:text="${restaurant.createdDate}"></span></p>
-        <p>Last Modified Date: <span th:text="${restaurant.lastModifiedDate}"></span></p>
-        <p>Short Name: <span th:text="${restaurant.shortName}"></span></p>
+            </h3>
+            <dl class="row">
+                <dt class="col-sm-3">ID:</dt>
+                <dd class="col-sm-9" th:text="${restaurant.restaurantId}"></dd>
 
-        <h3>Delivery Information</h3>
-        <p>Delivery ID: <span th:text="${restaurant.deliveryInfo.deliveryId}"></span></p>
-        <p>Delivery Time: <span th:text="${restaurant.deliveryInfo.deliveryTime}"></span></p>
-        <p>Additional Charges: <span th:text="${restaurant.deliveryInfo.additionalCharges}"></span></p>
-        <p>Delivery Created Date: <span th:text="${restaurant.deliveryInfo.createdDate}"></span></p>
-        <p>Delivery Last Modified Date: <span th:text="${restaurant.deliveryInfo.lastModifiedDate}"></span></p>
+                <dt class="col-sm-3">Name:</dt>
+                <dd class="col-sm-9" th:text="${restaurant.restaurantName}"></dd>
+
+                <dt class="col-sm-3">Address:</dt>
+                <dd class="col-sm-9" th:text="${restaurant.address}"></dd>
+
+                <dt class="col-sm-3">Phone Number:</dt>
+                <dd class="col-sm-9" th:text="${restaurant.phoneNumber}"></dd>
+
+                <dt class="col-sm-3">Menu URL:</dt>
+                <dd class="col-sm-9" th:text="${restaurant.menuUrl}"></dd>
+
+                <dt class="col-sm-3">Created Date:</dt>
+                <dd class="col-sm-9" th:text="${restaurant.createdDate}"></dd>
+
+                <dt class="col-sm-3">Last Modified Date:</dt>
+                <dd class="col-sm-9" th:text="${restaurant.lastModifiedDate}"></dd>
+
+                <dt class="col-sm-3">Short Name:</dt>
+                <dd class="col-sm-9" th:text="${restaurant.shortName}"></dd>
+            </dl>
+
+            <hr class="my-4">
+
+            <h3 class="mb-4 d-flex justify-content-between align-items-center">
+                Delivery Information
+            </h3>
+            <dl class="row">
+                <dt class="col-sm-3">Delivery ID:</dt>
+                <dd class="col-sm-9" th:text="${restaurant.deliveryInfo.deliveryId}"></dd>
+
+                <dt class="col-sm-3">Delivery Time:</dt>
+                <dd class="col-sm-9" th:text="${restaurant.deliveryInfo.deliveryTime}"></dd>
+
+                <dt class="col-sm-3">Additional Charges:</dt>
+                <dd class="col-sm-9" th:text="${restaurant.deliveryInfo.additionalCharges}"></dd>
+
+                <dt class="col-sm-3">Delivery Created Date:</dt>
+                <dd class="col-sm-9" th:text="${restaurant.deliveryInfo.createdDate}"></dd>
+
+                <dt class="col-sm-3">Delivery Last Modified Date:</dt>
+                <dd class="col-sm-9" th:text="${restaurant.deliveryInfo.lastModifiedDate}"></dd>
+            </dl>
+        </div>
     </div>
-
 </div>
-
+<div class="text-center mt-3">
+    <a th:href="@{/admin/update-restaurant/{id}(id=${restaurant.restaurantId})}" class="btn btn-primary btn-lg mx-2">Edit</a>
+    <a th:href="@{/admin/delete-restaurant/{id}(id=${restaurant.restaurantId})}" class="btn btn-danger btn-lg mx-2">Delete</a>
+</div>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>

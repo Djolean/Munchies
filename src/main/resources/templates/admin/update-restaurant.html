@@ -11,11 +11,12 @@
 <div class="container mt-4">
     <h2>Update Restaurant</h2>
 
-    <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
-        <p th:each="error : ${#fields.errors('*')}" th:text="${error}"></p>
-    </div>
+<!--    <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">-->
+<!--        <p th:each="error : ${#fields.errors('*')}" th:text="${error}"></p>-->
+<!--    </div>-->
 
-    <form th:object="${restaurant}" th:action="@{/update-restaurant/{id}(id=${restaurant.restaurantId})}" method="post">
+    <!--/*@thymesVar id="request" type="com.ingsoftware.munchies.controller.request.RestaurantRequestDTO"*/-->
+    <form th:object="${request}" th:action="@{/admin/update-restaurant/{id}(id=${id})}" method="post">
 
         <div class="form-group">
             <label for="restaurantName">Restaurant Name:</label>
@@ -35,6 +36,16 @@
         <div class="form-group">
             <label for="menuUrl">Menu URL:</label>
             <input type="text" id="menuUrl" th:field="*{menuUrl}" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label for="deliveryTime">Delivery Time:</label>
+            <input type="text" name="deliveryTime" id="deliveryTime" th:field="*{deliveryTime}" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label for="additionalCharges">Additional Charges:</label>
+            <input type="text" name="additionalCharges" id="additionalCharges" th:field="*{additionalCharges}" class="form-control"/>
         </div>
 
         <button type="submit" class="btn btn-primary">Update Restaurant</button>
