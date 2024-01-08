@@ -14,13 +14,15 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RestaurantRequestDTO {
-    @NotEmpty(message = "Required!")
+
+    private String restaurantId;
+    @NotBlank(message = "Required!")
     @Size(min = 2, max = 100, message = "Minimum size is 2, maximum size is 100 characters!")
     private String restaurantName;
-    @NotEmpty(message = "Required!")
+    @NotBlank(message = "Required!")
     @Size(min = 2, max = 100, message = "Minimum size is 2, maximum size is 100 characters!")
     private String address;
-    @NotEmpty(message = "Required!")
+    @NotBlank(message = "Required!")
     @Pattern(regexp = "^\\+\\d+$", message = "Not a valid phone number form!")
     @Size(min = 10, max = 20, message = "Minimum size is 10, maximum size is 20 characters!")
     private String phoneNumber;

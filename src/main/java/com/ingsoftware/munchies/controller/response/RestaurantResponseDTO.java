@@ -1,14 +1,14 @@
 package com.ingsoftware.munchies.controller.response;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Instant;
 
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class RestaurantResponseDTO {
 
     private String restaurantId;

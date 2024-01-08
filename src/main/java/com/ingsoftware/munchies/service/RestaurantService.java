@@ -11,10 +11,9 @@ public interface RestaurantService {
 
     List<Restaurant> findAll();
 
-    Restaurant findById(String id);
+    RestaurantResponseDTO findById(String id);
 
-    @Transactional
-    Restaurant save(Restaurant restaurant);
+    RestaurantResponseDTO addRestaurant(RestaurantRequestDTO request);
 
     void delete(String id);
 }

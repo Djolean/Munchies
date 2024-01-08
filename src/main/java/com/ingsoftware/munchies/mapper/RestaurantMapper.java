@@ -14,57 +14,67 @@ import java.time.Instant;
 public class RestaurantMapper {
 
     public RestaurantResponseDTO mapToDTO(final Restaurant restaurant) {
-        return RestaurantResponseDTO.builder()
-                .restaurantId(restaurant.getRestaurantId())
-                .restaurantName(restaurant.getRestaurantName())
-                .address(restaurant.getAddress())
-                .phoneNumber(restaurant.getPhoneNumber())
-                .menuUrl(restaurant.getMenuUrl())
-                .createdDate(restaurant.getCreatedDate())
-                .lastModifiedDate(restaurant.getLastModifiedDate())
-                .shortName(generateShortName(restaurant.getRestaurantName()))
-                .deliveryInfo(mapDeliveryInfoToDTO(restaurant.getDeliveryInfo()))
-                .build();
+
+        RestaurantResponseDTO response = new RestaurantResponseDTO();
+
+        response.setRestaurantId(restaurant.getRestaurantId());
+        response.setRestaurantName(restaurant.getRestaurantName());
+        response.setAddress(restaurant.getAddress());
+        response.setPhoneNumber(restaurant.getPhoneNumber());
+        response.setMenuUrl(restaurant.getMenuUrl());
+        response.setCreatedDate(restaurant.getCreatedDate());
+        response.setLastModifiedDate(restaurant.getLastModifiedDate());
+        response.setShortName(this.generateShortName(restaurant.getRestaurantName()));
+        response.setDeliveryInfo(mapDeliveryInfoToDTO(restaurant.getDeliveryInfo()));
+
+        return response;
     }
 
+    public Restaurant mapToEntity(final RestaurantRequestDTO request, final Restaurant restaurant, final DeliveryInfo deliveryInfo) {
 
-    public Restaurant mapToEntity(final RestaurantRequestDTO restaurantRequestDTO, String id) {
-        Restaurant.RestaurantBuilder builder = Restaurant.builder()
-                .restaurantId(id)
-                .restaurantName(restaurantRequestDTO.getRestaurantName())
-                .address(restaurantRequestDTO.getAddress())
-                .shortName(generateShortName(restaurantRequestDTO.getRestaurantName()))
-                .phoneNumber(restaurantRequestDTO.getPhoneNumber())
-                .menuUrl(restaurantRequestDTO.getMenuUrl())
-                .createdDate(Instant.now())
-                .lastModifiedDate(Instant.now())
-                .deliveryInfo(DeliveryInfo.builder()
-                        .deliveryTime(restaurantRequestDTO.getDeliveryTime())
-                        .additionalCharges(restaurantRequestDTO.getAdditionalCharges())
-                        .createdDate(Instant.now())
-                        .lastModifiedDate(Instant.now())
-                        .build());
+        restaurant.setRestaurantId(request.getRestaurantId());
+        restaurant.setRestaurantName(request.getRestaurantName());
+        restaurant.setAddress(request.getAddress());
+        restaurant.setShortName(generateShortName(request.getRestaurantName()));
+        restaurant.setPhoneNumber(request.getPhoneNumber());
+        restaurant.setMenuUrl(request.getMenuUrl());
 
-        return builder.build();
-    }
+        deliveryInfo.setDeliveryId(deliveryInfo.getDeliveryId());
+        deliveryInfo.setDeliveryTime(request.getDeliveryTime());
+        deliveryInfo.setAdditionalCharges(request.getAdditionalCharges());
 
-    public Restaurant mapToEntity(final RestaurantRequestDTO restaurantRequestDTO) {
-        return mapToEntity(restaurantRequestDTO, null);
+
+        restaurant.setDeliveryInfo(mapToDeliveryInfoEntity(request, deliveryInfo));
+
+
+        return restaurant;
     }
 
     private DeliveryInfoResponseDTO mapDeliveryInfoToDTO(final DeliveryInfo deliveryInfo) {
 
-        return DeliveryInfoResponseDTO.builder()
-                .deliveryId(deliveryInfo.getDeliveryId())
-                .deliveryTime(deliveryInfo.getDeliveryTime())
-                .additionalCharges(deliveryInfo.getAdditionalCharges())
-                .createdDate(deliveryInfo.getCreatedDate())
-                .lastModifiedDate(deliveryInfo.getLastModifiedDate())
-                .build();
+        DeliveryInfoResponseDTO response = new DeliveryInfoResponseDTO();
+
+        response.setDeliveryId(deliveryInfo.getDeliveryId());
+        response.setCreatedDate(deliveryInfo.getCreatedDate());
+        response.setLastModifiedDate(deliveryInfo.getLastModifiedDate());
+        response.setDeliveryTime(deliveryInfo.getDeliveryTime());
+        response.setAdditionalCharges(deliveryInfo.getAdditionalCharges());
+
+        return response;
+    }
+
+    private DeliveryInfo mapToDeliveryInfoEntity(final RestaurantRequestDTO request, final DeliveryInfo deliveryInfo) {
+        
+        deliveryInfo.setDeliveryId(deliveryInfo.getDeliveryId());
+        deliveryInfo.setDeliveryTime(request.getDeliveryTime());
+        deliveryInfo.setAdditionalCharges(request.getAdditionalCharges());
+        deliveryInfo.setCreatedDate(Instant.now());
+        deliveryInfo.setLastModifiedDate(Instant.now());
+        return deliveryInfo;
     }
 
     private String generateShortName(String name) {
-        if(name == null) {
+        if (name == null) {
             return "";
         }
         return name.replaceAll(" ", "_");

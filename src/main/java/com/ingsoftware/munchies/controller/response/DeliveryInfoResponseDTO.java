@@ -2,14 +2,14 @@ package com.ingsoftware.munchies.controller.response;
 
 import lombok.Builder;
 import lombok.*;
-
-
 import java.math.BigDecimal;
 import java.time.Instant;
 
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class DeliveryInfoResponseDTO {
 
     private String deliveryId;
