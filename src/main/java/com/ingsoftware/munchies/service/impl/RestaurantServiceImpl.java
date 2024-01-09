@@ -7,7 +7,6 @@ import com.ingsoftware.munchies.model.entity.DeliveryInfo;
 import com.ingsoftware.munchies.model.entity.Restaurant;
 import com.ingsoftware.munchies.repository.RestaurantRepository;
 import com.ingsoftware.munchies.service.RestaurantService;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,9 +25,10 @@ public class RestaurantServiceImpl implements RestaurantService {
     private final RestaurantMapper mapper;
 
     @Override
-    public List<Restaurant> findAll() {
-        return restaurantRepository.findAll();
-
+    public List<RestaurantResponseDTO> findAll() {
+        return restaurantRepository.findAll().stream()
+                .map(mapper::mapToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -60,5 +62,13 @@ public class RestaurantServiceImpl implements RestaurantService {
         restaurantRepository.deleteById(restaurantId);
     }
 
+    @Override
+    public void updateRestaurant(RestaurantRequestDTO request, String id) {
 
+        Restaurant restaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Restaurant doesn't exist"));
+
+        mapper.mapToEntityUpdate(request, restaurant);
+        restaurantRepository.save(restaurant);
+    }
 }

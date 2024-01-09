@@ -50,6 +50,21 @@ public class RestaurantMapper {
         return restaurant;
     }
 
+    public Restaurant mapToEntityUpdate(final RestaurantRequestDTO request, final Restaurant restaurant) {
+
+        restaurant.setRestaurantName(request.getRestaurantName());
+        restaurant.setShortName(generateShortName(request.getRestaurantName()));
+        restaurant.setAddress(request.getAddress());
+        restaurant.setPhoneNumber(request.getPhoneNumber());
+        restaurant.setMenuUrl(request.getMenuUrl());
+        restaurant.setLastModifiedDate(Instant.now());
+
+        DeliveryInfo deliveryInfo = restaurant.getDeliveryInfo();
+        deliveryInfo.setLastModifiedDate(Instant.now());
+        restaurant.setDeliveryInfo(mapToDeliveryInfoEntity(request, deliveryInfo));
+
+        return restaurant;
+    }
     private DeliveryInfoResponseDTO mapDeliveryInfoToDTO(final DeliveryInfo deliveryInfo) {
 
         DeliveryInfoResponseDTO response = new DeliveryInfoResponseDTO();
