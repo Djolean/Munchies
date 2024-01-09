@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,7 +18,6 @@ import java.util.stream.Collectors;
 public class RestaurantController {
 
     private final RestaurantService restaurantService;
-    private final RestaurantMapper mapper;
 
     @GetMapping({"/restaurants"})
     public String getAllRestaurants(Model model) {
