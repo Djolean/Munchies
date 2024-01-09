@@ -1,6 +1,7 @@
 package com.ingsoftware.munchies.controller;
 
 import com.ingsoftware.munchies.controller.request.RestaurantRequestDTO;
+import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
 import com.ingsoftware.munchies.mapper.RestaurantMapper;
 import com.ingsoftware.munchies.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +23,9 @@ public class RestaurantController {
 
     @GetMapping({"/restaurants"})
     public String getAllRestaurants(Model model) {
-        model.addAttribute("restaurants", restaurantService.findAll().stream()
-                .map(mapper::mapToDTO)
-                .collect(Collectors.toList()));
+        model.addAttribute("restaurants", restaurantService.findAll());
         return "admin/restaurants";
     }
-
 
 
     @GetMapping({"/restaurant/{id}"})
@@ -38,25 +36,25 @@ public class RestaurantController {
 
 
     @PostMapping("/restaurant/save")
-    public String saveRestaurant(@Valid @ModelAttribute("request")  RestaurantRequestDTO request,
+    public String saveRestaurant(@Valid @ModelAttribute("restaurant") RestaurantRequestDTO request,
                                  BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("request", request);
+            model.addAttribute("restaurant", request);
             return "admin/create-restaurant";
         }
         restaurantService.addRestaurant(request);
         return "redirect:/admin/restaurants";
     }
 
-    @PutMapping({"/update-restaurant/{id}"})
+    @PostMapping({"/update-restaurant/{id}"})
     public String updateRestaurant(@PathVariable("id") String id,
-                                   @Valid @ModelAttribute("request")  RestaurantRequestDTO request,
+                                   @Valid @ModelAttribute("request") RestaurantRequestDTO request,
                                    BindingResult result) {
         if (result.hasErrors()) {
             return "admin/update-restaurant";
         }
-
-        restaurantService.addRestaurant(request);
+        request.setRestaurantId(id);
+        restaurantService.updateRestaurant(request, id);
         return "redirect:/admin/restaurants";
     }
 
@@ -67,11 +65,6 @@ public class RestaurantController {
     }
 
     //SHOW PAGE METHODS
-    @GetMapping("/login")
-    public String showLoginPage() {
-        return "admin/admin-login";
-    }
-
     @GetMapping("/create")
     public String showCreateForm(Model model) {
         RestaurantRequestDTO request = new RestaurantRequestDTO();
@@ -79,5 +72,18 @@ public class RestaurantController {
         return "admin/create-restaurant";
     }
 
+    @GetMapping("/update-restaurant/{id}")
+    public String showUpdateForm(@PathVariable("id") String id, Model model) {
+        RestaurantResponseDTO response = restaurantService.findById(id);
+        model.addAttribute("restaurant", new RestaurantRequestDTO(response.getRestaurantId(),
+                response.getRestaurantName(),
+                response.getAddress(),
+                response.getPhoneNumber(),
+                response.getMenuUrl(),
+                response.getDeliveryInfo().getDeliveryTime(),
+                response.getDeliveryInfo().getAdditionalCharges()));
+
+        return "admin/update-restaurant";
+    }
 }
 
