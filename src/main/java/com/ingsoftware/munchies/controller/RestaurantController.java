@@ -2,15 +2,16 @@ package com.ingsoftware.munchies.controller;
 
 import com.ingsoftware.munchies.controller.request.RestaurantRequestDTO;
 import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
-import com.ingsoftware.munchies.mapper.RestaurantMapper;
 import com.ingsoftware.munchies.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -61,6 +62,32 @@ public class RestaurantController {
         restaurantService.delete(id);
         return "redirect:/admin/restaurants";
     }
+
+    //SORTING METHODS
+    @GetMapping("/sortRestaurantByNameAsc")
+    public String sortRestaurantByNameAsc(Model model) {
+        model.addAttribute("restaurants", restaurantService.sortRestaurantByNameAsc());
+        return "admin/restaurants";
+    }
+
+    @GetMapping("/sortRestaurantByNameDesc")
+    public String sortRestaurantByNameDesc(Model model) {
+        model.addAttribute("restaurants", restaurantService.sortRestaurantByNameDesc());
+        return "admin/restaurants";
+    }
+
+    @GetMapping("/sortRestaurantByCreatedDateAsc")
+    public String sortRestaurantByCreatedDateAsc(Model model) {
+        model.addAttribute("restaurants", restaurantService.sortRestaurantByCreatedDateAsc());
+        return "admin/restaurants";
+    }
+
+    @GetMapping("/sortRestaurantByCreatedDateDesc")
+    public String sortRestaurantByCreatedDateDesc(Model model) {
+        model.addAttribute("restaurants", restaurantService.sortRestaurantByCreatedDateDesc());
+        return "admin/restaurants";
+    }
+
 
     //SHOW PAGE METHODS
     @GetMapping("/create")

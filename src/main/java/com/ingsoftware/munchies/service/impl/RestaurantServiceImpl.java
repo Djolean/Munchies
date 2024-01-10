@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -70,5 +70,36 @@ public class RestaurantServiceImpl implements RestaurantService {
 
         mapper.mapToEntityUpdate(request, restaurant);
         restaurantRepository.save(restaurant);
+    }
+
+    @Override
+    public List<RestaurantResponseDTO> sortRestaurantByNameAsc() {
+
+        return findAll().stream()
+                .sorted(Comparator.comparing(RestaurantResponseDTO::getRestaurantName))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RestaurantResponseDTO> sortRestaurantByNameDesc() {
+
+        return findAll().stream()
+                .sorted(Comparator.comparing(RestaurantResponseDTO::getRestaurantName).reversed())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RestaurantResponseDTO> sortRestaurantByCreatedDateAsc() {
+        return findAll().stream()
+                .sorted(Comparator.comparing(RestaurantResponseDTO::getCreatedDate))
+                .collect(Collectors.toList());
+
+    }
+
+    @Override
+    public List<RestaurantResponseDTO> sortRestaurantByCreatedDateDesc() {
+        return findAll().stream()
+                .sorted(Comparator.comparing(RestaurantResponseDTO::getCreatedDate).reversed())
+                .collect(Collectors.toList());
     }
 }
