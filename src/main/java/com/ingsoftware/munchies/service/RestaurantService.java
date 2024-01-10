@@ -17,4 +17,9 @@ public interface RestaurantService {
     void delete(String id);
 
     void updateRestaurant(RestaurantRequestDTO request, String id);
+
+    List<RestaurantResponseDTO> sortRestaurantByNameAsc();
+    List<RestaurantResponseDTO> sortRestaurantByNameDesc();
+    List<RestaurantResponseDTO> sortRestaurantByCreatedDateAsc();
+    List<RestaurantResponseDTO> sortRestaurantByCreatedDateDesc();
 }

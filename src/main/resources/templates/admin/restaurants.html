@@ -4,37 +4,70 @@
 <head>
     <title>Restaurant List Admin</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 </head>
 
 <body>
 
 <div class="container mt-4">
-    <h2>Restaurant List</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Restaurant List</h2>
 
-    <a th:href="@{/admin/create}" class="btn btn-primary mb-2">Add Restaurant</a>
+            <a th:href="@{/admin/create}" class="btn btn-primary mb-2">Add Restaurant</a>
 
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>Restaurant Name</th>
-            <th>Address</th>
-            <th>Menu URL</th>
-            <th>Details</th>
-        </tr>
-        </thead>
-        <tbody>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Restaurant Name</th>
+                    <th>Address</th>
+                    <th>Menu URL</th>
+                    <th>Details</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="restaurant : ${restaurants}">
+                    <td th:text="${restaurant.restaurantName}"></td>
+                    <td th:text="${restaurant.address}"></td>
+                    <td th:text="${restaurant.menuUrl}"></td>
+                    <td>
+                        <a th:href="@{/admin/restaurant/{id}(id=${restaurant.restaurantId})}" class="btn btn-info btn-sm">View Details</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
-        <tr th:each="restaurant : ${restaurants}">
-            <td th:text="${restaurant.restaurantName}"></td>
-            <td th:text="${restaurant.address}"></td>
-            <td th:text="${restaurant.menuUrl}"></td>
-            <td>
-                <a th:href="@{/admin/restaurant/{id}(id=${restaurant.restaurantId})}" class="btn btn-info btn-sm">View Details</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+        <div class="col-md-4">
+            <div class="btn-group-vertical ml-2 mb-4 sorting-btn-group">
+                <p class="text-center font-weight-bold">Sort by Restaurant Name</p>
+                <form th:action="@{/admin/sortRestaurantByNameAsc}" method="get">
+                    <button type="submit" class="btn btn-outline-secondary btn-sm" style="width: 100%;">
+                        &#9650; Asc
+                    </button>
+                </form>
+                <form th:action="@{/admin/sortRestaurantByNameDesc}" method="get">
+                    <button type="submit" class="btn btn-outline-secondary btn-sm" style="width: 100%;">
+                        &#9660; Desc
+                    </button>
+                </form>
+            </div>
 
+            <div class="btn-group-vertical ml-2 sorting-btn-group">
+                <p class="text-center font-weight-bold">Sort by Created Date</p>
+                <form th:action="@{/admin/sortRestaurantByCreatedDateAsc}" method="get">
+                    <button type="submit" class="btn btn-outline-secondary btn-sm" style="width: 100%;">
+                        &#9650; Asc
+                    </button>
+                </form>
+                <form th:action="@{/admin/sortRestaurantByCreatedDateDesc}" method="get">
+                    <button type="submit" class="btn btn-outline-secondary btn-sm" style="width: 100%;">
+                        &#9660; Desc
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
