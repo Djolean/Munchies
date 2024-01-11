@@ -4,24 +4,57 @@
 <head>
     <title>Restaurant List Admin</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 </head>
 
 <body>
 
 <div class="container mt-4">
     <div class="row">
-        <div class="col-md-8">
-            <h2>Restaurant List</h2>
+        <div class="col-md-12">
+            <h2 class="text-center">Restaurant List</h2>
 
-            <a th:href="@{/admin/create}" class="btn btn-primary mb-2">Add Restaurant</a>
+            <a th:href="@{/admin/create}" class="btn btn-primary mb-3 mt-3 ">Add Restaurant</a>
 
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>Restaurant Name</th>
+                    <th>
+                        <div class="d-flex align-items-center">
+                            Restaurant Name
+                                <div class="ml-2 sorting-btn-group d-flex">
+                                    <form th:action="@{/admin/sortRestaurantByNameAsc}" method="get">
+                                        <button type="submit" class="btn btn-outline-secondary btn-sm ">
+                                            <i class="fas fa-sort-alpha-up"></i> Asc
+                                        </button>
+                                    </form>
+                                    <form th:action="@{/admin/sortRestaurantByNameDesc}" method="get">
+                                        <button type="submit" class="btn btn-outline-secondary btn-sm ml-1">
+                                            <i class="fas fa-sort-alpha-down"></i> Desc
+                                        </button>
+                                    </form>
+                                </div>
+                        </div>
+                    </th>
                     <th>Address</th>
                     <th>Menu URL</th>
+                    <th>
+                        <div class="d-flex align-items-center">
+                            Date Created
+                            <div class="ml-2 sorting-btn-group d-flex">
+                                <form th:action="@{/admin/sortRestaurantByCreatedDateAsc}" method="get">
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm">
+                                        <i class="fas fa-sort-numeric-up"></i> Asc
+                                    </button>
+                                </form>
+                                <form th:action="@{/admin/sortRestaurantByCreatedDateDesc}" method="get">
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm ml-1">
+                                        <i class="fas fa-sort-numeric-down"></i> Desc
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </th>
                     <th>Details</th>
                 </tr>
                 </thead>
@@ -30,6 +63,7 @@
                     <td th:text="${restaurant.restaurantName}"></td>
                     <td th:text="${restaurant.address}"></td>
                     <td th:text="${restaurant.menuUrl}"></td>
+                    <td th:text="${#dates.format(restaurant.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                     <td>
                         <a th:href="@{/admin/restaurant/{id}(id=${restaurant.restaurantId})}" class="btn btn-info btn-sm">View Details</a>
                     </td>
@@ -37,40 +71,11 @@
                 </tbody>
             </table>
         </div>
-
-        <div class="col-md-4">
-            <div class="btn-group-vertical ml-2 mb-4 sorting-btn-group">
-                <p class="text-center font-weight-bold">Sort by Restaurant Name</p>
-                <form th:action="@{/admin/sortRestaurantByNameAsc}" method="get">
-                    <button type="submit" class="btn btn-outline-secondary btn-sm" style="width: 100%;">
-                        &#9650; Asc
-                    </button>
-                </form>
-                <form th:action="@{/admin/sortRestaurantByNameDesc}" method="get">
-                    <button type="submit" class="btn btn-outline-secondary btn-sm" style="width: 100%;">
-                        &#9660; Desc
-                    </button>
-                </form>
-            </div>
-
-            <div class="btn-group-vertical ml-2 sorting-btn-group">
-                <p class="text-center font-weight-bold">Sort by Created Date</p>
-                <form th:action="@{/admin/sortRestaurantByCreatedDateAsc}" method="get">
-                    <button type="submit" class="btn btn-outline-secondary btn-sm" style="width: 100%;">
-                        &#9650; Asc
-                    </button>
-                </form>
-                <form th:action="@{/admin/sortRestaurantByCreatedDateDesc}" method="get">
-                    <button type="submit" class="btn btn-outline-secondary btn-sm" style="width: 100%;">
-                        &#9660; Desc
-                    </button>
-                </form>
-            </div>
-        </div>
     </div>
 </div>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/js/all.min.js"></script>
 
 </body>
 

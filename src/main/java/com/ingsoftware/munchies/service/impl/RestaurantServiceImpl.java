@@ -15,7 +15,6 @@ import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +27,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     public List<RestaurantResponseDTO> findAll() {
         return restaurantRepository.findAll().stream()
                 .map(mapper::mapToDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -77,7 +76,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
         return findAll().stream()
                 .sorted(Comparator.comparing(RestaurantResponseDTO::getRestaurantName))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -85,14 +84,14 @@ public class RestaurantServiceImpl implements RestaurantService {
 
         return findAll().stream()
                 .sorted(Comparator.comparing(RestaurantResponseDTO::getRestaurantName).reversed())
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<RestaurantResponseDTO> sortRestaurantByCreatedDateAsc() {
         return findAll().stream()
                 .sorted(Comparator.comparing(RestaurantResponseDTO::getCreatedDate))
-                .collect(Collectors.toList());
+                .toList();
 
     }
 
@@ -100,6 +99,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     public List<RestaurantResponseDTO> sortRestaurantByCreatedDateDesc() {
         return findAll().stream()
                 .sorted(Comparator.comparing(RestaurantResponseDTO::getCreatedDate).reversed())
-                .collect(Collectors.toList());
+                .toList();
     }
 }

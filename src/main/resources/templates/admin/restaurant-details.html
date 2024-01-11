@@ -34,10 +34,10 @@
                 <dd class="col-sm-9" th:text="${restaurant.menuUrl}"></dd>
 
                 <dt class="col-sm-3">Created Date:</dt>
-                <dd class="col-sm-9" th:text="${restaurant.createdDate}"></dd>
+                <dd class="col-sm-9" th:text="${#dates.format(restaurant.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></dd>
 
                 <dt class="col-sm-3">Last Modified Date:</dt>
-                <dd class="col-sm-9" th:text="${restaurant.lastModifiedDate}"></dd>
+                <dd class="col-sm-9" th:text="${#dates.format(restaurant.lastModifiedDate, 'yyyy-MM-dd HH:mm:ss')}"></dd>
 
                 <dt class="col-sm-3">Short Name:</dt>
                 <dd class="col-sm-9" th:text="${restaurant.shortName}"></dd>
@@ -59,10 +59,10 @@
                 <dd class="col-sm-9" th:text="${restaurant.deliveryInfo.additionalCharges}"></dd>
 
                 <dt class="col-sm-3">Delivery Created Date:</dt>
-                <dd class="col-sm-9" th:text="${restaurant.deliveryInfo.createdDate}"></dd>
+                <dd class="col-sm-9" th:text="${#dates.format(restaurant.deliveryInfo.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></dd>
 
                 <dt class="col-sm-3">Delivery Last Modified Date:</dt>
-                <dd class="col-sm-9" th:text="${restaurant.deliveryInfo.lastModifiedDate}"></dd>
+                <dd class="col-sm-9" th:text="${#dates.format(restaurant.deliveryInfo.lastModifiedDate, 'yyyy-MM-dd HH:mm:ss')}"></dd>
             </dl>
         </div>
     </div>
