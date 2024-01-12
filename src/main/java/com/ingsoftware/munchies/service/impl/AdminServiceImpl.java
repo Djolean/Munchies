@@ -43,6 +43,7 @@ public class AdminServiceImpl implements AdminService {
         Admin admin = getLoggedInAdmin();
         adminRepository.delete(admin);
     }
+
     public Admin getLoggedInAdmin() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
