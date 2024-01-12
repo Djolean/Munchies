@@ -11,9 +11,10 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@ToString
 @Table(name = "group_order")
 @RequiredArgsConstructor
+@Builder
+@AllArgsConstructor
 public class GroupOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -23,18 +24,21 @@ public class GroupOrder {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "restaurant_fk", nullable = false)
     @ToString.Exclude
-    private Restaurant restaurantFk;
+    private Restaurant restaurant;
+    @Column
+    private String creatorName;
 
-    @Column(name = "group_order_url", nullable = false)
+    @Column(nullable = false)
     private String groupOrderUrl;
 
-    @Column(name = "group_order_timeout", nullable = false)
-    private Integer groupOrderTimeout;
+    @Column(nullable = false)
+    private Integer timeout;
 
-    @Column(name = "created_date", nullable = false, updatable = false)
-    private Instant createdDate;
+    @Column(nullable = false, updatable = false)
+    private Instant dateCreated;
 
-    @Column(name = "last_modified_date", nullable = false)
+    @Column(nullable = false)
     private Instant lastModifiedDate;
 
+    private Double totalPrice;
 }

@@ -20,12 +20,24 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity security) throws Exception {
         security.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/admin/restaurants").permitAll();
+            auth.requestMatchers("/",
+                    "/homePage",
+                    "/admin/restaurants",
+                    "/admin/restaurant-details").permitAll();
             auth.anyRequest().authenticated();
         });
         security.csrf(AbstractHttpConfigurer::disable);
         security.httpBasic(Customizer.withDefaults());
         security.formLogin(Customizer.withDefaults());
+        security.formLogin(form -> form
+                .loginPage("/login")
+                .permitAll()
+                .loginProcessingUrl("/process-login")
+                .defaultSuccessUrl("/admin/restaurants")
+        );
+        security.logout(logout -> logout
+                .logoutSuccessUrl("/")
+                .permitAll());
         return security.build();
     }
 

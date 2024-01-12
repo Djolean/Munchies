@@ -10,4 +10,5 @@ public interface AdminService{
      Admin getAdminDetails();
      void deleteAdmin();
 
+
 }

@@ -16,13 +16,13 @@ import java.math.BigDecimal;
 public class RestaurantRequestDTO {
 
     private String restaurantId;
-    @NotBlank(message = "Required!")
+    @NotEmpty(message = "Required!")
     @Size(min = 2, max = 100, message = "Minimum size is 2, maximum size is 100 characters!")
     private String restaurantName;
-    @NotBlank(message = "Required!")
+    @NotEmpty(message = "Required!")
     @Size(min = 2, max = 100, message = "Minimum size is 2, maximum size is 100 characters!")
     private String address;
-    @NotBlank(message = "Required!")
+    @NotEmpty(message = "Required!")
     @Pattern(regexp = "^\\+\\d+$", message = "Not a valid phone number form!")
     @Size(min = 10, max = 20, message = "Minimum size is 10, maximum size is 20 characters!")
     private String phoneNumber;

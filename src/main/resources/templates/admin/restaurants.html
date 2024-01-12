@@ -66,6 +66,7 @@
                     <td th:text="${#dates.format(restaurant.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                     <td>
                         <a th:href="@{/admin/restaurant/{id}(id=${restaurant.restaurantId})}" class="btn btn-info btn-sm">View Details</a>
+                        <a th:href="@{/create-group-order}" class="btn btn-success btn-sm mx-2">Create Group Order</a>
                     </td>
                 </tr>
                 </tbody>

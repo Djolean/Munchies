@@ -4,14 +4,13 @@ import com.ingsoftware.munchies.controller.request.RestaurantRequestDTO;
 import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
 import com.ingsoftware.munchies.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -35,7 +34,7 @@ public class RestaurantController {
 
 
     @PostMapping("/restaurant/save")
-    public String saveRestaurant(@Valid @ModelAttribute("restaurant") RestaurantRequestDTO request,
+    public String saveRestaurant(@Validated @ModelAttribute("restaurant") RestaurantRequestDTO request,
                                  BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("restaurant", request);
@@ -47,7 +46,7 @@ public class RestaurantController {
 
     @PostMapping({"/update-restaurant/{id}"})
     public String updateRestaurant(@PathVariable("id") String id,
-                                   @Valid @ModelAttribute("request") RestaurantRequestDTO request,
+                                   @Validated @ModelAttribute("request") RestaurantRequestDTO request,
                                    BindingResult result) {
         if (result.hasErrors()) {
             return "admin/update-restaurant";
