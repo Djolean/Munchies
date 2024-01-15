@@ -11,33 +11,32 @@
 <div class="container mt-5 mb-5">
     <h2 class="text-center mb-4">Create Group Order</h2>
 
-    <form th:action="@{/group-order/save}" th:object="${groupOrder}" method="post">
+    <form th:action="@{'/restaurant/'+${restaurantId}+'/group-order/create'}" th:object="${groupOrder}" method="post">
 
         <div class="form-group">
-            <label for="creatorName">Creator Name:</label>
-            <input type="text" class="form-control" id="creatorName"  required>
+            <h4 th:text="${restaurants.restaurantName}"></h4>
         </div>
 
         <div class="form-group">
-            <label for="restaurant">Restaurant:</label>
-            <select class="form-control" id="restaurant"  required>
-                <option>1</option>
-            </select>
+            <label for="creatorName">Creator Name: </label>
+            <input type="text" class="form-control" id="creatorName" th:field="*{creatorName}" required>
+            <small th:if="${#fields.hasErrors('creatorName')}" th:errors="*{creatorName}" class="text-danger"></small>
         </div>
 
-        <!-- Timeout -->
         <div class="form-group">
             <label for="timeout">Timeout (minutes):</label>
-            <input type="number" class="form-control" id="timeout" required>
+            <input type="text" class="form-control" id="timeout" th:field="*{timeout}" required>
             <small class="form-text text-muted">Timeout must be 10 minutes or greater.</small>
+            <small th:if="${#fields.hasErrors('timeout')}" th:errors="*{timeout}" class="text-danger"></small>
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <div class="text-center mt-3">
+        <a href="#" onclick="history.back()" class="btn btn-secondary">Back</a>
+    </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>

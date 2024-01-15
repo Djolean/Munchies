@@ -5,5 +5,6 @@ import com.ingsoftware.munchies.controller.response.GroupOrderResponseDTO;
 
 public interface GroupOrderService {
 
-    GroupOrderResponseDTO createGroupOrder(GroupOrderRequestDTO request);
+    GroupOrderResponseDTO addGroupOrder(String id, GroupOrderRequestDTO request);
+    GroupOrderResponseDTO findGroupOrderbyId(String id);
 }

@@ -11,9 +11,10 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@ToString
+@Builder
 @Table(name = "item")
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -23,7 +24,7 @@ public class Item {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "group_order_fk", nullable = false)
     @ToString.Exclude
-    private GroupOrder groupOrderFk;
+    private GroupOrder groupOrder;
 
     @Column(name = "item_name", nullable = false)
     private String itemName;

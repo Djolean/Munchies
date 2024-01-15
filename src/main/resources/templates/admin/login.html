@@ -16,7 +16,7 @@
           <h4 class="text-center">Admin Login</h4>
         </div>
         <div class="card-body">
-          <form th:action="@{/process-login}" method="post">
+          <form th:action="@{/process-login}"  method="post">
             <div class="form-group">
               <label for="username">E-mail:</label>
               <input type="text" class="form-control" id="username" name="username" autofocus="autofocus" required>
@@ -24,6 +24,9 @@
             <div class="form-group">
               <label for="password">Password:</label>
               <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div th:if="${param.error}">
+              <p class="text-danger">Invalid e-mail or password</p>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Login</button>
           </form>
