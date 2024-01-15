@@ -22,8 +22,14 @@ public class SecurityConfiguration {
         security.authorizeHttpRequests(auth -> {
             auth.requestMatchers("/",
                     "/homePage",
-                    "/admin/restaurants",
-                    "/admin/restaurant-details").permitAll();
+                    "/restaurants",
+                    "/restaurant-details",
+                    "/error",
+                    "/sortRestaurantByNameAsc",
+                    "/sortRestaurantByNameDesc",
+                    "/sortRestaurantByCreatedDateAsc",
+                    "/sortRestaurantByCreatedDateDesc")
+                    .permitAll();
             auth.anyRequest().authenticated();
         });
         security.csrf(AbstractHttpConfigurer::disable);
@@ -33,10 +39,12 @@ public class SecurityConfiguration {
                 .loginPage("/login")
                 .permitAll()
                 .loginProcessingUrl("/process-login")
-                .defaultSuccessUrl("/admin/restaurants")
+                .defaultSuccessUrl("/restaurants")
         );
         security.logout(logout -> logout
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/homePage")
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
                 .permitAll());
         return security.build();
     }

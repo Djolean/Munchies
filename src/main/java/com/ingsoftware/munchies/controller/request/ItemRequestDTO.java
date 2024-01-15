@@ -1,21 +1,21 @@
 package com.ingsoftware.munchies.controller.request;
 
+import jakarta.validation.constraints.*;
 import lombok.*;
 
-import jakarta.validation.constraints.*;
+
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GroupOrderRequestDTO {
+public class ItemRequestDTO {
 
-    private String restaurantId;
+    private String itemId;
     @NotEmpty(message = "Required!")
     @Size(min = 3, max = 100, message = "Minimum size is 2, maximum size is 100 characters!")
-    private String creatorName;
+    private String itemName;
     @NotEmpty(message = "Required!")
-    @Min(value = 10, message = "Timeout must be 10 minutes or greater!")
-    private Integer timeout;
-
+    @Size(min = 3, max = 100, message = "Minimum size is 2, maximum size is 100 characters!")
+    private String employeeName;
 }

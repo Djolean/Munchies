@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <title>Restaurant List Admin</title>
@@ -14,7 +14,7 @@
         <div class="col-md-12">
             <h2 class="text-center">Restaurant List</h2>
 
-            <a th:href="@{/admin/create}" class="btn btn-primary mb-3 mt-3 ">Add Restaurant</a>
+            <a th:href="@{/create}" class="btn btn-primary mb-3 mt-3 ">Add Restaurant</a>
 
             <table class="table table-bordered">
                 <thead>
@@ -23,12 +23,12 @@
                         <div class="d-flex align-items-center">
                             Restaurant Name
                                 <div class="ml-2 sorting-btn-group d-flex">
-                                    <form th:action="@{/admin/sortRestaurantByNameAsc}" method="get">
+                                    <form th:action="@{/sortRestaurantByNameAsc}" method="get">
                                         <button type="submit" class="btn btn-outline-secondary btn-sm ">
                                             <i class="fas fa-sort-alpha-up"></i> Asc
                                         </button>
                                     </form>
-                                    <form th:action="@{/admin/sortRestaurantByNameDesc}" method="get">
+                                    <form th:action="@{/sortRestaurantByNameDesc}" method="get">
                                         <button type="submit" class="btn btn-outline-secondary btn-sm ml-1">
                                             <i class="fas fa-sort-alpha-down"></i> Desc
                                         </button>
@@ -42,12 +42,12 @@
                         <div class="d-flex align-items-center">
                             Date Created
                             <div class="ml-2 sorting-btn-group d-flex">
-                                <form th:action="@{/admin/sortRestaurantByCreatedDateAsc}" method="get">
+                                <form th:action="@{/sortRestaurantByCreatedDateAsc}" method="get">
                                     <button type="submit" class="btn btn-outline-secondary btn-sm">
                                         <i class="fas fa-sort-numeric-up"></i> Asc
                                     </button>
                                 </form>
-                                <form th:action="@{/admin/sortRestaurantByCreatedDateDesc}" method="get">
+                                <form th:action="@{/sortRestaurantByCreatedDateDesc}" method="get">
                                     <button type="submit" class="btn btn-outline-secondary btn-sm ml-1">
                                         <i class="fas fa-sort-numeric-down"></i> Desc
                                     </button>
@@ -65,14 +65,19 @@
                     <td th:text="${restaurant.menuUrl}"></td>
                     <td th:text="${#dates.format(restaurant.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                     <td>
-                        <a th:href="@{/admin/restaurant/{id}(id=${restaurant.restaurantId})}" class="btn btn-info btn-sm">View Details</a>
-                        <a th:href="@{/create-group-order}" class="btn btn-success btn-sm mx-2">Create Group Order</a>
+                        <a th:href="@{/restaurant/{id}(id=${restaurant.restaurantId})}" class="btn btn-info btn-sm">View Details</a>
+                        <a th:href="@{/create-group-order/{id}(id=${restaurant.restaurantId})}" class="btn btn-success btn-sm mx-2">Create Group Order</a>
                     </td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
+</div>
+<div sec:authorize="isAuthenticated()">
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="btn btn-secondary btn-block">Logout</button>
+    </form>
 </div>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

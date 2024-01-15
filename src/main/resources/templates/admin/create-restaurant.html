@@ -9,48 +9,50 @@
     <h2 style="text-align: center">Create Restaurant</h2>
 
 
-    <form  th:action="@{/admin/restaurant/save}" th:object="${request}" method="post">
+    <form  th:action="@{/restaurant/save}" th:object="${request}" method="post">
 
 
         <div class="form-group">
             <label for="restaurantName">Restaurant Name:</label>
             <input type="text" name="restaurantName" id="restaurantName" th:field="*{restaurantName}" class="form-control" th:required="required"/>
-            <p th:if="${#fields.hasErrors('restaurantName')}" th:errors="*{restaurantName}" class="text-danger"></p>
+            <small th:if="${#fields.hasErrors('restaurantName')}" th:errors="*{restaurantName}" class="text-danger"></small>
         </div>
 
         <div class="form-group">
             <label for="address">Address:</label>
             <input type="text" name="address" id="address" th:field="*{address}" class="form-control" th:required="required"/>
-            <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+            <small th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></small>
         </div>
 
         <div class="form-group">
             <label for="phoneNumber">Phone Number:</label>
             <input type="text" name="phoneNumber" id="phoneNumber" th:field="*{phoneNumber}" class="form-control" th:required="required"/>
-            <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></p>
+            <small th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="text-danger"></small>
         </div>
 
         <div class="form-group">
             <label for="menuUrl">Menu URL:</label>
             <input type="text" name="menuUrl" id="menuUrl" th:field="*{menuUrl}" class="form-control" th:required="required"/>
-            <p th:if="${#fields.hasErrors('menuUrl')}" th:errors="*{menuUrl}"></p>
+            <small th:if="${#fields.hasErrors('menuUrl')}" th:errors="*{menuUrl}" class="text-danger"></small>
         </div>
 
         <div class="form-group">
             <label for="deliveryTime">Delivery Time:</label>
             <input type="text" name="deliveryTime" id="deliveryTime" th:field="*{deliveryTime}" class="form-control" th:required="required"/>
-            <p th:if="${#fields.hasErrors('deliveryTime')}" th:errors="*{deliveryTime}"></p>
+            <small th:if="${#fields.hasErrors('deliveryTime')}" th:errors="*{deliveryTime}" class="text-danger"></small>
         </div>
 
         <div class="form-group">
             <label for="additionalCharges">Additional Charges:</label>
             <input type="text" name="additionalCharges" id="additionalCharges" th:field="*{additionalCharges}" class="form-control" th:required="required"/>
-            <p th:if="${#fields.hasErrors('additionalCharges')}" th:errors="*{additionalCharges}"></p>
+            <small th:if="${#fields.hasErrors('additionalCharges')}" th:errors="*{additionalCharges}" class="text-danger"></small>
         </div>
 
         <button type="submit" class="btn btn-primary">Add Restaurant</button>
     </form>
-
+    <div class="text-center mt-3">
+        <a href="#" onclick="history.back()" class="btn btn-secondary">Back</a>
+    </div>
 </div>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

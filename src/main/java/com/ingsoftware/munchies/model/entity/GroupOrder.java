@@ -2,18 +2,15 @@ package com.ingsoftware.munchies.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import java.time.Instant;
-import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
+@Builder
 @Table(name = "group_order")
 @RequiredArgsConstructor
-@Builder
 @AllArgsConstructor
 public class GroupOrder {
     @Id
@@ -25,17 +22,17 @@ public class GroupOrder {
     @JoinColumn(name = "restaurant_fk", nullable = false)
     @ToString.Exclude
     private Restaurant restaurant;
-    @Column
+    @Column(nullable = false)
     private String creatorName;
 
     @Column(nullable = false)
     private String groupOrderUrl;
 
     @Column(nullable = false)
-    private Integer timeout;
+    private Integer groupOrderTimeout;
 
-    @Column(nullable = false, updatable = false)
-    private Instant dateCreated;
+    @Column(nullable = false)
+    private Instant createdDate;
 
     @Column(nullable = false)
     private Instant lastModifiedDate;

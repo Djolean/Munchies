@@ -1,7 +1,6 @@
 package com.ingsoftware.munchies.security;
 
 import java.util.ArrayList;
-
 import com.ingsoftware.munchies.model.entity.Admin;
 import com.ingsoftware.munchies.repository.AdminRepository;
 import org.springframework.security.core.userdetails.UserDetails;

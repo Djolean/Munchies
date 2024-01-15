@@ -11,10 +11,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-@ToString
-@RequiredArgsConstructor
 @Table(name = "delivery_info")
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class DeliveryInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
