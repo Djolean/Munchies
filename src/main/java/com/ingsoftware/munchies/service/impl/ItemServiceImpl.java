@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.swing.*;
+import java.time.Instant;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -20,9 +22,23 @@ public class ItemServiceImpl implements ItemService {
     private final ItemMapper mapper;
 
     @Override
+    public List<ItemResponseDTO> findAll() {
+        return itemRepository.findAll().stream()
+                .map(mapper::mapToDTO)
+                .toList();
+    }
+
+    @Override
     public ItemResponseDTO addItemToGroupOrder(String id, ItemRequestDTO request) {
 
         var groupOrder = groupOrderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Group order doesn't exist!"));
-        return mapper.mapToDTO(itemRepository.save(mapper.mapToEntity(request, groupOrder)));
+
+        var item = mapper.mapToEntity(request, groupOrder);
+
+        item.setCreatedDate(Instant.now());
+        item.setLastModifiedDate(Instant.now());
+        item.setGroupOrder(groupOrder);
+
+        return mapper.mapToDTO(itemRepository.save(item));
     }
 }

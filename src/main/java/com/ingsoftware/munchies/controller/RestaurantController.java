@@ -21,7 +21,7 @@ public class RestaurantController {
     @GetMapping({"/restaurants"})
     public String getAllRestaurants(Model model) {
         model.addAttribute("restaurants", restaurantService.findAll());
-        return "admin/restaurants";
+        return "restaurants";
     }
 
 
@@ -40,7 +40,7 @@ public class RestaurantController {
             return "admin/create-restaurant";
         }
         restaurantService.addRestaurant(request);
-        return "redirect:/admin/restaurants";
+        return "redirect:/restaurants";
     }
 
     @PostMapping({"/update-restaurant/{id}"})
@@ -52,38 +52,38 @@ public class RestaurantController {
         }
         request.setRestaurantId(id);
         restaurantService.updateRestaurant(request, id);
-        return "redirect:/admin/restaurants";
+        return "redirect:/restaurants";
     }
 
     @GetMapping("/delete-restaurant/{id}")
     public String deleteRestaurant(@PathVariable("id") String id) {
         restaurantService.delete(id);
-        return "redirect:/admin/restaurants";
+        return "redirect:/restaurants";
     }
 
     //SORTING METHODS
     @GetMapping("/sortRestaurantByNameAsc")
     public String sortRestaurantByNameAsc(Model model) {
         model.addAttribute("restaurants", restaurantService.sortRestaurantByNameAsc());
-        return "admin/restaurants";
+        return "restaurants";
     }
 
     @GetMapping("/sortRestaurantByNameDesc")
     public String sortRestaurantByNameDesc(Model model) {
         model.addAttribute("restaurants", restaurantService.sortRestaurantByNameDesc());
-        return "admin/restaurants";
+        return "restaurants";
     }
 
     @GetMapping("/sortRestaurantByCreatedDateAsc")
     public String sortRestaurantByCreatedDateAsc(Model model) {
         model.addAttribute("restaurants", restaurantService.sortRestaurantByCreatedDateAsc());
-        return "admin/restaurants";
+        return "restaurants";
     }
 
     @GetMapping("/sortRestaurantByCreatedDateDesc")
     public String sortRestaurantByCreatedDateDesc(Model model) {
         model.addAttribute("restaurants", restaurantService.sortRestaurantByCreatedDateDesc());
-        return "admin/restaurants";
+        return "restaurants";
     }
 
 

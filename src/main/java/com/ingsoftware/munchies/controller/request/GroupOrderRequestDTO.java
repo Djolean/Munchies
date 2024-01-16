@@ -1,7 +1,6 @@
 package com.ingsoftware.munchies.controller.request;
 
 import lombok.*;
-
 import jakarta.validation.constraints.*;
 
 @Data
@@ -14,8 +13,6 @@ public class GroupOrderRequestDTO {
     @NotEmpty(message = "Required!")
     @Size(min = 3, max = 100, message = "Minimum size is 2, maximum size is 100 characters!")
     private String creatorName;
-    @NotEmpty(message = "Required!")
     @Min(value = 10, message = "Timeout must be 10 minutes or greater!")
     private Integer timeout;
-
 }
