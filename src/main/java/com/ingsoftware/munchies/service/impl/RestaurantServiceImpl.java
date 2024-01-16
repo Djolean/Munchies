@@ -7,6 +7,7 @@ import com.ingsoftware.munchies.model.entity.DeliveryInfo;
 import com.ingsoftware.munchies.model.entity.Restaurant;
 import com.ingsoftware.munchies.repository.RestaurantRepository;
 import com.ingsoftware.munchies.service.RestaurantService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +33,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public RestaurantResponseDTO findById(String id) {
-        Restaurant restaurant = restaurantRepository.findById(id).get();
+        Restaurant restaurant = restaurantRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Restaurant doesn't exist"));
         return mapper.mapToDTO(restaurant);
     }
 
@@ -52,6 +53,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
         mapper.mapToEntity(request, restaurant, deliveryInfo);
         restaurantRepository.save(restaurant);
+
         return mapper.mapToDTO(restaurant);
     }
 

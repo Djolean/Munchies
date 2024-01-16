@@ -38,4 +38,7 @@ public class Item {
     @Column(name = "last_modified_date", nullable = false)
     private Instant lastModifiedDate;
 
+    @Column(name = "price", nullable = false)
+    private Double price;
+
 }

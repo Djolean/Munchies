@@ -4,9 +4,6 @@ import com.ingsoftware.munchies.controller.request.ItemRequestDTO;
 import com.ingsoftware.munchies.controller.response.ItemResponseDTO;
 import com.ingsoftware.munchies.model.entity.GroupOrder;
 import com.ingsoftware.munchies.model.entity.Item;
-import lombok.Builder;
-import lombok.RequiredArgsConstructor;
-import org.aspectj.asm.IRelationshipMap;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,6 +18,7 @@ public class ItemMapper {
                 .employeeName(item.getEmployeeName())
                 .createdDate(item.getCreatedDate())
                 .lastModifiedDate(item.getLastModifiedDate())
+                .price(item.getPrice())
                 .build();
     }
 
@@ -32,6 +30,7 @@ public class ItemMapper {
                 .groupOrder(groupOrder)
                 .itemName(request.getItemName())
                 .employeeName(request.getEmployeeName())
+                .price(request.getPrice())
                 .build();
     }
 }

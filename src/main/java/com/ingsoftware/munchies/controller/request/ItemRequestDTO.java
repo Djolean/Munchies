@@ -18,4 +18,6 @@ public class ItemRequestDTO {
     @NotEmpty(message = "Required!")
     @Size(min = 3, max = 100, message = "Minimum size is 2, maximum size is 100 characters!")
     private String employeeName;
+    @PositiveOrZero(message = "Number must be zero or positive!")
+    private Double price;
 }

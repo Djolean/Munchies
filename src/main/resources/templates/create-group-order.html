@@ -19,13 +19,13 @@
 
         <div class="form-group">
             <label for="creatorName">Creator Name: </label>
-            <input type="text" class="form-control" id="creatorName" th:field="*{creatorName}" required>
+            <input type="text"  name="creatorName" class="form-control" id="creatorName" th:field="*{creatorName}" th:required="required">
             <small th:if="${#fields.hasErrors('creatorName')}" th:errors="*{creatorName}" class="text-danger"></small>
         </div>
 
         <div class="form-group">
             <label for="timeout">Timeout (minutes):</label>
-            <input type="text" class="form-control" id="timeout" th:field="*{timeout}" required>
+            <input type="text" name="timeout" class="form-control" id="timeout"  th:field="*{timeout}" th:required="required">
             <small class="form-text text-muted">Timeout must be 10 minutes or greater.</small>
             <small th:if="${#fields.hasErrors('timeout')}" th:errors="*{timeout}" class="text-danger"></small>
         </div>
