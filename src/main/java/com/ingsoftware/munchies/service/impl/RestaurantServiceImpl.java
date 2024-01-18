@@ -37,6 +37,11 @@ public class RestaurantServiceImpl implements RestaurantService {
         return mapper.mapToDTO(restaurant);
     }
 
+    @Override
+    public Restaurant findByIdEntity(String id) {
+        return restaurantRepository.findById(id).orElseThrow(() -> new NoSuchElementException("empty"));
+    }
+
     @Transactional
     @Override
     public RestaurantResponseDTO addRestaurant(RestaurantRequestDTO request) {
@@ -44,14 +49,16 @@ public class RestaurantServiceImpl implements RestaurantService {
         Restaurant restaurant = new Restaurant();
         DeliveryInfo deliveryInfo = new DeliveryInfo();
 
+        mapper.mapToEntity(request, restaurant, deliveryInfo);
+
         deliveryInfo.setCreatedDate(Instant.now());
         deliveryInfo.setLastModifiedDate(Instant.now());
 
         restaurant.setCreatedDate(Instant.now());
         restaurant.setLastModifiedDate(Instant.now());
         restaurant.setDeliveryInfo(deliveryInfo);
+        restaurant.setShortName(generateShortName(request.getRestaurantName()));
 
-        mapper.mapToEntity(request, restaurant, deliveryInfo);
         restaurantRepository.save(restaurant);
 
         return mapper.mapToDTO(restaurant);
@@ -102,5 +109,12 @@ public class RestaurantServiceImpl implements RestaurantService {
         return findAll().stream()
                 .sorted(Comparator.comparing(RestaurantResponseDTO::getCreatedDate).reversed())
                 .toList();
+    }
+
+    public String generateShortName(String name) {
+        if (name == null) {
+            return "";
+        }
+        return name.replaceAll(" ", "_");
     }
 }

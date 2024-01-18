@@ -18,7 +18,7 @@ public class GroupOrder {
     @Column(nullable = false)
     private String groupOrderId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "restaurant_fk", nullable = false)
     @ToString.Exclude
     private Restaurant restaurant;

@@ -4,17 +4,16 @@ import com.ingsoftware.munchies.controller.request.GroupOrderRequestDTO;
 import com.ingsoftware.munchies.controller.response.GroupOrderResponseDTO;
 import com.ingsoftware.munchies.model.entity.GroupOrder;
 import com.ingsoftware.munchies.model.entity.Restaurant;
-import com.ingsoftware.munchies.repository.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
 
 @Component
 @RequiredArgsConstructor
 public class GroupOrderMapper {
-    private final RestaurantRepository restaurantRepository;
+
 
     public GroupOrderResponseDTO mapToDTO(final GroupOrder groupOrder) {
-
 
         return GroupOrderResponseDTO.builder()
                 .groupOrderId(groupOrder.getGroupOrderId())
@@ -28,12 +27,13 @@ public class GroupOrderMapper {
                 .build();
     }
 
-    public GroupOrder mapToEntity(final Restaurant restaurant,final GroupOrderRequestDTO request) {
+    public GroupOrder mapToEntity(final Restaurant restaurant, final GroupOrderRequestDTO request) {
         return GroupOrder.builder()
-                .groupOrderId(request.getRestaurantId())
+                .groupOrderId(request.getGroupOrderId())
                 .creatorName(request.getCreatorName())
                 .groupOrderTimeout(request.getTimeout())
-                .restaurant(restaurantRepository.getReferenceById(restaurant.getRestaurantId()))
+                .restaurant(restaurant)
                 .build();
     }
+
 }

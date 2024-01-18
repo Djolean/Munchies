@@ -2,12 +2,14 @@ package com.ingsoftware.munchies.controller;
 
 import com.ingsoftware.munchies.controller.request.GroupOrderRequestDTO;
 import com.ingsoftware.munchies.controller.request.ItemRequestDTO;
+import com.ingsoftware.munchies.repository.ItemRepository;
 import com.ingsoftware.munchies.service.GroupOrderService;
 import com.ingsoftware.munchies.service.ItemService;
 import com.ingsoftware.munchies.service.RestaurantService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -20,15 +22,13 @@ public class GroupOrderController {
 
     private final RestaurantService restaurantService;
     private final GroupOrderService groupOrderService;
-
     private final ItemService itemService;
 
     @GetMapping("/create-group-order/{restaurantId}")
-    public String showCreateForm(@PathVariable("restaurantId") String id, Model model) {
+    public String showCreateForm(@PathVariable("restaurantId") String id, GroupOrderRequestDTO request, Model model) {
 
-        model.addAttribute("groupOrder", new GroupOrderRequestDTO());
+        model.addAttribute("groupOrder", request);
         model.addAttribute("restaurants", restaurantService.findById(id));
-
 
         return "create-group-order";
     }
@@ -42,25 +42,27 @@ public class GroupOrderController {
             return "create-group-order";
         }
 
-        var temp = groupOrderService.addGroupOrder(id, request);
-        model.addAttribute("groupOrder", temp);
-        redirectAttributes.addAttribute("groupOrderId", temp.getGroupOrderId());
+        var groupOrder = groupOrderService.addGroupOrder(id, request);
+        model.addAttribute("groupOrder", groupOrder);
+        redirectAttributes.addAttribute("groupOrderId", groupOrder.getGroupOrderId());
 
         return "redirect:/restaurants/group-order/{groupOrderId}";
     }
 
     @GetMapping("/restaurants/group-order/{groupOrderId}")
     public String groupOrderPage(@PathVariable("groupOrderId") String id, ItemRequestDTO request, Model model) {
-        model.addAttribute("groupOrder", groupOrderService.findGroupOrderbyId(id));
+
+        model.addAttribute("groupOrder", groupOrderService.findGroupOrderById(id));
         model.addAttribute("item", request);
-        model.addAttribute("items", itemService.findAll());
+        model.addAttribute("items", itemService.findAllByGroupOrder(id));
 
         return "group-order";
     }
 
     @GetMapping("/reload/{groupOrderId}")
     public String reloadItems(@PathVariable("groupOrderId") String id, Model model) {
-        model.addAttribute("groupOrder", groupOrderService.findGroupOrderbyId(id));
-        return "group-order"; // :: reload
+        model.addAttribute("groupOrder", groupOrderService.findGroupOrderById(id));
+        model.addAttribute("items", itemService.findAllByGroupOrder(id));
+        return "group-order :: reloadTable";
     }
 }
