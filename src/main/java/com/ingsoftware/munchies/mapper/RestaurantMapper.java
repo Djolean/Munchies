@@ -5,12 +5,15 @@ import com.ingsoftware.munchies.controller.response.DeliveryInfoResponseDTO;
 import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
 import com.ingsoftware.munchies.model.entity.DeliveryInfo;
 import com.ingsoftware.munchies.model.entity.Restaurant;
+import com.ingsoftware.munchies.service.RestaurantService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 
 
 @Component
+@RequiredArgsConstructor
 public class RestaurantMapper {
 
     public RestaurantResponseDTO mapToDTO(final Restaurant restaurant) {
@@ -19,12 +22,12 @@ public class RestaurantMapper {
 
         response.setRestaurantId(restaurant.getRestaurantId());
         response.setRestaurantName(restaurant.getRestaurantName());
+        response.setShortName(restaurant.getShortName());
         response.setAddress(restaurant.getAddress());
         response.setPhoneNumber(restaurant.getPhoneNumber());
         response.setMenuUrl(restaurant.getMenuUrl());
         response.setCreatedDate(restaurant.getCreatedDate());
         response.setLastModifiedDate(restaurant.getLastModifiedDate());
-        response.setShortName(this.generateShortName(restaurant.getRestaurantName()));
         response.setDeliveryInfo(mapDeliveryInfoToDTO(restaurant.getDeliveryInfo()));
 
         return response;
@@ -34,8 +37,8 @@ public class RestaurantMapper {
 
         restaurant.setRestaurantId(request.getRestaurantId());
         restaurant.setRestaurantName(request.getRestaurantName());
+        restaurant.setShortName(restaurant.getShortName());
         restaurant.setAddress(request.getAddress());
-        restaurant.setShortName(generateShortName(request.getRestaurantName()));
         restaurant.setPhoneNumber(request.getPhoneNumber());
         restaurant.setMenuUrl(request.getMenuUrl());
 
@@ -53,7 +56,6 @@ public class RestaurantMapper {
     public Restaurant mapToEntityUpdate(final RestaurantRequestDTO request, final Restaurant restaurant) {
 
         restaurant.setRestaurantName(request.getRestaurantName());
-        restaurant.setShortName(generateShortName(request.getRestaurantName()));
         restaurant.setAddress(request.getAddress());
         restaurant.setPhoneNumber(request.getPhoneNumber());
         restaurant.setMenuUrl(request.getMenuUrl());
@@ -88,10 +90,4 @@ public class RestaurantMapper {
         return deliveryInfo;
     }
 
-    private String generateShortName(String name) {
-        if (name == null) {
-            return "";
-        }
-        return name.replaceAll(" ", "_");
-    }
 }

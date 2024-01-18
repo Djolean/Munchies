@@ -19,4 +19,5 @@ public class GroupOrderResponseDTO {
     private Instant dateCreated;
     private Instant lastTimeModified;
     private Double totalPrice;
+    private boolean isValid;
 }

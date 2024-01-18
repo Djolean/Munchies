@@ -6,6 +6,7 @@ import com.ingsoftware.munchies.model.entity.GroupOrder;
 import com.ingsoftware.munchies.model.entity.Item;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class ItemMapper {
 
@@ -22,7 +23,6 @@ public class ItemMapper {
                 .build();
     }
 
-
     public Item mapToEntity(final ItemRequestDTO request, final GroupOrder groupOrder) {
 
         return Item.builder().
@@ -33,4 +33,5 @@ public class ItemMapper {
                 .price(request.getPrice())
                 .build();
     }
+
 }

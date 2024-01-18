@@ -2,9 +2,13 @@ package com.ingsoftware.munchies.service;
 
 import com.ingsoftware.munchies.controller.request.GroupOrderRequestDTO;
 import com.ingsoftware.munchies.controller.response.GroupOrderResponseDTO;
+import com.ingsoftware.munchies.model.entity.GroupOrder;
+
+import java.time.Instant;
 
 public interface GroupOrderService {
 
     GroupOrderResponseDTO addGroupOrder(String id, GroupOrderRequestDTO request);
-    GroupOrderResponseDTO findGroupOrderbyId(String id);
+    GroupOrderResponseDTO findGroupOrderById(String id);
+
 }

@@ -9,10 +9,11 @@ import jakarta.validation.constraints.*;
 @NoArgsConstructor
 public class GroupOrderRequestDTO {
 
-    private String restaurantId;
+    private String groupOrderId;
     @NotEmpty(message = "Required!")
     @Size(min = 3, max = 100, message = "Minimum size is 2, maximum size is 100 characters!")
     private String creatorName;
     @Min(value = 10, message = "Timeout must be 10 minutes or greater!")
     private Integer timeout;
+    private boolean isValid;
 }
