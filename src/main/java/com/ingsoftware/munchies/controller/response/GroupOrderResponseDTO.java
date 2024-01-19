@@ -15,9 +15,9 @@ public class GroupOrderResponseDTO {
     private String creatorName;
     private String groupOrderUrl;
     private Restaurant restaurant;
-    private Integer timeout;
-    private Instant dateCreated;
-    private Instant lastTimeModified;
+    private Integer groupOrderTimeout;
+    private Instant createdDate;
+    private Instant lastModifiedDate;
     private Double totalPrice;
     private boolean isValid;
 }

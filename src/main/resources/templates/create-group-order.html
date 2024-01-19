@@ -24,10 +24,10 @@
         </div>
 
         <div class="form-group">
-            <label for="timeout">Timeout (minutes):</label>
-            <input type="text" name="timeout" class="form-control" id="timeout"  th:field="*{timeout}" th:required="required">
+            <label for="groupOrderTimeout">Timeout (minutes):</label>
+            <input type="text" name="groupOrderTimeout" class="form-control" id="groupOrderTimeout" th:field="*{groupOrderTimeout}" th:required="required">
             <small class="form-text text-muted">Timeout must be 10 minutes or greater.</small>
-            <small th:if="${#fields.hasErrors('timeout')}" th:errors="*{timeout}" class="text-danger"></small>
+            <small th:if="${#fields.hasErrors('groupOrderTimeout')}" th:errors="*{getGroupOrderTimeout}" class="text-danger"></small>
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>

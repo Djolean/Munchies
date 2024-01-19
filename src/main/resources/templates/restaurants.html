@@ -14,7 +14,7 @@
         <div class="col-md-12">
             <h2 class="text-center">Restaurant List</h2>
 
-            <a sec:authorize="isAuthenticated()" th:href="@{/create}" class="btn btn-primary mb-3 mt-3 ">Add Restaurant</a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/create}" class="btn btn-primary mb-3 mt-3">Add Restaurant</a>
 
             <table class="table table-bordered">
                 <thead>
@@ -22,18 +22,18 @@
                     <th>
                         <div class="d-flex align-items-center">
                             Restaurant Name
-                                <div class="ml-2 sorting-btn-group d-flex">
-                                    <form th:action="@{/sortRestaurantByNameAsc}" method="get">
-                                        <button type="submit" class="btn btn-outline-secondary btn-sm ">
-                                            <i class="fas fa-sort-alpha-up"></i> Asc
-                                        </button>
-                                    </form>
-                                    <form th:action="@{/sortRestaurantByNameDesc}" method="get">
-                                        <button type="submit" class="btn btn-outline-secondary btn-sm ml-1">
-                                            <i class="fas fa-sort-alpha-down"></i> Desc
-                                        </button>
-                                    </form>
-                                </div>
+                            <div class="ml-2 sorting-btn-group d-flex">
+                                <a th:href="@{/restaurants(pageNum=${pageNum + 1}, pageSize=${pageSize}, sortBy='restaurantName', sortOrder='asc')}">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm">
+                                        <i class="fas fa-sort-alpha-up"></i> Asc
+                                    </button>
+                                </a>
+                                <a th:href="@{/restaurants(pageNum=${pageNum + 1}, pageSize=${pageSize}, sortBy='restaurantName', sortOrder='desc')}">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm ml-1">
+                                        <i class="fas fa-sort-alpha-down"></i> Desc
+                                    </button>
+                                </a>
+                            </div>
                         </div>
                     </th>
                     <th>Address</th>
@@ -42,16 +42,16 @@
                         <div class="d-flex align-items-center">
                             Date Created
                             <div class="ml-2 sorting-btn-group d-flex">
-                                <form th:action="@{/sortRestaurantByCreatedDateAsc}" method="get">
-                                    <button type="submit" class="btn btn-outline-secondary btn-sm">
-                                        <i class="fas fa-sort-numeric-up"></i> Asc
+                                <a th:href="@{/restaurants(pageNum=${pageNum + 1}, pageSize=${pageSize}, sortBy='createdDate', sortOrder='asc')}">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm">
+                                        <i class="fas fa-sort-alpha-up"></i> Asc
                                     </button>
-                                </form>
-                                <form th:action="@{/sortRestaurantByCreatedDateDesc}" method="get">
-                                    <button type="submit" class="btn btn-outline-secondary btn-sm ml-1">
-                                        <i class="fas fa-sort-numeric-down"></i> Desc
+                                </a>
+                                <a th:href="@{/restaurants(pageNum=${pageNum + 1}, pageSize=${pageSize}, sortBy='createdDate', sortOrder='desc')}">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm ml-1">
+                                        <i class="fas fa-sort-alpha-down"></i> Desc
                                     </button>
-                                </form>
+                                </a>
                             </div>
                         </div>
                     </th>
@@ -71,23 +71,10 @@
                 </tr>
                 </tbody>
             </table>
+
         </div>
     </div>
 </div>
-<div sec:authorize="isAuthenticated()" class="mt-3 text-center">
-    <div class="col-md-6 offset-md-3 col-sm-12">
-        <form th:action="@{/logout}" method="post">
-            <button type="submit" class="btn btn-secondary">
-                Logout
-            </button>
-        </form>
-    </div>
-</div>
-
-
-
-
-
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/js/all.min.js"></script>

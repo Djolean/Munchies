@@ -11,10 +11,6 @@
 <div class="container mt-4">
     <h2>Update Restaurant</h2>
 
-<!--    <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">-->
-<!--        <p th:each="error : ${#fields.errors('*')}" th:text="${error}"></p>-->
-<!--    </div>-->
-
     <form th:object="${restaurant}" th:action="@{/update-restaurant/{id}(id=${id})}" method="post">
 
         <div class="form-group">

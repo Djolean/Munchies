@@ -3,12 +3,13 @@ package com.ingsoftware.munchies.service;
 import com.ingsoftware.munchies.controller.request.RestaurantRequestDTO;
 import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
 import com.ingsoftware.munchies.model.entity.Restaurant;
+import org.springframework.data.domain.Page;
 
 import java.util.*;
 
 public interface RestaurantService {
 
-    List<RestaurantResponseDTO> findAll();
+    Page<RestaurantResponseDTO> findAll(int page, int size, String sortBy, String sortOrder);
 
     RestaurantResponseDTO findById(String id);
 
@@ -20,13 +21,7 @@ public interface RestaurantService {
 
     void updateRestaurant(RestaurantRequestDTO request, String id);
 
-    List<RestaurantResponseDTO> sortRestaurantByNameAsc();
-
     List<RestaurantResponseDTO> sortRestaurantByNameDesc();
-
-    List<RestaurantResponseDTO> sortRestaurantByCreatedDateAsc();
-
-    List<RestaurantResponseDTO> sortRestaurantByCreatedDateDesc();
 
     String generateShortName(String name);
 }

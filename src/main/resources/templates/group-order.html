@@ -26,7 +26,7 @@
                 </dd>
 
                 <dt class="col-sm-3">Order Timeout:</dt>
-                <dd class="col-sm-9" th:text="${groupOrder.timeout}">10 mins</dd>
+                <dd class="col-sm-9" th:text="${groupOrder.getGroupOrderTimeout}"></dd>
 
                 <dt class="col-sm-3">Order Creator:</dt>
                 <dd class="col-sm-9" th:text="${groupOrder.creatorName}"></dd>
@@ -43,78 +43,85 @@
             </dl>
             <hr class="my-4">
 
+            <div th:if="${timeout > 0}" class="col">
+                <h3 class="mb-4 d-flex justify-content-between align-items-center">
+                    Add items to order
+                </h3>
 
-            <!--            <div th:switch="${groupOrder.isValid()}" class="col">-->
+                <form th:action="@{'/item/save/' + ${groupOrderId}}" method="post" class="row">
+                    <div class="col-md-4">
+                        <label for="employeeName">Employee Name:</label>
+                        <input type="text" id="employeeName" name="employeeName" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="itemName">Item Name:</label>
+                        <input type="text" id="itemName" name="itemName" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="price">Price:</label>
+                        <input type="text" id="price" name="price" class="form-control" required>
+                    </div>
+
+                    <div class="mx-auto text-center mt-3">
+                        <button type="submit" class="btn btn-success mt-3">Add to Order</button>
+                    </div>
+                </form>
+            </div>
+            <p th:unless="${timeout > 0}" class="alert alert-danger">Time Expired!</p>
+
+            <hr class="my-4">
+
             <h3 class="mb-4 d-flex justify-content-between align-items-center">
-                Add items to order
+                All orders
             </h3>
+            <input type="hidden" th:value="*{groupOrder.groupOrderId}" id="id" class="id">
+            <div id="itemsTable" th:fragment="reloadTable">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Employee Name</th>
+                        <th>Item Name</th>
+                        <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item : ${items}">
+                        <td th:text="${item.employeeName}"></td>
+                        <td th:text="${item.itemName}"></td>
+                        <td th:text="${item.price}"></td>
+                    </tr>
+                    </tbody>
 
-            <form th:action="@{'/item/save/' + ${groupOrderId}}" method="post" class="row">
-                <div class="col-md-4">
-                    <label for="employeeName">Employee Name:</label>
-                    <input type="text" id="employeeName" name="employeeName" class="form-control" required>
-                </div>
+                </table>
 
-                <div class="col-md-4">
-                    <label for="itemName">Item Name:</label>
-                    <input type="text" id="itemName" name="itemName" class="form-control" required>
-                </div>
+                <p th:text="'Time remaining: ' + ${formatted}"
+                   th:value="${formatted}"></p>
 
-                <div class="col-md-4">
-                    <label for="price">Price:</label>
-                    <input type="text" id="price" name="price" class="form-control" required>
-                </div>
-
-                <div class="mx-auto text-center mt-3">
-                    <button type="submit" class="btn btn-success mt-3">Add to Order</button>
-                </div>
-            </form>
-            <!--                <p th:case="${false}" class="alert alert-danger">Time Expired!</p>-->
-
-
-        <hr class="my-4">
-
-        <h3 class="mb-4 d-flex justify-content-between align-items-center">
-            All orders
-        </h3>
-        <input type="hidden" th:value="*{groupOrder.groupOrderId}" id="id" class="id">
-        <table class="table" id="itemsTable" th:fragment="reloadTable">
-            <thead>
-            <tr>
-                <th>Employee Name</th>
-                <th>Item Name</th>
-                <th>Price</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="item : ${items}">
-                <td th:text="${item.employeeName}"></td>
-                <td th:text="${item.itemName}"></td>
-                <td th:text="${item.price}"></td>
-            </tr>
-            </tbody>
-        </table>
-        <p th:text="'Delivery charges: ' + ${groupOrder.restaurant.deliveryInfo.additionalCharges}"></p>
-        <p class="font-weight-bold" th:text="'Total: ' + ${groupOrder.totalPrice}"></p>
-    </div>
+            <p th:text="'Delivery charges: ' + ${groupOrder.restaurant.deliveryInfo.additionalCharges}"></p>
+            <p class="font-weight-bold" th:text="'Total: ' + ${groupOrder.totalPrice}"></p>
+            </div>
+            </div>
     </div>
 </div>
 
 <script>
     function reload() {
         let id = $("#id").val();
-        const url = '/reload/' + id;
         $.ajax({
-            url: url,
+            url: '/reload/' + id,
             type: 'GET',
             success: function (data) {
-                $("#itemsTable").html(data);
+                $("#itemsTable").html(data)
+
                 console.log(data);
             }
         });
     }
 
     setInterval(reload, 2000);
+
 </script>
 </body>
 

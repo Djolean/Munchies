@@ -14,6 +14,6 @@ public class GroupOrderRequestDTO {
     @Size(min = 3, max = 100, message = "Minimum size is 2, maximum size is 100 characters!")
     private String creatorName;
     @Min(value = 10, message = "Timeout must be 10 minutes or greater!")
-    private Integer timeout;
+    private Integer groupOrderTimeout;
     private boolean isValid;
 }

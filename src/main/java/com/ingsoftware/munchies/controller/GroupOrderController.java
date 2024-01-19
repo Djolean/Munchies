@@ -2,6 +2,7 @@ package com.ingsoftware.munchies.controller;
 
 import com.ingsoftware.munchies.controller.request.GroupOrderRequestDTO;
 import com.ingsoftware.munchies.controller.request.ItemRequestDTO;
+import com.ingsoftware.munchies.controller.response.GroupOrderResponseDTO;
 import com.ingsoftware.munchies.repository.ItemRepository;
 import com.ingsoftware.munchies.service.GroupOrderService;
 import com.ingsoftware.munchies.service.ItemService;
@@ -14,6 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.time.Duration;
+import java.time.Instant;
+import java.time.ZoneId;
 
 
 @Controller
@@ -52,17 +57,25 @@ public class GroupOrderController {
     @GetMapping("/restaurants/group-order/{groupOrderId}")
     public String groupOrderPage(@PathVariable("groupOrderId") String id, ItemRequestDTO request, Model model) {
 
+        var groupOrder = groupOrderService.findGroupOrderById(id);
+
         model.addAttribute("groupOrder", groupOrderService.findGroupOrderById(id));
         model.addAttribute("item", request);
         model.addAttribute("items", itemService.findAllByGroupOrder(id));
+        model.addAttribute("timeout", groupOrderService.calculateTimeRemaining(groupOrder));
 
         return "group-order";
     }
 
     @GetMapping("/reload/{groupOrderId}")
     public String reloadItems(@PathVariable("groupOrderId") String id, Model model) {
+
+        var groupOrder = groupOrderService.findGroupOrderById(id);
+        int timeRemaining = groupOrderService.calculateTimeRemaining(groupOrder);
         model.addAttribute("groupOrder", groupOrderService.findGroupOrderById(id));
         model.addAttribute("items", itemService.findAllByGroupOrder(id));
+        model.addAttribute("timeout", timeRemaining);
+        model.addAttribute("formatted", groupOrderService.formatTime(timeRemaining));
         return "group-order :: reloadTable";
     }
 }
