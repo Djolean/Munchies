@@ -1,14 +1,13 @@
 package com.ingsoftware.munchies.repository;
 
-import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
 import com.ingsoftware.munchies.model.entity.Restaurant;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.time.Instant;
-import java.util.List;
-
+import java.util.*;
 @Repository
-public interface RestaurantRepository extends JpaRepository<Restaurant, String> {
+public interface RestaurantRepository extends JpaRepository<Restaurant, String>  {
+    Page<Restaurant> findAll(Pageable pageable);
 
 }

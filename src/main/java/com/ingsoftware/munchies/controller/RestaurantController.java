@@ -5,11 +5,13 @@ import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
 import com.ingsoftware.munchies.service.RestaurantService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,9 +20,22 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
 
-    @GetMapping({"/restaurants"})
-    public String getAllRestaurants(Model model) {
-        model.addAttribute("restaurants", restaurantService.findAll());
+    @GetMapping("/restaurants")
+    public String getAllRestaurants(
+            @RequestParam(defaultValue = "0") String page,
+            @RequestParam(defaultValue = "4") String size,
+            @RequestParam(defaultValue = "asc") String sortOrder,
+            @RequestParam(defaultValue = "restaurantName") String sortBy,
+            Model model) {
+
+        Page<RestaurantResponseDTO> restaurants = restaurantService.findAll(Integer.parseInt(page), Integer.parseInt(size), sortOrder, sortBy);
+        model.addAttribute("restaurants", restaurants);
+        model.addAttribute("pageSize", size);
+        model.addAttribute("pageNum", page);
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("sortOrder", sortOrder);
+
+
         return "restaurants";
     }
 
@@ -59,31 +74,6 @@ public class RestaurantController {
     public String deleteRestaurant(@PathVariable("id") String id) {
         restaurantService.delete(id);
         return "redirect:/restaurants";
-    }
-
-    //SORTING METHODS
-    @GetMapping("/sortRestaurantByNameAsc")
-    public String sortRestaurantByNameAsc(Model model) {
-        model.addAttribute("restaurants", restaurantService.sortRestaurantByNameAsc());
-        return "restaurants";
-    }
-
-    @GetMapping("/sortRestaurantByNameDesc")
-    public String sortRestaurantByNameDesc(Model model) {
-        model.addAttribute("restaurants", restaurantService.sortRestaurantByNameDesc());
-        return "restaurants";
-    }
-
-    @GetMapping("/sortRestaurantByCreatedDateAsc")
-    public String sortRestaurantByCreatedDateAsc(Model model) {
-        model.addAttribute("restaurants", restaurantService.sortRestaurantByCreatedDateAsc());
-        return "restaurants";
-    }
-
-    @GetMapping("/sortRestaurantByCreatedDateDesc")
-    public String sortRestaurantByCreatedDateDesc(Model model) {
-        model.addAttribute("restaurants", restaurantService.sortRestaurantByCreatedDateDesc());
-        return "restaurants";
     }
 
 

@@ -9,11 +9,11 @@ import com.ingsoftware.munchies.repository.RestaurantRepository;
 import com.ingsoftware.munchies.service.RestaurantService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -25,11 +25,18 @@ public class RestaurantServiceImpl implements RestaurantService {
     private final RestaurantMapper mapper;
 
     @Override
-    public List<RestaurantResponseDTO> findAll() {
-        return restaurantRepository.findAll().stream()
+
+    public Page<RestaurantResponseDTO> findAll(int page, int size, String sortBy, String sortOrder) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.fromString(sortBy), sortOrder);
+        Page<Restaurant> restaurantPage = restaurantRepository.findAll(pageable);
+        List<RestaurantResponseDTO> response = restaurantPage.getContent().stream()
                 .map(mapper::mapToDTO)
                 .toList();
+
+        return new PageImpl<>(response, pageable, restaurantPage.getTotalElements());
     }
+
 
     @Override
     public RestaurantResponseDTO findById(String id) {
@@ -80,35 +87,13 @@ public class RestaurantServiceImpl implements RestaurantService {
         restaurantRepository.save(restaurant);
     }
 
-    @Override
-    public List<RestaurantResponseDTO> sortRestaurantByNameAsc() {
-
-        return findAll().stream()
-                .sorted(Comparator.comparing(RestaurantResponseDTO::getRestaurantName))
-                .toList();
-    }
 
     @Override
     public List<RestaurantResponseDTO> sortRestaurantByNameDesc() {
 
-        return findAll().stream()
-                .sorted(Comparator.comparing(RestaurantResponseDTO::getRestaurantName).reversed())
-                .toList();
-    }
+        return restaurantRepository.findAll(PageRequest.of(4, 1000, Sort.Direction.ASC, "restaurantName"))
+                .getContent().stream().map(mapper::mapToDTO).toList();
 
-    @Override
-    public List<RestaurantResponseDTO> sortRestaurantByCreatedDateAsc() {
-        return findAll().stream()
-                .sorted(Comparator.comparing(RestaurantResponseDTO::getCreatedDate))
-                .toList();
-
-    }
-
-    @Override
-    public List<RestaurantResponseDTO> sortRestaurantByCreatedDateDesc() {
-        return findAll().stream()
-                .sorted(Comparator.comparing(RestaurantResponseDTO::getCreatedDate).reversed())
-                .toList();
     }
 
     public String generateShortName(String name) {

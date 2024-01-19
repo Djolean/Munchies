@@ -20,9 +20,9 @@ public class GroupOrderMapper {
                 .creatorName(groupOrder.getCreatorName())
                 .groupOrderUrl(groupOrder.getGroupOrderUrl())
                 .restaurant(groupOrder.getRestaurant())
-                .timeout(groupOrder.getGroupOrderTimeout())
-                .dateCreated(groupOrder.getCreatedDate())
-                .lastTimeModified(groupOrder.getLastModifiedDate())
+                .groupOrderTimeout(groupOrder.getGroupOrderTimeout())
+                .createdDate(groupOrder.getCreatedDate())
+                .lastModifiedDate(groupOrder.getLastModifiedDate())
                 .totalPrice(groupOrder.getTotalPrice())
                 .build();
     }
@@ -31,9 +31,22 @@ public class GroupOrderMapper {
         return GroupOrder.builder()
                 .groupOrderId(request.getGroupOrderId())
                 .creatorName(request.getCreatorName())
-                .groupOrderTimeout(request.getTimeout())
+                .groupOrderTimeout(request.getGroupOrderTimeout())
                 .restaurant(restaurant)
                 .build();
     }
 
+    public GroupOrder mapToEntityTime(final GroupOrderResponseDTO response) {
+      return GroupOrder.builder()
+              .groupOrderId(response.getGroupOrderId())
+              .creatorName(response.getCreatorName())
+              .groupOrderUrl(response.getGroupOrderUrl())
+              .restaurant(response.getRestaurant())
+              .groupOrderTimeout(response.getGroupOrderTimeout())
+              .createdDate(response.getCreatedDate())
+              .lastModifiedDate(response.getLastModifiedDate())
+              .totalPrice(response.getTotalPrice())
+              .isValid(response.isValid())
+              .build();
+    }
 }

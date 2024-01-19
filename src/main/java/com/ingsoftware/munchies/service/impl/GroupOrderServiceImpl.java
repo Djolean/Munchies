@@ -11,9 +11,12 @@ import com.ingsoftware.munchies.repository.RestaurantRepository;
 import com.ingsoftware.munchies.service.GroupOrderService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.NoSuchElementException;
 
@@ -39,8 +42,6 @@ public class GroupOrderServiceImpl implements GroupOrderService {
         groupOrderRepository.save(groupOrder);
         groupOrder.setTotalPrice(calculateTotalPrice(groupOrder));
 
-       // groupOrder.set(groupOrderIsValid(groupOrder));
-
         return mapper.mapToDTO(groupOrderRepository.save(groupOrder));
     }
 
@@ -59,8 +60,24 @@ public class GroupOrderServiceImpl implements GroupOrderService {
         return price + additionalCharges;
     }
 
-    private boolean groupOrderIsValid(GroupOrder response) {
-        return !Instant.now().isAfter(Instant.ofEpochSecond(response.getGroupOrderTimeout()));
+    public Integer calculateTimeRemaining(GroupOrderResponseDTO response) {
+
+        int timeoutMinutes = response.getGroupOrderTimeout();
+        int timeoutSeconds = timeoutMinutes * 60;
+        int remainingTimeSeconds = timeoutSeconds - (int) Duration.between(response.getCreatedDate(), Instant.now()).getSeconds();
+
+
+        response.setValid(true);
+        if (remainingTimeSeconds <= 0) {
+            response.setValid(false);
+        }
+        return remainingTimeSeconds;
     }
 
+    public String formatTime(int remainingTimeSeconds) {
+        int minutes = remainingTimeSeconds / 60;
+        int seconds = remainingTimeSeconds % 60;
+
+        return String.format("%02d:%02d", minutes, seconds);
+    }
 }

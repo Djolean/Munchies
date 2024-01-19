@@ -1,12 +1,8 @@
 package com.ingsoftware.munchies.service.impl;
 
-import com.ingsoftware.munchies.controller.request.GroupOrderRequestDTO;
 import com.ingsoftware.munchies.controller.request.ItemRequestDTO;
 import com.ingsoftware.munchies.controller.response.ItemResponseDTO;
-import com.ingsoftware.munchies.mapper.GroupOrderMapper;
 import com.ingsoftware.munchies.mapper.ItemMapper;
-import com.ingsoftware.munchies.model.entity.GroupOrder;
-import com.ingsoftware.munchies.model.entity.Item;
 import com.ingsoftware.munchies.repository.GroupOrderRepository;
 import com.ingsoftware.munchies.repository.ItemRepository;
 import com.ingsoftware.munchies.service.ItemService;
@@ -15,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -49,4 +44,6 @@ public class ItemServiceImpl implements ItemService {
         groupOrderRepository.save(groupOrder);
         return mapper.mapToDTO(itemRepository.save(item));
     }
+
+
 }
