@@ -46,7 +46,6 @@ public class GroupOrderMapper {
               .createdDate(response.getCreatedDate())
               .lastModifiedDate(response.getLastModifiedDate())
               .totalPrice(response.getTotalPrice())
-              .isValid(response.isValid())
               .build();
     }
 }

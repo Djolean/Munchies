@@ -11,8 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
-
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/")
@@ -22,19 +20,18 @@ public class RestaurantController {
 
     @GetMapping("/restaurants")
     public String getAllRestaurants(
-            @RequestParam(defaultValue = "0") String page,
-            @RequestParam(defaultValue = "4") String size,
+            @RequestParam(defaultValue = "1") String pageNum,
+            @RequestParam(defaultValue = "5") String pageSize,
             @RequestParam(defaultValue = "asc") String sortOrder,
             @RequestParam(defaultValue = "restaurantName") String sortBy,
             Model model) {
 
-        Page<RestaurantResponseDTO> restaurants = restaurantService.findAll(Integer.parseInt(page), Integer.parseInt(size), sortOrder, sortBy);
+        Page<RestaurantResponseDTO> restaurants = restaurantService.findAll(Integer.parseInt(pageNum), Integer.parseInt(pageSize), sortOrder, sortBy);
         model.addAttribute("restaurants", restaurants);
-        model.addAttribute("pageSize", size);
-        model.addAttribute("pageNum", page);
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("pageNum", pageNum);
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("sortOrder", sortOrder);
-
 
         return "restaurants";
     }

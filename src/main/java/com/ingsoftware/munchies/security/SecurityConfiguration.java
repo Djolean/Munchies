@@ -24,11 +24,8 @@ public class SecurityConfiguration {
                     "/homePage",
                     "/restaurants",
                     "/restaurant-details",
-                    "/error",
-                    "/sortRestaurantByNameAsc",
-                    "/sortRestaurantByNameDesc",
-                    "/sortRestaurantByCreatedDateAsc",
-                    "/sortRestaurantByCreatedDateDesc")
+                    "/error/**"
+                    )
                     .permitAll();
             auth.anyRequest().authenticated();
         });

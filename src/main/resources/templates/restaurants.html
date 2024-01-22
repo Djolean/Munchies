@@ -14,7 +14,8 @@
         <div class="col-md-12">
             <h2 class="text-center">Restaurant List</h2>
 
-            <a sec:authorize="isAuthenticated()" th:href="@{/create}" class="btn btn-primary mb-3 mt-3">Add Restaurant</a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/create}" class="btn btn-primary mb-3 mt-3">Add
+                Restaurant</a>
 
             <table class="table table-bordered">
                 <thead>
@@ -23,12 +24,13 @@
                         <div class="d-flex align-items-center">
                             Restaurant Name
                             <div class="ml-2 sorting-btn-group d-flex">
-                                <a th:href="@{/restaurants(pageNum=${pageNum + 1}, pageSize=${pageSize}, sortBy='restaurantName', sortOrder='asc')}">
+
+                                <a th:href="@{/restaurants(pageNum=${pageNum}, pageSize=${pageSize}, sortBy='restaurantName', sortOrder='asc')}">
                                     <button type="button" class="btn btn-outline-secondary btn-sm">
                                         <i class="fas fa-sort-alpha-up"></i> Asc
                                     </button>
                                 </a>
-                                <a th:href="@{/restaurants(pageNum=${pageNum + 1}, pageSize=${pageSize}, sortBy='restaurantName', sortOrder='desc')}">
+                                <a th:href="@{/restaurants(pageNum=${pageNum}, pageSize=${pageSize}, sortBy='restaurantName', sortOrder='desc')}">
                                     <button type="button" class="btn btn-outline-secondary btn-sm ml-1">
                                         <i class="fas fa-sort-alpha-down"></i> Desc
                                     </button>
@@ -42,12 +44,12 @@
                         <div class="d-flex align-items-center">
                             Date Created
                             <div class="ml-2 sorting-btn-group d-flex">
-                                <a th:href="@{/restaurants(pageNum=${pageNum + 1}, pageSize=${pageSize}, sortBy='createdDate', sortOrder='asc')}">
+                                <a th:href="@{/restaurants(pageNum=${pageNum}, pageSize=${pageSize}, sortBy='createdDate', sortOrder='asc')}">
                                     <button type="button" class="btn btn-outline-secondary btn-sm">
                                         <i class="fas fa-sort-alpha-up"></i> Asc
                                     </button>
                                 </a>
-                                <a th:href="@{/restaurants(pageNum=${pageNum + 1}, pageSize=${pageSize}, sortBy='createdDate', sortOrder='desc')}">
+                                <a th:href="@{/restaurants(pageNum=${pageNum}, pageSize=${pageSize}, sortBy='createdDate', sortOrder='desc')}">
                                     <button type="button" class="btn btn-outline-secondary btn-sm ml-1">
                                         <i class="fas fa-sort-alpha-down"></i> Desc
                                     </button>
@@ -65,12 +67,26 @@
                     <td th:text="${restaurant.menuUrl}"></td>
                     <td th:text="${#dates.format(restaurant.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                     <td>
-                        <a sec:authorize="isAuthenticated()" th:href="@{/restaurant/{id}(id=${restaurant.restaurantId})}" class="btn btn-info btn-sm">View Details</a>
-                        <a th:href="@{/create-group-order/{id}(id=${restaurant.restaurantId})}" class="btn btn-success btn-sm mx-2">Create Group Order</a>
+                        <a sec:authorize="isAuthenticated()"
+                           th:href="@{/restaurant/{id}(id=${restaurant.restaurantId})}" class="btn btn-info btn-sm">View
+                            Details</a>
+                        <a th:href="@{/create-group-order/{id}(id=${restaurant.restaurantId})}"
+                           class="btn btn-success btn-sm mx-2">Create Group Order</a>
                     </td>
                 </tr>
                 </tbody>
             </table>
+        </div>
+        <div th:if="${restaurants.totalPages > 1}" class="container mt-4">
+
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li th:each="pageNum : ${#numbers.sequence(0, restaurants.totalPages - 1)}"
+                        th:class="${restaurants.number == pageNum} ? 'page-item active' : 'page-item'">
+                        <a class="page-link" th:href="@{/restaurants(pageNum=${pageNum}, pageSize=${pageSize}, sortBy=${sortBy}, sortOrder=${sortOrder})}" th:text="${pageNum}"></a>
+                    </li>
+                </ul>
+            </nav>
 
         </div>
     </div>

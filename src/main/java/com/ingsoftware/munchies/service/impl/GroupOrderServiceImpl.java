@@ -2,6 +2,7 @@ package com.ingsoftware.munchies.service.impl;
 
 import com.ingsoftware.munchies.controller.request.GroupOrderRequestDTO;
 import com.ingsoftware.munchies.controller.response.GroupOrderResponseDTO;
+import com.ingsoftware.munchies.exception.Exception;
 import com.ingsoftware.munchies.mapper.GroupOrderMapper;
 import com.ingsoftware.munchies.model.entity.GroupOrder;
 import com.ingsoftware.munchies.model.entity.Item;
@@ -9,16 +10,11 @@ import com.ingsoftware.munchies.repository.GroupOrderRepository;
 import com.ingsoftware.munchies.repository.ItemRepository;
 import com.ingsoftware.munchies.repository.RestaurantRepository;
 import com.ingsoftware.munchies.service.GroupOrderService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.Duration;
 import java.time.Instant;
-import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +28,7 @@ public class GroupOrderServiceImpl implements GroupOrderService {
     @Override
     public GroupOrderResponseDTO addGroupOrder(String id, GroupOrderRequestDTO request) {
 
-        var restaurant = restaurantRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Restaurant not found"));
+        var restaurant = restaurantRepository.findById(id).orElseThrow(Exception.RestaurantNotFoundException::new);
         var groupOrder = mapper.mapToEntity(restaurant, request);
 
         groupOrder.setCreatedDate(Instant.now());
@@ -47,7 +43,7 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 
     @Override
     public GroupOrderResponseDTO findGroupOrderById(String id) {
-        return mapper.mapToDTO(groupOrderRepository.findById(id).orElseThrow(() -> new NoSuchElementException("GroupOrder not existing")));
+        return mapper.mapToDTO(groupOrderRepository.findById(id).orElseThrow(Exception.GroupOrderNotFoundException::new));
     }
 
     private Double calculateTotalPrice(GroupOrder groupOrder) {
@@ -64,14 +60,8 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 
         int timeoutMinutes = response.getGroupOrderTimeout();
         int timeoutSeconds = timeoutMinutes * 60;
-        int remainingTimeSeconds = timeoutSeconds - (int) Duration.between(response.getCreatedDate(), Instant.now()).getSeconds();
 
-
-        response.setValid(true);
-        if (remainingTimeSeconds <= 0) {
-            response.setValid(false);
-        }
-        return remainingTimeSeconds;
+        return timeoutSeconds - (int) Duration.between(response.getCreatedDate(), Instant.now()).getSeconds();
     }
 
     public String formatTime(int remainingTimeSeconds) {

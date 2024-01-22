@@ -2,6 +2,7 @@ package com.ingsoftware.munchies.service.impl;
 
 import com.ingsoftware.munchies.controller.request.ItemRequestDTO;
 import com.ingsoftware.munchies.controller.response.ItemResponseDTO;
+import com.ingsoftware.munchies.exception.Exception;
 import com.ingsoftware.munchies.mapper.ItemMapper;
 import com.ingsoftware.munchies.repository.GroupOrderRepository;
 import com.ingsoftware.munchies.repository.ItemRepository;
@@ -22,7 +23,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemResponseDTO> findAllByGroupOrder(String id) {
-        var groupOrder = groupOrderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Group order not found!"));
+        var groupOrder = groupOrderRepository.findById(id).orElseThrow(Exception.GroupOrderNotFoundException::new);
 
         return itemRepository.findAllByGroupOrder(groupOrder).stream()
                 .map(mapper::mapToDTO)
@@ -32,7 +33,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public ItemResponseDTO addItemToGroupOrder(String id, ItemRequestDTO request) {
 
-        var groupOrder = groupOrderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Group order doesn't exist!"));
+        var groupOrder = groupOrderRepository.findById(id).orElseThrow(Exception.GroupOrderNotFoundException::new);
 
         var item = mapper.mapToEntity(request, groupOrder);
 

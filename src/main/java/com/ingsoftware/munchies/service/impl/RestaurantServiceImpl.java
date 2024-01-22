@@ -1,11 +1,16 @@
 package com.ingsoftware.munchies.service.impl;
 
+import com.fasterxml.jackson.databind.util.NameTransformer;
 import com.ingsoftware.munchies.controller.request.RestaurantRequestDTO;
 import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
+import com.ingsoftware.munchies.exception.Exception;
 import com.ingsoftware.munchies.mapper.RestaurantMapper;
 import com.ingsoftware.munchies.model.entity.DeliveryInfo;
+import com.ingsoftware.munchies.model.entity.GroupOrder;
 import com.ingsoftware.munchies.model.entity.Restaurant;
+import com.ingsoftware.munchies.repository.GroupOrderRepository;
 import com.ingsoftware.munchies.repository.RestaurantRepository;
+import com.ingsoftware.munchies.service.GroupOrderService;
 import com.ingsoftware.munchies.service.RestaurantService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +28,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
     private final RestaurantMapper mapper;
+    private final GroupOrderRepository groupOrderRepository;
 
     @Override
 
@@ -39,15 +45,11 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 
     @Override
-    public RestaurantResponseDTO findById(String id) {
-        Restaurant restaurant = restaurantRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Restaurant doesn't exist"));
+    public RestaurantResponseDTO findById(String id) throws Exception.RestaurantNotFoundException {
+        Restaurant restaurant = restaurantRepository.findById(id).orElseThrow(Exception.RestaurantNotFoundException::new);
         return mapper.mapToDTO(restaurant);
     }
 
-    @Override
-    public Restaurant findByIdEntity(String id) {
-        return restaurantRepository.findById(id).orElseThrow(() -> new NoSuchElementException("empty"));
-    }
 
     @Transactional
     @Override
@@ -74,6 +76,14 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public void delete(String restaurantId) {
+        var restaurant = restaurantRepository.findById(restaurantId).orElseThrow(Exception.RestaurantNotFoundException::new);
+        var groupOrderList = groupOrderRepository.findGroupOrderByRestaurant(restaurant);
+
+        for (var groupOrder : groupOrderList) {
+            if (groupOrder.getGroupOrderTimeout() < 0) {
+                throw new Exception.GroupOrderStillActiveException();
+            }
+        }
         restaurantRepository.deleteById(restaurantId);
     }
 
@@ -81,20 +91,12 @@ public class RestaurantServiceImpl implements RestaurantService {
     public void updateRestaurant(RestaurantRequestDTO request, String id) {
 
         Restaurant restaurant = restaurantRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Restaurant doesn't exist"));
+                .orElseThrow(Exception.RestaurantNotFoundException::new);
 
         mapper.mapToEntityUpdate(request, restaurant);
         restaurantRepository.save(restaurant);
     }
 
-
-    @Override
-    public List<RestaurantResponseDTO> sortRestaurantByNameDesc() {
-
-        return restaurantRepository.findAll(PageRequest.of(4, 1000, Sort.Direction.ASC, "restaurantName"))
-                .getContent().stream().map(mapper::mapToDTO).toList();
-
-    }
 
     public String generateShortName(String name) {
         if (name == null) {
