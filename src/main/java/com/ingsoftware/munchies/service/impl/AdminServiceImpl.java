@@ -1,5 +1,6 @@
 package com.ingsoftware.munchies.service.impl;
 
+import com.ingsoftware.munchies.exception.Exception;
 import com.ingsoftware.munchies.model.entity.Admin;
 import com.ingsoftware.munchies.repository.AdminRepository;
 import com.ingsoftware.munchies.service.AdminService;
@@ -20,7 +21,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Admin saveAdmin(Admin admin) {
         if (AdminRepository.existsByAdminEmail(admin.getAdminEmail())) {
-            throw new RuntimeException("User already exists");
+            throw new Exception.UserAlreadyExists();
         } else {
             String encodedPassword = passwordEncoder.encode(admin.getPassword());
             admin.setPassword(encodedPassword);
@@ -47,6 +48,6 @@ public class AdminServiceImpl implements AdminService {
     public Admin getLoggedInAdmin() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-        return adminRepository.findByAdminEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        return adminRepository.findByAdminEmail(email).orElseThrow(Exception.UserNotFoundException::new);
     }
 }

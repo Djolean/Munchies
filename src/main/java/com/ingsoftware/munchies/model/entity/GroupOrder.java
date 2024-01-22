@@ -37,5 +37,4 @@ public class GroupOrder {
     @Column(nullable = false)
     private Instant lastModifiedDate;
     private Double totalPrice;
-    private boolean isValid;
 }
