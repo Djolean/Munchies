@@ -11,7 +11,7 @@
 <div class="container mt-4">
     <h2>Update Restaurant</h2>
 
-    <form th:object="${restaurant}" th:action="@{/update-restaurant/{id}(id=${id})}" method="post">
+    <form th:object="${restaurant}" th:action="@{/update-restaurant/{id}(id=${id})}" th:method="PUT">
 
         <div class="form-group">
             <input type="hidden" id="restaurantId" th:field="*{restaurantId}" class="form-control"/>

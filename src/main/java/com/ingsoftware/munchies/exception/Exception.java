@@ -1,5 +1,6 @@
 package com.ingsoftware.munchies.exception;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -85,6 +86,7 @@ public interface Exception {
     @Builder
     class ExceptionResponse {
         private HttpStatus httpStatus;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
         private LocalDateTime timestamp;
         private String message;
     }

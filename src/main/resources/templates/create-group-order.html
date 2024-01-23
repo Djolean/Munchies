@@ -19,7 +19,7 @@
 
         <div class="form-group">
             <label for="creatorName">Creator Name: </label>
-            <input type="text"  name="creatorName" class="form-control" id="creatorName" th:field="*{creatorName}" th:required="required">
+            <input type="text" name="creatorName" class="form-control" id="creatorName" th:field="*{creatorName}" th:required="required">
             <small th:if="${#fields.hasErrors('creatorName')}" th:errors="*{creatorName}" class="text-danger"></small>
         </div>
 

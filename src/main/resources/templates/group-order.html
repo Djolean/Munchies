@@ -96,10 +96,11 @@
 
                 </table>
 
-                <p th:text="'Time remaining: ' + ${formatted}"
-                   th:value="${formatted}"></p>
+                <p th:if="${timeout > 0}" th:text="'Time remaining: ' + ${formatted}" th:value="${formatted}"></p>
+                <p th:unless="${timeout > 0}" th:text="'Time remaining: ' + ${formatted}" >Time expired</p>
 
-            <p th:text="'Delivery charges: ' + ${groupOrder.restaurant.deliveryInfo.additionalCharges}"></p>
+
+                <p th:text="'Delivery charges: ' + ${groupOrder.restaurant.deliveryInfo.additionalCharges}"></p>
             <p class="font-weight-bold" th:text="'Total: ' + ${groupOrder.totalPrice}"></p>
             </div>
             </div>
@@ -114,7 +115,6 @@
             type: 'GET',
             success: function (data) {
                 $("#itemsTable").html(data)
-
                 console.log(data);
             }
         });
