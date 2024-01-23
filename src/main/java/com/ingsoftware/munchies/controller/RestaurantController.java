@@ -11,12 +11,15 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/")
+@RequestMapping
 public class RestaurantController {
 
     private final RestaurantService restaurantService;
+
 
     @GetMapping("/restaurants")
     public String getAllRestaurants(
@@ -57,9 +60,10 @@ public class RestaurantController {
 
     @PostMapping({"/update-restaurant/{id}"})
     public String updateRestaurant(@PathVariable("id") String id,
-                                   @Valid @ModelAttribute("request") RestaurantRequestDTO request,
+                                   @Valid @ModelAttribute("request") RestaurantRequestDTO request, Model model,
                                    BindingResult result) {
         if (result.hasErrors()) {
+            model.addAttribute("restaurant", request);
             return "admin/update-restaurant";
         }
         request.setRestaurantId(id);
@@ -67,7 +71,7 @@ public class RestaurantController {
         return "redirect:/restaurants";
     }
 
-    @GetMapping("/delete-restaurant/{id}")
+    @DeleteMapping("/delete-restaurant/{id}")
     public String deleteRestaurant(@PathVariable("id") String id) {
         restaurantService.delete(id);
         return "redirect:/restaurants";
@@ -94,5 +98,6 @@ public class RestaurantController {
 
         return "admin/update-restaurant";
     }
+
 }
 

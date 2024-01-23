@@ -1,18 +1,14 @@
 package com.ingsoftware.munchies.service.impl;
 
-import com.fasterxml.jackson.databind.util.NameTransformer;
 import com.ingsoftware.munchies.controller.request.RestaurantRequestDTO;
 import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
 import com.ingsoftware.munchies.exception.Exception;
 import com.ingsoftware.munchies.mapper.RestaurantMapper;
 import com.ingsoftware.munchies.model.entity.DeliveryInfo;
-import com.ingsoftware.munchies.model.entity.GroupOrder;
 import com.ingsoftware.munchies.model.entity.Restaurant;
 import com.ingsoftware.munchies.repository.GroupOrderRepository;
 import com.ingsoftware.munchies.repository.RestaurantRepository;
-import com.ingsoftware.munchies.service.GroupOrderService;
 import com.ingsoftware.munchies.service.RestaurantService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -20,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
