@@ -9,7 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/items")
+@RequestMapping("/rest/item")
 @RequiredArgsConstructor
 public class ItemRestController {
 

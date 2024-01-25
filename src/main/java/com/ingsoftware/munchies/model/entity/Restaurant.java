@@ -19,7 +19,7 @@ public class Restaurant {
     @Column(nullable = false)
     private String restaurantId;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(nullable = false, name = "delivery_fk")
     @ToString.Exclude
     private DeliveryInfo deliveryInfo;

@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 
 @Controller
 @RequiredArgsConstructor
@@ -58,7 +57,7 @@ public class RestaurantController {
         return "redirect:/restaurants";
     }
 
-    @PostMapping({"/update-restaurant/{id}"})
+    @PutMapping({"/update-restaurant/{id}"})
     public String updateRestaurant(@PathVariable("id") String id,
                                    @Valid @ModelAttribute("request") RestaurantRequestDTO request, Model model,
                                    BindingResult result) {

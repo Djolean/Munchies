@@ -2,10 +2,7 @@ package com.ingsoftware.munchies.controller.rest;
 
 import com.ingsoftware.munchies.controller.request.GroupOrderRequestDTO;
 import com.ingsoftware.munchies.controller.response.GroupOrderResponseDTO;
-import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
 import com.ingsoftware.munchies.service.GroupOrderService;
-import com.ingsoftware.munchies.service.ItemService;
-import com.ingsoftware.munchies.service.RestaurantService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/group-orders")
+@RequestMapping("/rest/group-order")
 @RequiredArgsConstructor
 public class GroupOrderRestController {
 
@@ -33,10 +30,9 @@ public class GroupOrderRestController {
         return ResponseEntity.ok(groupOrder);
     }
 
-    @GetMapping("/{groupOrderId}")
-    public ResponseEntity<GroupOrderResponseDTO> groupOrderPage(@PathVariable("groupOrderId") String id) {
-        GroupOrderResponseDTO groupOrder = groupOrderService.findGroupOrderById(id);
-        return ResponseEntity.ok(groupOrder);
+    @GetMapping("/{id}")
+    public ResponseEntity<GroupOrderResponseDTO> groupOrderPage(@PathVariable("id") String id) {
+        return ResponseEntity.ok(groupOrderService.findGroupOrderById(id));
     }
 
 }

@@ -9,6 +9,5 @@ import java.util.List;
 
 @Repository
 public interface GroupOrderRepository extends JpaRepository<GroupOrder, String> {
-    List<GroupOrder> findGroupOrderByRestaurant(Restaurant restaurant);
-    boolean existsByGroupOrderTimeoutAndRestaurant(Integer groupOrderTimeout,Restaurant restaurant);
+    List<GroupOrder> findGroupOrdersByRestaurant(Restaurant restaurant);
 }
