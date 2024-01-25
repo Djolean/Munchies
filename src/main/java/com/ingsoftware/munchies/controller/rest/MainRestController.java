@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/restMain")
+@RequestMapping("/rest/main")
 
 public class MainRestController {
 

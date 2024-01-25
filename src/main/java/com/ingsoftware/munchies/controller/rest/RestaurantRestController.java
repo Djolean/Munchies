@@ -35,7 +35,7 @@ public class RestaurantRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> saveRestaurant(@Valid @RequestBody RestaurantRequestDTO request,
+    public ResponseEntity<Object> saveRestaurant(@Valid @RequestBody RestaurantRequestDTO request,
                                                BindingResult result) {
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().build();

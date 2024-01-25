@@ -3,11 +3,13 @@ package com.ingsoftware.munchies.service.impl;
 import com.ingsoftware.munchies.controller.request.RestaurantRequestDTO;
 import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
 import com.ingsoftware.munchies.exception.Exception;
+import com.ingsoftware.munchies.mapper.GroupOrderMapper;
 import com.ingsoftware.munchies.mapper.RestaurantMapper;
 import com.ingsoftware.munchies.model.entity.DeliveryInfo;
 import com.ingsoftware.munchies.model.entity.Restaurant;
 import com.ingsoftware.munchies.repository.GroupOrderRepository;
 import com.ingsoftware.munchies.repository.RestaurantRepository;
+import com.ingsoftware.munchies.service.GroupOrderService;
 import com.ingsoftware.munchies.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
@@ -23,7 +25,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
     private final RestaurantMapper mapper;
+    private final GroupOrderMapper groupOrderMapper;
     private final GroupOrderRepository groupOrderRepository;
+    private final GroupOrderService groupOrderService;
 
     @Override
 
@@ -72,12 +76,18 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public void delete(String restaurantId) {
         var restaurant = restaurantRepository.findById(restaurantId).orElseThrow(Exception.RestaurantNotFoundException::new);
-        var groupOrderList = groupOrderRepository.findGroupOrderByRestaurant(restaurant);
+        var groupOrderList = groupOrderRepository.findGroupOrdersByRestaurant(restaurant);
+
+        System.out.println(groupOrderList.toString());
+
 
         for (var groupOrder : groupOrderList) {
-            if (groupOrder.getGroupOrderTimeout() < 0) {
+            if (groupOrderService.calculateTimeRemaining(groupOrderMapper.mapToDTO(groupOrder)) > 0) {
                 throw new Exception.GroupOrderStillActiveException();
             }
+            groupOrder.setRestaurant(null);
+            groupOrderRepository.save(groupOrder);
+
         }
         restaurantRepository.deleteById(restaurantId);
     }
@@ -91,6 +101,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         mapper.mapToEntityUpdate(request, restaurant);
         restaurantRepository.save(restaurant);
     }
+
 
 
     public String generateShortName(String name) {
