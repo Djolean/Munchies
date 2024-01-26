@@ -2,7 +2,7 @@ package com.ingsoftware.munchies.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
+import java.util.*;
 import java.time.Instant;
 
 @Entity
@@ -18,9 +18,8 @@ public class GroupOrder {
     @Column(nullable = false)
     private String groupOrderId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "restaurant_fk", nullable = false)
-    @ToString.Exclude
     private Restaurant restaurant;
     @Column(nullable = false)
     private String creatorName;
@@ -37,4 +36,7 @@ public class GroupOrder {
     @Column(nullable = false)
     private Instant lastModifiedDate;
     private Double totalPrice;
+
+    @OneToMany(mappedBy = "groupOrder", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Item> items = new ArrayList<>();
 }

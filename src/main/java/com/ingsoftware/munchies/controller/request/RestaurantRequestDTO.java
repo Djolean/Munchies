@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class RestaurantRequestDTO {
 
-    private String restaurantId;
     @NotEmpty(message = "Required!")
     @Size(min = 2, max = 100, message = "Minimum size is 2, maximum size is 100 characters!")
     private String restaurantName;

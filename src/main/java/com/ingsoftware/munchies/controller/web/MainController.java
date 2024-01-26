@@ -1,4 +1,4 @@
-package com.ingsoftware.munchies.controller;
+package com.ingsoftware.munchies.controller.web;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,6 +20,10 @@ public class MainController {
         return "homePage";
     }
 
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/homePage";
+    }
     @GetMapping("/login")
     public String showLoginForm() {
         return "admin/login";
@@ -27,7 +31,7 @@ public class MainController {
 
     @PostMapping("/logout")
     public String logout(Authentication authentication, HttpServletRequest request, HttpServletResponse response) {
-        this.logoutHandler.logout(request, response, authentication);;
+        this.logoutHandler.logout(request, response, authentication);
 
         return "redirect:/homePage";
     }

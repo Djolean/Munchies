@@ -40,8 +40,8 @@ public class ItemServiceImpl implements ItemService {
 
         var item = mapper.mapToEntity(request, groupOrder);
 
-        if (groupOrderService.calculateTimeRemaining(groupOrderMapper.mapToDTO(groupOrder)) > 0) {
-            throw new Exception.GroupOrderStillActiveException();
+        if (groupOrderService.calculateTimeRemaining(groupOrderMapper.mapToDTO(groupOrder)) < 0) {
+            throw new Exception.GroupOrderNotActiveException();
         } else {
             item.setCreatedDate(Instant.now());
             item.setLastModifiedDate(Instant.now());

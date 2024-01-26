@@ -1,4 +1,4 @@
-package com.ingsoftware.munchies.controller;
+package com.ingsoftware.munchies.controller.web;
 
 import com.ingsoftware.munchies.controller.request.RestaurantRequestDTO;
 import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
@@ -42,7 +42,8 @@ public class RestaurantController {
     @GetMapping({"/restaurant/{id}"})
     public String getRestaurantById(@PathVariable String id, Model model) {
         model.addAttribute("restaurant", restaurantService.findById(id));
-        return "admin/restaurant-details";
+        model.addAttribute("deliveryInfo", restaurantService.findById(id).getDeliveryInfo());
+        return "restaurant-details";
     }
 
 
@@ -65,7 +66,6 @@ public class RestaurantController {
             model.addAttribute("restaurant", request);
             return "admin/update-restaurant";
         }
-        request.setRestaurantId(id);
         restaurantService.updateRestaurant(request, id);
         return "redirect:/restaurants";
     }
@@ -87,7 +87,7 @@ public class RestaurantController {
     @GetMapping("/update-restaurant/{id}")
     public String showUpdateForm(@PathVariable("id") String id, Model model) {
         RestaurantResponseDTO response = restaurantService.findById(id);
-        model.addAttribute("restaurant", new RestaurantRequestDTO(response.getRestaurantId(),
+        model.addAttribute("restaurant", new RestaurantRequestDTO(
                 response.getRestaurantName(),
                 response.getAddress(),
                 response.getPhoneNumber(),

@@ -12,19 +12,12 @@ import java.time.LocalDateTime;
 public interface Exception {
     class UserNotFoundException extends RuntimeException {
 
-        public UserNotFoundException(String message) {
-            super(message);
-        }
-
         public UserNotFoundException() {
             super("User not found!");
         }
     }
 
     class UserAlreadyExists extends RuntimeException {
-        public UserAlreadyExists(String message) {
-            super(message);
-        }
 
         public UserAlreadyExists() {
             super("User already exists!");
@@ -32,19 +25,11 @@ public interface Exception {
     }
 
     class GroupOrderNotFoundException extends RuntimeException {
-        public GroupOrderNotFoundException(String message) {
-            super(message);
-        }
 
-        public GroupOrderNotFoundException() {
-            super("Group order not found!");
-        }
+        public GroupOrderNotFoundException() {super("Group order not found!"); }
     }
 
     class RestaurantNotFoundException extends RuntimeException {
-        public RestaurantNotFoundException(String message) {
-            super(message);
-        }
 
         public RestaurantNotFoundException() {
             super("Restaurant not found!");
@@ -52,30 +37,27 @@ public interface Exception {
     }
 
     class GroupOrderStillActiveException extends RuntimeException {
-        public GroupOrderStillActiveException(String message) {
-            super(message);
-        }
 
         public GroupOrderStillActiveException() {
             super("Group order is still active!");
         }
     }
     class RequestNotFoundException extends RuntimeException {
-        public RequestNotFoundException(String message) {
-            super(message);
-        }
 
         public RequestNotFoundException() {
             super("Bad request, endpoint doesn't exist!");
         }
     }
     class ServerErrorException extends RuntimeException {
-        public ServerErrorException(String message) {
-            super(message);
-        }
 
         public ServerErrorException() {
             super("Internal server error!");
+        }
+    }
+    class GroupOrderNotActiveException extends RuntimeException {
+
+        public GroupOrderNotActiveException() {
+            super("Group order not active!");
         }
     }
 

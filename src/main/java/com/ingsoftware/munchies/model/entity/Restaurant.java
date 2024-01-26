@@ -4,12 +4,13 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @Builder
-@ToString
 @Table(name = "restaurant")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,7 +22,6 @@ public class Restaurant {
 
     @OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(nullable = false, name = "delivery_fk")
-    @ToString.Exclude
     private DeliveryInfo deliveryInfo;
     @Column(nullable = false)
     private String restaurantName;
@@ -43,4 +43,7 @@ public class Restaurant {
 
     @Column(nullable = false)
     private String shortName;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<GroupOrder> groupOrders = new ArrayList<>();
 }
