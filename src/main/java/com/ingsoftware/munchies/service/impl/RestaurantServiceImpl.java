@@ -78,16 +78,10 @@ public class RestaurantServiceImpl implements RestaurantService {
         var restaurant = restaurantRepository.findById(restaurantId).orElseThrow(Exception.RestaurantNotFoundException::new);
         var groupOrderList = groupOrderRepository.findGroupOrdersByRestaurant(restaurant);
 
-        System.out.println(groupOrderList.toString());
-
-
         for (var groupOrder : groupOrderList) {
             if (groupOrderService.calculateTimeRemaining(groupOrderMapper.mapToDTO(groupOrder)) > 0) {
                 throw new Exception.GroupOrderStillActiveException();
             }
-            groupOrder.setRestaurant(null);
-            groupOrderRepository.save(groupOrder);
-
         }
         restaurantRepository.deleteById(restaurantId);
     }

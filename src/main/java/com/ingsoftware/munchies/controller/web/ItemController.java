@@ -1,4 +1,4 @@
-package com.ingsoftware.munchies.controller;
+package com.ingsoftware.munchies.controller.web;
 
 import com.ingsoftware.munchies.controller.request.ItemRequestDTO;
 import com.ingsoftware.munchies.service.ItemService;
@@ -7,10 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor

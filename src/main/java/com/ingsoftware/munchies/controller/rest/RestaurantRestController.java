@@ -3,6 +3,11 @@ package com.ingsoftware.munchies.controller.rest;
 import com.ingsoftware.munchies.controller.request.RestaurantRequestDTO;
 import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
 import com.ingsoftware.munchies.service.RestaurantService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +19,18 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/rest")
 @RequiredArgsConstructor
+@Tag(name = "Restaurant API")
+@SecurityRequirement(name = "basicAuth")
 public class RestaurantRestController {
 
     private final RestaurantService restaurantService;
 
+
+    @Operation(summary = "Get all restaurants with pagination and sorting")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully fetched all restaurant data"),
+            @ApiResponse(responseCode = "400", description = "Bad request, validation failed")
+    })
     @GetMapping
     public ResponseEntity<Page<RestaurantResponseDTO>> getAllRestaurants(
             @RequestParam(defaultValue = "1") String pageNum,
@@ -29,11 +42,21 @@ public class RestaurantRestController {
         return ResponseEntity.ok(restaurants);
     }
 
+    @Operation(summary = "Get restaurant by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully fetched restaurant data"),
+            @ApiResponse(responseCode = "404", description = "Restaurant not found")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<RestaurantResponseDTO> getRestaurantById(@PathVariable String id) {
         return ResponseEntity.ok(restaurantService.findById(id));
     }
 
+    @Operation(summary = "Create new restaurant")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully added new restaurant"),
+            @ApiResponse(responseCode = "400", description = "Bad request, validation failed")
+    })
     @PostMapping
     public ResponseEntity<Object> saveRestaurant(@Valid @RequestBody RestaurantRequestDTO request,
                                                BindingResult result) {
@@ -43,7 +66,11 @@ public class RestaurantRestController {
         restaurantService.addRestaurant(request);
         return ResponseEntity.ok().build();
     }
-
+    @Operation(summary = "Update an existing restaurant")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully updated restaurant"),
+            @ApiResponse(responseCode = "400", description = "Bad request, validation failed")
+    })
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateRestaurant(@PathVariable("id") String id,
                                                  @Valid @RequestBody RestaurantRequestDTO request,
@@ -51,11 +78,14 @@ public class RestaurantRestController {
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().build();
         }
-        request.setRestaurantId(id);
         restaurantService.updateRestaurant(request, id);
         return ResponseEntity.ok().build();
     }
-
+    @Operation(summary = "Delete restaurant by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully deleted restaurant"),
+            @ApiResponse(responseCode = "404", description = "Restaurant not found")
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRestaurant(@PathVariable("id") String id) {
         restaurantService.delete(id);

@@ -2,11 +2,8 @@ package com.ingsoftware.munchies.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import java.time.Instant;
-import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -21,9 +18,8 @@ public class Item {
     @Column(nullable = false)
     private String itemId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "group_order_fk", nullable = false)
-    @ToString.Exclude
     private GroupOrder groupOrder;
 
     @Column(name = "item_name", nullable = false)

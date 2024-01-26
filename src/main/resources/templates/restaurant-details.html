@@ -16,9 +16,7 @@
                 General Information
 
             </h3>
-            <dl class="row">
-                <dt class="col-sm-3">ID:</dt>
-                <dd class="col-sm-9" th:text="${restaurant.restaurantId}"></dd>
+            <dl class="row" th:object="${restaurant}">
 
                 <dt class="col-sm-3">Name:</dt>
                 <dd class="col-sm-9" th:text="${restaurant.restaurantName}"></dd>
@@ -47,9 +45,7 @@
             <h3 class="mb-4 d-flex justify-content-between align-items-center">
                 Delivery Information
             </h3>
-            <dl class="row">
-                <dt class="col-sm-3">Delivery ID:</dt>
-                <dd class="col-sm-9" th:text="${restaurant.deliveryInfo.deliveryId}"></dd>
+            <dl class="row" th:object="${deliveryInfo}">
 
                 <dt class="col-sm-3">Delivery Time:</dt>
                 <dd class="col-sm-9" th:text="${restaurant.deliveryInfo.deliveryTime}"></dd>

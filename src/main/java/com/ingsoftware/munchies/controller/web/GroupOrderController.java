@@ -1,4 +1,4 @@
-package com.ingsoftware.munchies.controller;
+package com.ingsoftware.munchies.controller.web;
 
 import com.ingsoftware.munchies.controller.request.GroupOrderRequestDTO;
 import com.ingsoftware.munchies.controller.request.ItemRequestDTO;

@@ -36,16 +36,4 @@ public class GroupOrderMapper {
                 .build();
     }
 
-    public GroupOrder mapToEntityTime(final GroupOrderResponseDTO response) {
-      return GroupOrder.builder()
-              .groupOrderId(response.getGroupOrderId())
-              .creatorName(response.getCreatorName())
-              .groupOrderUrl(response.getGroupOrderUrl())
-              .restaurant(response.getRestaurant())
-              .groupOrderTimeout(response.getGroupOrderTimeout())
-              .createdDate(response.getCreatedDate())
-              .lastModifiedDate(response.getLastModifiedDate())
-              .totalPrice(response.getTotalPrice())
-              .build();
-    }
 }

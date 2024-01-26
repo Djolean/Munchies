@@ -61,7 +61,10 @@ public class GroupOrderServiceImpl implements GroupOrderService {
         int timeoutMinutes = response.getGroupOrderTimeout();
         int timeoutSeconds = timeoutMinutes * 60;
 
-        return timeoutSeconds - (int) Duration.between(response.getCreatedDate(), Instant.now()).getSeconds();
+        long timeActive = Duration.between(response.getCreatedDate(), Instant.now()).getSeconds();
+
+        return timeoutSeconds - (int) timeActive;
+
     }
 
     public String formatTime(int remainingTimeSeconds) {

@@ -12,6 +12,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @AllArgsConstructor
@@ -23,8 +24,14 @@ public class SecurityConfiguration {
             auth.requestMatchers("/",
                     "/homePage",
                     "/restaurants",
-                    "/restaurant-details",
-                    "/error/**"
+                    "/restaurant/**",
+                    "/error/**",
+                    "/swagger-ui/**",
+                    "/api-docs/**",
+                            "/swagger-ui.html",
+                            "/webjars/**",
+                            "/swagger-resources/**",
+                            "/api/v1/auth/**"
                     )
                     .permitAll();
             auth.anyRequest().authenticated();

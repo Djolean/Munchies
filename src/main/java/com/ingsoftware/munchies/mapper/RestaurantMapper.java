@@ -35,7 +35,6 @@ public class RestaurantMapper {
 
     public Restaurant mapToEntity(final RestaurantRequestDTO request, final Restaurant restaurant, final DeliveryInfo deliveryInfo) {
 
-        restaurant.setRestaurantId(request.getRestaurantId());
         restaurant.setRestaurantName(request.getRestaurantName());
         restaurant.setShortName(restaurant.getShortName());
         restaurant.setAddress(request.getAddress());
