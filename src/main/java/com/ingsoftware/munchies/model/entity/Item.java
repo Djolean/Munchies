@@ -12,6 +12,7 @@ import java.time.Instant;
 @Table(name = "item")
 @RequiredArgsConstructor
 @AllArgsConstructor
+
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
