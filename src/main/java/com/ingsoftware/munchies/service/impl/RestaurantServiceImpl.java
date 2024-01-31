@@ -30,10 +30,9 @@ public class RestaurantServiceImpl implements RestaurantService {
     private final GroupOrderService groupOrderService;
 
     @Override
+    public Page<RestaurantResponseDTO> findAll(int pageNum, int size, String sortBy, String sortOrder) {
 
-    public Page<RestaurantResponseDTO> findAll(int page, int size, String sortBy, String sortOrder) {
-
-        Pageable pageable = PageRequest.of(page, size, Sort.Direction.fromString(sortBy), sortOrder);
+        Pageable pageable = PageRequest.of(pageNum, size, Sort.Direction.fromString(sortBy), sortOrder);
         Page<Restaurant> restaurantPage = restaurantRepository.findAll(pageable);
         List<RestaurantResponseDTO> response = restaurantPage.getContent().stream()
                 .map(mapper::mapToDTO)

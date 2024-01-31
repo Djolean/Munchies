@@ -1,14 +1,23 @@
 package com.ingsoftware.munchies.service;
 
-import com.ingsoftware.munchies.model.entity.Admin;
+import com.ingsoftware.munchies.controller.request.AdminRequestDTO;
+import com.ingsoftware.munchies.controller.response.AdminResponseDTO;
+import java.util.List;
 
 public interface AdminService{
 
-     Admin saveAdmin(Admin admin);
-     Admin getLoggedInAdmin();
-     Admin updateAdmin(Admin admin);
-     Admin getAdminDetails();
-     void deleteAdmin();
+     AdminResponseDTO addAdmin(AdminRequestDTO request);
 
+     AdminResponseDTO getLoggedInAdmin();
+
+     List<AdminResponseDTO> findAll();
+
+     void updateAdmin(String id, AdminRequestDTO request);
+
+     AdminResponseDTO getAdminDetails();
+
+     void deleteAdmin(String id);
+
+     AdminResponseDTO findById(String id);
 
 }

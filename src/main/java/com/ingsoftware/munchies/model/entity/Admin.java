@@ -14,8 +14,9 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@ToString
+@Builder
 @Table(name = "admin")
+@AllArgsConstructor
 @RequiredArgsConstructor
 public class Admin {
 
