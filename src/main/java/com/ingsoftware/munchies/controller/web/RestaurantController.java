@@ -22,7 +22,7 @@ public class RestaurantController {
 
     @GetMapping("/restaurants")
     public String getAllRestaurants(
-            @RequestParam(defaultValue = "1") String pageNum,
+            @RequestParam(defaultValue = "0") String pageNum,
             @RequestParam(defaultValue = "5") String pageSize,
             @RequestParam(defaultValue = "asc") String sortOrder,
             @RequestParam(defaultValue = "restaurantName") String sortBy,
@@ -88,6 +88,7 @@ public class RestaurantController {
     public String showUpdateForm(@PathVariable("id") String id, Model model) {
         RestaurantResponseDTO response = restaurantService.findById(id);
         model.addAttribute("restaurant", new RestaurantRequestDTO(
+                response.getRestaurantId(),
                 response.getRestaurantName(),
                 response.getAddress(),
                 response.getPhoneNumber(),
