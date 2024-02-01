@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Admin List</title>
@@ -51,7 +51,7 @@
     </div>
 </div>
 <div class="text-center mt-3">
-    <a href="#" onclick="history.back()" class="btn btn-secondary">Back</a>
+    <a th:href="@{/restaurants}" class="btn btn-secondary">Back</a>
 </div>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
