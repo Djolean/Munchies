@@ -338,6 +338,197 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "viewAdminById",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "djoler001@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/rest/admin/b10a430d-b8fa-4551-a470-34799dd76fb5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"admin",
+								"b10a430d-b8fa-4551-a470-34799dd76fb5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateAdmin",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "djoler001@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"adminId\": \"\",\r\n  \"adminName\": \"string\",\r\n  \"adminEmail\": \"djole@gmail.com\",\r\n  \"password\": \"stringst\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/rest/admin/b10a430d-b8fa-4551-a470-34799dd76fb5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"admin",
+								"b10a430d-b8fa-4551-a470-34799dd76fb5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "viewAllAdmins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/rest/admin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addAdmin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"adminId\": \"\",\r\n  \"adminName\": \"djolee\",\r\n  \"adminEmail\": \"djole@gmail.com\",\r\n  \"password\": \"stringssdt\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/rest/admin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAdmin",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/rest/admin/b10a430d-b8fa-4551-a470-34799dd76fb5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"admin",
+								"b10a430d-b8fa-4551-a470-34799dd76fb5"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "password",
+						"value": "admin",
+						"type": "string"
+					},
+					{
+						"key": "username",
+						"value": "djoler001@gmail.com",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
 		}
 	]
 }
