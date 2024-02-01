@@ -8,6 +8,9 @@ import com.ingsoftware.munchies.model.entity.Admin;
 import com.ingsoftware.munchies.model.entity.Restaurant;
 import com.ingsoftware.munchies.repository.AdminRepository;
 import com.ingsoftware.munchies.service.AdminService;
+import com.ingsoftware.munchies.service.EmailService;
+import jakarta.mail.MessagingException;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -25,10 +29,11 @@ public class AdminServiceImpl implements AdminService {
     private final AdminRepository adminRepository;
     private final PasswordEncoder passwordEncoder;
     private final AdminMapper mapper;
+    private final EmailService emailService;
 
     @Override
-    public AdminResponseDTO addAdmin(AdminRequestDTO request) {
-        if (AdminRepository.existsByAdminEmail(request.getAdminEmail())) {
+    public AdminResponseDTO addAdmin(AdminRequestDTO request) throws MessagingException {
+        if (adminRepository.existsByAdminEmail(request.getAdminEmail())) {
             throw new Exception.UserAlreadyExists();
         } else {
             String encodedPassword = passwordEncoder.encode(request.getPassword());
@@ -37,7 +42,7 @@ public class AdminServiceImpl implements AdminService {
         Admin admin  = mapper.mapToEntity(request);
         admin.setCreatedDate(Instant.now());
         admin.setLastModifiedDate(Instant.now());
-
+        emailService.sendMail(admin);
         return mapper.mapToDTO(adminRepository.save(admin));
     }
 

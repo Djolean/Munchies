@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -53,7 +54,7 @@ public class AdminRestController {
     })
     @PostMapping
     public ResponseEntity<Void> saveAdmin(@Valid @RequestBody AdminRequestDTO request,
-                                          BindingResult result) {
+                                          BindingResult result) throws MessagingException {
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().build();
         }
