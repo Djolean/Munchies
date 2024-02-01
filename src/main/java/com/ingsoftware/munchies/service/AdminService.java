@@ -2,11 +2,13 @@ package com.ingsoftware.munchies.service;
 
 import com.ingsoftware.munchies.controller.request.AdminRequestDTO;
 import com.ingsoftware.munchies.controller.response.AdminResponseDTO;
+import jakarta.mail.MessagingException;
+
 import java.util.List;
 
 public interface AdminService{
 
-     AdminResponseDTO addAdmin(AdminRequestDTO request);
+     AdminResponseDTO addAdmin(AdminRequestDTO request) throws MessagingException;
 
      AdminResponseDTO getLoggedInAdmin();
 

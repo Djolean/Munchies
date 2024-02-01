@@ -2,10 +2,6 @@ package com.ingsoftware.munchies.service;
 
 import com.ingsoftware.munchies.controller.request.GroupOrderRequestDTO;
 import com.ingsoftware.munchies.controller.response.GroupOrderResponseDTO;
-import com.ingsoftware.munchies.model.entity.GroupOrder;
-
-import java.sql.Time;
-import java.time.Instant;
 
 public interface GroupOrderService {
 

@@ -3,6 +3,7 @@ package com.ingsoftware.munchies.controller.web;
 import com.ingsoftware.munchies.controller.request.AdminRequestDTO;
 import com.ingsoftware.munchies.controller.response.AdminResponseDTO;
 import com.ingsoftware.munchies.service.AdminService;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,7 @@ public class AdminController {
 
     @PostMapping("/admin/save")
     public String saveAdmin(@Valid @ModelAttribute("request") AdminRequestDTO request,
-                            BindingResult result, Model model) {
+                            BindingResult result, Model model) throws MessagingException {
         if (result.hasErrors()) {
             model.addAttribute("admin", request);
             return "admin/create-admin";
