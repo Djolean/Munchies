@@ -40,4 +40,9 @@ public class Admin {
     @Column(nullable = false)
     private Instant lastModifiedDate;
 
+    @Column(nullable = false)
+    private boolean isEnabled;
+
+    @OneToOne(mappedBy = "admin", cascade = CascadeType.ALL)
+    private AdminVerificationToken verificationToken;
 }

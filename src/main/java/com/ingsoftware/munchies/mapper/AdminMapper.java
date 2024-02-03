@@ -22,6 +22,7 @@ public class AdminMapper {
                 .password(admin.getPassword())
                 .createdDate(admin.getCreatedDate())
                 .lastModifiedDate(admin.getLastModifiedDate())
+                .isEnabled(admin.isEnabled())
                 .build();
     }
 

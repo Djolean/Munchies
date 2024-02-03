@@ -16,6 +16,7 @@ public class AdminResponseDTO {
     private String password;
     private Instant createdDate;
     private Instant lastModifiedDate;
+    private boolean isEnabled;
 
 
 }

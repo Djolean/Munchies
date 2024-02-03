@@ -24,6 +24,7 @@ public class MainController {
     public String home() {
         return "redirect:/homePage";
     }
+
     @GetMapping("/login")
     public String showLoginForm() {
         return "admin/login";

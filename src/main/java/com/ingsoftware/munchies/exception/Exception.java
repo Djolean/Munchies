@@ -60,6 +60,18 @@ public interface Exception {
             super("Group order not active!");
         }
     }
+    class UserAlreadyConfirmed extends RuntimeException {
+
+        public UserAlreadyConfirmed() {
+            super("User is already confirmed!");
+        }
+    }
+    class UserNotConfirmedYet extends RuntimeException {
+
+        public UserNotConfirmedYet() {
+            super("User is not confirmed yet!");
+        }
+    }
 
 
     @Data

@@ -32,6 +32,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="admin : ${admins}">
+                    <a th:if="${admin.enabled == true}">
                     <td th:text="${admin.adminName}"></td>
                     <td th:text="${admin.adminEmail}"></td>
                     <td th:text="${#strings.repeat('•', admin.password.length())}" >th:text="${admin.password}"</td>
@@ -42,7 +43,7 @@
                             <button type="submit" class="btn btn-danger" th:text="Delete"></button>
                         </form>
                         <a th:href="@{/update-admin/{id}(id=${admin.adminId})}" class="btn btn-primary ml-2">Edit</a>
-                    </td>
+                    </td> </a>
                 </tr>
                 </tbody>
             </table>

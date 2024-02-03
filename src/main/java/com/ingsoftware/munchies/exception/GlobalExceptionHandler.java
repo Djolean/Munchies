@@ -59,6 +59,16 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Exception.ExceptionResponse> GroupOrderNotActiveExceptionRest(Exception.GroupOrderNotActiveException ex) {
         return prepareResponse(HttpStatus.NOT_FOUND, ex.getMessage());
     }
+
+    @ExceptionHandler
+    public ResponseEntity<Exception.ExceptionResponse> UserAlreadyConfirmedRest(Exception.UserAlreadyConfirmed ex) {
+        return prepareResponse(HttpStatus.ALREADY_REPORTED, ex.getMessage());
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<Exception.ExceptionResponse> UserNotConfirmedYetRest(Exception.UserNotConfirmedYet ex) {
+        return prepareResponse(HttpStatus.ALREADY_REPORTED, ex.getMessage());
+    }
 }
 
 
