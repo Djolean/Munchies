@@ -2,7 +2,9 @@ package com.ingsoftware.munchies.service.impl;
 
 
 import com.ingsoftware.munchies.model.entity.Admin;
+import com.ingsoftware.munchies.model.entity.AdminVerificationToken;
 import jakarta.mail.internet.MimeMessage;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -23,12 +25,15 @@ public class EmailServiceImpl implements EmailService {
     private final JavaMailSender javaMailSender;
 
 
+
+
     @Override
-    public String sendMail(Admin user) throws MessagingException {
+    public String sendMail(Admin user, AdminVerificationToken token) throws MessagingException {
         Context context = new Context();
         context.setVariable("user", user);
+        context.setVariable("token", token.getToken());
 
-        String process = templateEngine.process("/welcome", context);
+        String process = templateEngine.process("emails/welcome", context);
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
         helper.setSubject("Welcome " + user.getAdminName());

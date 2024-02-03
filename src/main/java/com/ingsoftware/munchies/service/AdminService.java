@@ -22,4 +22,5 @@ public interface AdminService{
 
      AdminResponseDTO findById(String id);
 
+     void verifyAccount(String token);
 }

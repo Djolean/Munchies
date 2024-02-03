@@ -16,14 +16,17 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {
-    private AdminRepository adminRepository;
-    @Override
-    public UserDetails loadUserByUsername(String email) {
-        Admin admin = adminRepository
-                .findByAdminEmail(email)
-                .orElseThrow(Exception.UserNotFoundException::new);
-        return new org.springframework.security.core.userdetails.User(
-                admin.getAdminEmail(), admin.getPassword(),new ArrayList<>()
-        );
-    }
-}
+        private AdminRepository adminRepository;
+        @Override
+        public UserDetails loadUserByUsername(String email) {
+            Admin admin = adminRepository
+                    .findByAdminEmail(email)
+                    .orElseThrow(Exception.UserNotFoundException::new);
+            if(admin.isEnabled()) {
+                return new org.springframework.security.core.userdetails.User(
+                        admin.getAdminEmail(), admin.getPassword(), new ArrayList<>()
+                );
+            } else
+                throw new Exception.UserNotConfirmedYet();
+            }
+        }

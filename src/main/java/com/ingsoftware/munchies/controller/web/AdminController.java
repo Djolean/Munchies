@@ -70,4 +70,18 @@ public class AdminController {
                 response.getPassword()));
         return "admin/update-admin";
     }
+
+    @GetMapping("/verify")
+    public String verifyAccount(@RequestParam("token") String token, Model model) {
+
+
+        adminService.verifyAccount(token);
+        return "redirect:/confirmation";
+    }
+
+    @GetMapping("/confirmation")
+    public String confirmationPage() {
+
+        return "emails/confirmation";
+    }
 }
