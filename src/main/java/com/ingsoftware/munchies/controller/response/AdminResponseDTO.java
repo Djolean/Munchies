@@ -18,5 +18,4 @@ public class AdminResponseDTO {
     private Instant lastModifiedDate;
     private boolean isEnabled;
 
-
 }

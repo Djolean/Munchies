@@ -72,6 +72,12 @@ public interface Exception {
             super("User is not confirmed yet!");
         }
     }
+    class TokenNotValidOrExpired extends RuntimeException {
+
+        public TokenNotValidOrExpired() {
+            super("Token is not valid or expired!");
+        }
+    }
 
 
     @Data
