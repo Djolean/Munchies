@@ -23,4 +23,10 @@ public interface AdminService{
      AdminResponseDTO findById(String id);
 
      void verifyAccount(String token);
+
+     void verifyPasswordReset(String token, String newPassword);
+
+     void verifyPasswordReset(String token);
+
+     void initiatePasswordReset(String email) throws MessagingException;
 }

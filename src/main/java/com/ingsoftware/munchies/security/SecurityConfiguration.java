@@ -1,18 +1,15 @@
 package com.ingsoftware.munchies.security;
 
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
-
-import org.springframework.security.config.Customizer;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import lombok.AllArgsConstructor;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @AllArgsConstructor
@@ -22,12 +19,17 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity security) throws Exception {
         security.authorizeHttpRequests(auth -> {
             auth.requestMatchers("/",
-                    "/homePage",
-                    "/restaurants",
-                    "/restaurant/**",
-                    "/error/**",
-                    "/swagger-ui/**",
-                    "/api-docs/**",
+                            "/homePage",
+                            "/restaurants",
+                            "/restaurant/**",
+                            "/error/**",
+                            "/swagger-ui/**",
+                            "/api-docs/**",
+                            "/forgot-password/**",
+                            "/reset-password/**",
+                            "/reset-password-form/**",
+                            "/initiatePasswordReset/**",
+                            "/verifyPasswordReset/**",
                             "/confirmation/**",
                             "/swagger-ui.html",
                             "/webjars/**",

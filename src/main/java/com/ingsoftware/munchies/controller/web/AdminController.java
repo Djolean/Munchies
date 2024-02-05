@@ -2,6 +2,7 @@ package com.ingsoftware.munchies.controller.web;
 
 import com.ingsoftware.munchies.controller.request.AdminRequestDTO;
 import com.ingsoftware.munchies.controller.response.AdminResponseDTO;
+import com.ingsoftware.munchies.exception.Exception;
 import com.ingsoftware.munchies.service.AdminService;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
@@ -72,16 +73,64 @@ public class AdminController {
     }
 
     @GetMapping("/verify")
-    public String verifyAccount(@RequestParam("token") String token, Model model) {
-
-
+    public String verifyAccount(@RequestParam("token") String token) {
         adminService.verifyAccount(token);
         return "redirect:/confirmation";
     }
 
-    @GetMapping("/confirmation")
-    public String confirmationPage() {
+    @PostMapping("/forgot-password")
+    public String sendEmailForPasswordReset(@RequestParam("email") String email, Model model) throws MessagingException {
 
-        return "emails/confirmation";
+        if (email != null && !email.isEmpty()) {
+            adminService.initiatePasswordReset(email);
+            model.addAttribute("successMessage", "Password reset email sent. Check your inbox.");
+        } else {
+            model.addAttribute("errorMessage", "Please enter a valid email address.");
+        }
+
+        return "admin/forgot-password";
+    }
+
+    @GetMapping("/confirmation")
+    public String showConfirmationPage() {
+        return "admin/confirmation";
+    }
+
+    @GetMapping("/reset-password-form")
+    public String showResetPasswordFormPage() {
+        return "admin/reset-password-form";
+    }
+
+    @GetMapping("/forgot-password")
+    public String showForgotPasswordPage() {
+        return "admin/forgot-password";
+    }
+
+
+    @GetMapping("/verifyPasswordReset")
+    public String verifyPasswordReset(@RequestParam("token") String token, Model model) {
+        adminService.verifyPasswordReset(token);
+        model.addAttribute("token", token);
+        return "redirect:/reset-password-form?token=" + token;
+    }
+
+    @PostMapping("/reset-password")
+    public String handleResetPasswordForm(@RequestParam("token") String token,
+                                          @RequestParam("newPassword") String newPassword,
+                                          @RequestParam("confirmPassword") String confirmPassword, Model model) {
+        try {
+
+            if (!newPassword.equals(confirmPassword)) {
+                model.addAttribute("error", "Passwords do not match");
+                return "admin/reset-password-form";
+            }
+
+            adminService.verifyPasswordReset(token, newPassword);
+            return "redirect:/login";
+
+        } catch (Exception.TokenNotValidOrExpired ex) {
+            model.addAttribute("error", "Invalid or expired token");
+            return "admin/reset-password-form";
+        }
     }
 }

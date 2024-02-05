@@ -6,25 +6,22 @@ import com.ingsoftware.munchies.exception.Exception;
 import com.ingsoftware.munchies.mapper.AdminMapper;
 import com.ingsoftware.munchies.model.entity.Admin;
 import com.ingsoftware.munchies.model.entity.AdminVerificationToken;
-import com.ingsoftware.munchies.model.entity.Restaurant;
+import com.ingsoftware.munchies.model.entity.PasswordResetToken;
 import com.ingsoftware.munchies.repository.AdminRepository;
 import com.ingsoftware.munchies.repository.AdminVerificationTokenRepository;
+import com.ingsoftware.munchies.repository.PasswordResetTokenRepository;
 import com.ingsoftware.munchies.service.AdminService;
 import com.ingsoftware.munchies.service.EmailService;
 import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
-import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.csrf.InvalidCsrfTokenException;
 import org.springframework.stereotype.Service;
 
-import java.io.NotActiveException;
 import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
 
 
 @Service
@@ -35,7 +32,8 @@ public class AdminServiceImpl implements AdminService {
     private final PasswordEncoder passwordEncoder;
     private final AdminMapper mapper;
     private final EmailService emailService;
-    private final AdminVerificationTokenRepository tokenRepository;
+    private final AdminVerificationTokenRepository adminVerificationTokenRepository;
+    private final PasswordResetTokenRepository passwordResetTokenRepository;
 
     @Override
     @Transactional
@@ -46,13 +44,13 @@ public class AdminServiceImpl implements AdminService {
             String encodedPassword = passwordEncoder.encode(request.getPassword());
             request.setPassword(encodedPassword);
         }
-        Admin admin  = mapper.mapToEntity(request);
+        Admin admin = mapper.mapToEntity(request);
         admin.setCreatedDate(Instant.now());
         admin.setLastModifiedDate(Instant.now());
 
         AdminVerificationToken verificationToken = new AdminVerificationToken();
         verificationToken.setAdmin(admin);
-        tokenRepository.save(verificationToken);
+        adminVerificationTokenRepository.save(verificationToken);
 
         emailService.sendMail(admin, verificationToken);
         return mapper.mapToDTO(adminRepository.save(admin));
@@ -69,6 +67,7 @@ public class AdminServiceImpl implements AdminService {
 
         adminRepository.save(mapper.mapToEntityUpdate(admin, request));
     }
+
     @Override
     public AdminResponseDTO getAdminDetails() {
         return getLoggedInAdmin();
@@ -102,9 +101,9 @@ public class AdminServiceImpl implements AdminService {
     @Transactional
     @Override
     public void verifyAccount(String token) {
-        AdminVerificationToken verificationToken = tokenRepository.findByToken(token);
+        AdminVerificationToken verificationToken = adminVerificationTokenRepository.findByToken(token);
 
-        if (verificationToken.getExpiryDate().isBefore(Instant.now())){
+        if (verificationToken.getExpiryDate().isBefore(Instant.now())) {
             verificationToken.setUsed(true);
         }
         if (!verificationToken.isUsed()) {
@@ -113,9 +112,54 @@ public class AdminServiceImpl implements AdminService {
             adminRepository.save(admin);
 
             verificationToken.setUsed(true);
-            tokenRepository.save(verificationToken);
+            adminVerificationTokenRepository.save(verificationToken);
         } else {
             throw new Exception.UserAlreadyConfirmed();
+        }
+    }
+
+    @Override
+    public void initiatePasswordReset(String email) throws MessagingException {
+
+        PasswordResetToken passwordResetToken = new PasswordResetToken();
+        Admin admin = adminRepository.findByAdminEmail(email).orElseThrow(Exception.UserNotFoundException::new);
+        passwordResetToken.setAdmin(admin);
+        passwordResetTokenRepository.save(passwordResetToken);
+
+        emailService.sendResetPasswordEmail(email, passwordResetToken);
+    }
+
+    @Override
+    public void verifyPasswordReset(String token, String newPassword) {
+
+         PasswordResetToken passwordResetToken = passwordResetTokenRepository.findByToken(token);
+
+
+        if (passwordResetToken.getExpiryDate().isBefore(Instant.now())) {
+            passwordResetToken.setUsed(true);
+        }
+        if (!passwordResetToken.isUsed()) {
+            Admin admin = passwordResetToken.getAdmin();
+
+            String encodedNewPassword = passwordEncoder.encode(newPassword);
+            admin.setPassword(encodedNewPassword);
+            passwordResetToken.setUsed(true);
+            passwordResetTokenRepository.save(passwordResetToken);
+            adminRepository.save(admin);
+        }
+    }
+
+    @Override
+    public void verifyPasswordReset(String token) {
+
+        PasswordResetToken passwordResetToken = passwordResetTokenRepository.findByToken(token);
+        if (passwordResetToken.getExpiryDate().isBefore(Instant.now())) {
+            passwordResetToken.setUsed(true);
+        }
+        if (!passwordResetToken.isUsed()) {
+            passwordResetTokenRepository.save(passwordResetToken);
+        } else {
+            throw new Exception.TokenNotValidOrExpired();
         }
     }
 }
