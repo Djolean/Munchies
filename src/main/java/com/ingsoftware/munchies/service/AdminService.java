@@ -29,4 +29,5 @@ public interface AdminService{
      void verifyPasswordReset(String token);
 
      void initiatePasswordReset(String email) throws MessagingException;
+
 }

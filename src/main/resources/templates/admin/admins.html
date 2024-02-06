@@ -24,7 +24,7 @@
                 <tr>
                     <th>Admin Name</th>
                     <th>E-mail</th>
-                    <th>Password</th>
+<!--                    <th>Password</th>-->
                     <th>Date Created</th>
                     <th>Modified Date</th>
                     <th>Actions</th>
@@ -35,7 +35,7 @@
                     <a th:if="${admin.enabled == true}">
                     <td th:text="${admin.adminName}"></td>
                     <td th:text="${admin.adminEmail}"></td>
-                    <td th:text="${#strings.repeat('•', admin.password.length())}" >th:text="${admin.password}"</td>
+<!--                    <td th:text="${#strings.repeat('•', admin.password.length())}" >th:text="${admin.password}"</td>-->
                     <td th:text="${#dates.format(admin.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                     <td th:text="${#dates.format(admin.lastModifiedDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                     <td class="d-flex justify-content-between">
