@@ -7,9 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
-import java.util.Collection;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Getter
@@ -45,4 +43,8 @@ public class Admin {
 
     @OneToOne(mappedBy = "admin", cascade = CascadeType.ALL)
     private AdminVerificationToken verificationToken;
+
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
+    private List<PasswordResetToken> passwordResetTokens = new ArrayList<>();
+
 }
