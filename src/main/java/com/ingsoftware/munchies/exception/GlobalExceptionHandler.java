@@ -56,22 +56,22 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler
-    public ResponseEntity<Exception.ExceptionResponse> GroupOrderNotActiveExceptionRest(Exception.GroupOrderNotActiveException ex) {
+    public ResponseEntity<Exception.ExceptionResponse> groupOrderNotActiveExceptionRest(Exception.GroupOrderNotActiveException ex) {
         return prepareResponse(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 
     @ExceptionHandler
-    public ResponseEntity<Exception.ExceptionResponse> UserAlreadyConfirmedRest(Exception.UserAlreadyConfirmed ex) {
+    public ResponseEntity<Exception.ExceptionResponse> userAlreadyConfirmedRest(Exception.UserAlreadyConfirmed ex) {
         return prepareResponse(HttpStatus.ALREADY_REPORTED, ex.getMessage());
     }
 
     @ExceptionHandler
-    public ResponseEntity<Exception.ExceptionResponse> UserNotConfirmedYetRest(Exception.UserNotConfirmedYet ex) {
+    public ResponseEntity<Exception.ExceptionResponse> userNotConfirmedYetRest(Exception.UserNotConfirmedYet ex) {
         return prepareResponse(HttpStatus.ALREADY_REPORTED, ex.getMessage());
     }
 
     @ExceptionHandler
-    public ResponseEntity<Exception.ExceptionResponse> TokenNotValidOrExpiredRest(Exception.TokenNotValidOrExpired ex) {
+    public ResponseEntity<Exception.ExceptionResponse> tokenNotValidOrExpiredRest(Exception.TokenNotValidOrExpired ex) {
         return prepareResponse(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 }

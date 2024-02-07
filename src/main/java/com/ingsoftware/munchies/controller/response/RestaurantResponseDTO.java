@@ -3,7 +3,6 @@ package com.ingsoftware.munchies.controller.response;
 import lombok.*;
 
 import java.time.Instant;
-import java.util.List;
 
 @Data
 @Builder

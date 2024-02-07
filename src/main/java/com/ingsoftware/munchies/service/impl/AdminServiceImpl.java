@@ -101,23 +101,28 @@ public class AdminServiceImpl implements AdminService {
     @Transactional
     @Override
     public void verifyAccount(String token) {
+
         AdminVerificationToken verificationToken = adminVerificationTokenRepository.findByToken(token);
-        Admin admin = verificationToken.getAdmin();
+        if (verificationToken != null) {
+            Admin admin = verificationToken.getAdmin();
 
-        if (verificationToken.getExpiryDate().isBefore(Instant.now())) {
-            verificationToken.setUsed(true);
-            adminRepository.delete(admin);
-            throw new Exception.TokenNotValidOrExpired();
-        }
-        if (!verificationToken.isUsed()) {
-            admin.setEnabled(true);
-            adminRepository.save(admin);
-            verificationToken.setUsed(true);
+            if (verificationToken.getExpiryDate().isBefore(Instant.now())) {
+                verificationToken.setUsed(true);
+                adminRepository.delete(admin);
+                throw new Exception.TokenNotValidOrExpired();
+            }
+            if (!verificationToken.isUsed()) {
+                admin.setEnabled(true);
+                adminRepository.save(admin);
+                verificationToken.setUsed(true);
 
+            } else {
+                throw new Exception.UserAlreadyConfirmed();
+            }
+            adminVerificationTokenRepository.save(verificationToken);
         } else {
-            throw new Exception.UserAlreadyConfirmed();
+            throw new Exception.UserNotFoundException();
         }
-        adminVerificationTokenRepository.save(verificationToken);
     }
 
     @Override
@@ -134,7 +139,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void verifyPasswordReset(String token, String newPassword) {
 
-         PasswordResetToken passwordResetToken = passwordResetTokenRepository.findByToken(token);
+        PasswordResetToken passwordResetToken = passwordResetTokenRepository.findByToken(token);
 
 
         if (passwordResetToken.getExpiryDate().isBefore(Instant.now())) {
@@ -155,14 +160,17 @@ public class AdminServiceImpl implements AdminService {
     public void verifyPasswordReset(String token) {
 
         PasswordResetToken passwordResetToken = passwordResetTokenRepository.findByToken(token);
-        if (passwordResetToken.getExpiryDate().isBefore(Instant.now())) {
-            passwordResetToken.setUsed(true);
-        }
-        if (!passwordResetToken.isUsed()) {
-            passwordResetTokenRepository.save(passwordResetToken);
+        if (passwordResetToken != null) {
+            if (passwordResetToken.getExpiryDate().isBefore(Instant.now())) {
+                passwordResetToken.setUsed(true);
+            }
+            if (!passwordResetToken.isUsed()) {
+                passwordResetTokenRepository.save(passwordResetToken);
+            } else {
+                throw new Exception.TokenNotValidOrExpired();
+            }
         } else {
-            throw new Exception.TokenNotValidOrExpired();
+            throw new Exception.UserNotFoundException();
         }
     }
-
 }

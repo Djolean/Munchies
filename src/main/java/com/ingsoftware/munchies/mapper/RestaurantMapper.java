@@ -5,7 +5,6 @@ import com.ingsoftware.munchies.controller.response.DeliveryInfoResponseDTO;
 import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
 import com.ingsoftware.munchies.model.entity.DeliveryInfo;
 import com.ingsoftware.munchies.model.entity.Restaurant;
-import com.ingsoftware.munchies.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
