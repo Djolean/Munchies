@@ -101,6 +101,6 @@ public class RestaurantServiceImpl implements RestaurantService {
         if (name == null) {
             return "";
         }
-        return name.replaceAll(" ", "_");
+        return name.replace(" ", "_");
     }
 }

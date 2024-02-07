@@ -3,7 +3,6 @@ package com.ingsoftware.munchies.controller.response;
 import com.ingsoftware.munchies.model.entity.GroupOrder;
 import lombok.*;
 
-import java.math.BigDecimal;
 import java.time.Instant;
 
 @Data

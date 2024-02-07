@@ -5,7 +5,6 @@ import com.ingsoftware.munchies.model.entity.Admin;
 import com.ingsoftware.munchies.model.entity.AdminVerificationToken;
 import com.ingsoftware.munchies.model.entity.PasswordResetToken;
 import jakarta.mail.internet.MimeMessage;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;

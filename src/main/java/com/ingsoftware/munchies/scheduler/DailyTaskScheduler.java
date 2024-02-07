@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
+
 @Component
 @AllArgsConstructor
 @Transactional
@@ -18,6 +20,7 @@ public class DailyTaskScheduler {
     public void deleteUnusedTokens() {
 
         passwordResetTokenRepository.deleteByUsed(true);
+        passwordResetTokenRepository.deleteByExpiryDateBefore(Instant.now());
     }
 
 }

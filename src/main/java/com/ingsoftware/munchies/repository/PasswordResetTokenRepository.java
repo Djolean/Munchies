@@ -11,5 +11,6 @@ import java.util.List;
 public interface PasswordResetTokenRepository extends JpaRepository<PasswordResetToken, String> {
     PasswordResetToken findByToken(String token);
     List<PasswordResetToken> deleteByUsed(boolean value);
+    List<PasswordResetToken> deleteByExpiryDateBefore(Instant value);
 }
 

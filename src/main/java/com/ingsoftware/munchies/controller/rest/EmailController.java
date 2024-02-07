@@ -1,7 +1,6 @@
 package com.ingsoftware.munchies.controller.rest;
 
 import com.ingsoftware.munchies.model.entity.Admin;
-import com.ingsoftware.munchies.model.entity.AdminVerificationToken;
 import com.ingsoftware.munchies.service.EmailService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

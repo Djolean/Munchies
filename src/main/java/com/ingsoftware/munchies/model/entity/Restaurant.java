@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Restaurant {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(nullable = false)
