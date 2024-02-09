@@ -31,6 +31,7 @@ public class SecurityConfiguration {
                             "/initiatePasswordReset/**",
                             "/verifyPasswordReset/**",
                             "/confirmation/**",
+                            "/slack/events/**",
                             "/swagger-ui.html",
                             "/webjars/**",
                             "/swagger-resources/**",
@@ -53,6 +54,7 @@ public class SecurityConfiguration {
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
                 .permitAll());
+
         return security.build();
     }
 

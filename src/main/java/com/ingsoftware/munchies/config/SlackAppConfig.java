@@ -10,30 +10,29 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SlackAppConfig {
 
-    @Value("${SLACK_BOT_TOKEN}")
-    private String slackBotToken;
+    @Value("${slack.bot-token}")
+    private String botToken;
 
-    @Value("${SLACK_SIGNING_SECRET}")
-    private String slackSigningSecret;
+    @Value("${slack.signing-secret}")
+    private String signingSecret;
 
     @Bean
-    public AppConfig appConfig() {
+    public AppConfig loadSingleWorkspaceAppConfig() {
         return AppConfig.builder()
-                .singleTeamBotToken(slackBotToken)
-                .signingSecret(slackSigningSecret)
+                .singleTeamBotToken(botToken)
+                .signingSecret(signingSecret)
                 .build();
 
     }
     @Bean
     public App initSlackApp(AppConfig config) {
-        App apiApp = new App();
-        if (config.getClientId() != null) {
-            apiApp.asOAuthApp(true);
-        }
-        apiApp.command("/hello", (req, ctx) -> {
-            return ctx.ack("Hello, Welcome to Munchies!");
-        });
-        return apiApp;
-    }
+        App app = new App(config);
 
+        app.command("/hello", (req, ctx) -> ctx.ack(r -> r.text("Hello, Welcome to Munchies!")));
+
+        System.out.println(signingSecret);
+        System.out.println(botToken);
+        app.start();
+        return app;
+    }
 }
