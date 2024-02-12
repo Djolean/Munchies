@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 @EnableScheduling
 @ServletComponentScan
 @OpenAPIDefinition(info = @Info(title = "Restaurant APIS", version = "1.0", description = "Restaurant management Apis"))
