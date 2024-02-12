@@ -16,6 +16,7 @@ public class SlackAppConfig {
     @Value("${slack.signing-secret}")
     private String signingSecret;
 
+
     @Bean
     public AppConfig loadSingleWorkspaceAppConfig() {
         return AppConfig.builder()
@@ -24,15 +25,10 @@ public class SlackAppConfig {
                 .build();
 
     }
+
     @Bean
     public App initSlackApp(AppConfig config) {
         App app = new App(config);
-
-        app.command("/hello", (req, ctx) -> ctx.ack(r -> r.text("Hello, Welcome to Munchies!")));
-
-        System.out.println(signingSecret);
-        System.out.println(botToken);
-        app.start();
         return app;
     }
 }

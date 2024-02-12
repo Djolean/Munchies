@@ -15,4 +15,6 @@ public class GroupOrderRequestDTO {
     private String creatorName;
     @Min(value = 10, message = "Timeout must be 10 minutes or greater!")
     private Integer groupOrderTimeout;
+
+
 }

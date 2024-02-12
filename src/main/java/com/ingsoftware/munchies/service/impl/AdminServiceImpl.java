@@ -103,7 +103,9 @@ public class AdminServiceImpl implements AdminService {
     public void verifyAccount(String token) {
 
         AdminVerificationToken verificationToken = adminVerificationTokenRepository.findByToken(token);
-        if (verificationToken != null) {
+        if (verificationToken == null) {
+            throw new Exception.UserNotFoundException();
+        }
             Admin admin = verificationToken.getAdmin();
 
             if (verificationToken.getExpiryDate().isBefore(Instant.now())) {
@@ -111,18 +113,15 @@ public class AdminServiceImpl implements AdminService {
                 adminRepository.delete(admin);
                 throw new Exception.TokenNotValidOrExpired();
             }
-            if (!verificationToken.isUsed()) {
+            if (verificationToken.isUsed()) {
+                throw new Exception.UserAlreadyConfirmed();
+            }
                 admin.setEnabled(true);
                 adminRepository.save(admin);
                 verificationToken.setUsed(true);
 
-            } else {
-                throw new Exception.UserAlreadyConfirmed();
-            }
             adminVerificationTokenRepository.save(verificationToken);
-        } else {
-            throw new Exception.UserNotFoundException();
-        }
+
     }
 
     @Override

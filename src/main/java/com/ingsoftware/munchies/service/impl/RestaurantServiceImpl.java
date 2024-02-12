@@ -41,6 +41,11 @@ public class RestaurantServiceImpl implements RestaurantService {
         return new PageImpl<>(response, pageable, restaurantPage.getTotalElements());
     }
 
+    @Override
+    public List<RestaurantResponseDTO> findAllSlack() {
+        return restaurantRepository.findAll().stream().map(mapper::mapToDTO).toList();
+    }
+
 
     @Override
     public RestaurantResponseDTO findById(String id) throws Exception.RestaurantNotFoundException {

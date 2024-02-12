@@ -31,6 +31,7 @@ public class SecurityConfiguration {
                             "/initiatePasswordReset/**",
                             "/verifyPasswordReset/**",
                             "/confirmation/**",
+                            "/slack/events",
                             "/slack/events/**",
                             "/swagger-ui.html",
                             "/webjars/**",
