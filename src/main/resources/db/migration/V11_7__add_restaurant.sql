@@ -1,0 +1,11 @@
+INSERT INTO DELIVERY_INFO (DELIVERY_ID, DELIVERY_TIME, ADDITIONAL_CHARGES, CREATED_DATE, LAST_MODIFIED_DATE)
+VALUES
+    (1, 12, 50.00, NOW(), NOW()),
+    (2, 51, 70.50, NOW(), NOW()),
+    (3, 43, 100.00, NOW(), NOW());
+
+INSERT INTO RESTAURANT (RESTAURANT_ID, DELIVERY_FK, RESTAURANT_NAME, ADDRESS, PHONE_NUMBER, MENU_URL, CREATED_DATE, LAST_MODIFIED_DATE)
+VALUES
+    (1, 1, 'Restaurant A', '123 Main St', '555-1234', 'https://randomUrl', NOW(), NOW()),
+    (2, 2, 'Restaurant B', '456 Oak St', '555-5678', 'https://randomUrl', NOW(), NOW()),
+    (3, 3, 'Restaurant C', '789 Pine St', '555-9012', 'https:/randomUrl', NOW(), NOW());
