@@ -35,7 +35,7 @@ public class Admin {
     @Column(nullable = false)
     private Instant lastModifiedDate;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "isenabled")
     private boolean isEnabled;
 
     @OneToOne(mappedBy = "admin", cascade = CascadeType.ALL)
