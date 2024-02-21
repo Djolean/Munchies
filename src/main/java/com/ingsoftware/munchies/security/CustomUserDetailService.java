@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Service
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+
 public class CustomUserDetailService implements UserDetailsService {
         private AdminRepository adminRepository;
         @Override
