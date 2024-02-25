@@ -1,6 +1,9 @@
 package com.ingsoftware.munchies.controller.response;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
@@ -8,16 +11,23 @@ import java.time.Instant;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RestaurantResponseDTO{
+public class RestaurantResponseDTO {
 
     private String restaurantId;
-    private String restaurantName;
-    private String address;
-    private String phoneNumber;
-    private String menuUrl;
-    private Instant createdDate;
-    private Instant lastModifiedDate;
-    private String shortName;
-    private DeliveryInfoResponseDTO deliveryInfo;
 
+    private String restaurantName;
+
+    private String address;
+
+    private String phoneNumber;
+
+    private String menuUrl;
+
+    private Instant createdDate;
+
+    private Instant lastModifiedDate;
+
+    private String shortName;
+
+    private DeliveryInfoResponseDTO deliveryInfo;
 }

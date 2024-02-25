@@ -4,9 +4,9 @@ import com.ingsoftware.munchies.controller.request.AdminRequestDTO;
 import com.ingsoftware.munchies.controller.response.AdminResponseDTO;
 import com.ingsoftware.munchies.exception.Exception;
 import com.ingsoftware.munchies.mapper.AdminMapper;
-import com.ingsoftware.munchies.model.entity.Admin;
-import com.ingsoftware.munchies.model.entity.AdminVerificationToken;
-import com.ingsoftware.munchies.model.entity.PasswordResetToken;
+import com.ingsoftware.munchies.model.Admin;
+import com.ingsoftware.munchies.model.AdminVerificationToken;
+import com.ingsoftware.munchies.model.PasswordResetToken;
 import com.ingsoftware.munchies.repository.AdminRepository;
 import com.ingsoftware.munchies.repository.AdminVerificationTokenRepository;
 import com.ingsoftware.munchies.repository.PasswordResetTokenRepository;
@@ -40,10 +40,10 @@ public class AdminServiceImpl implements AdminService {
     public AdminResponseDTO addAdmin(AdminRequestDTO request) throws MessagingException {
         if (adminRepository.existsByAdminEmail(request.getAdminEmail())) {
             throw new Exception.UserAlreadyExists();
-        } else {
-            String encodedPassword = passwordEncoder.encode(request.getPassword());
-            request.setPassword(encodedPassword);
         }
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
+        request.setPassword(encodedPassword);
+
         Admin admin = mapper.mapToEntity(request);
         admin.setCreatedDate(Instant.now());
         admin.setLastModifiedDate(Instant.now());
@@ -106,21 +106,21 @@ public class AdminServiceImpl implements AdminService {
         if (verificationToken == null) {
             throw new Exception.UserNotFoundException();
         }
-            Admin admin = verificationToken.getAdmin();
+        Admin admin = verificationToken.getAdmin();
 
-            if (verificationToken.getExpiryDate().isBefore(Instant.now())) {
-                verificationToken.setUsed(true);
-                adminRepository.delete(admin);
-                throw new Exception.TokenNotValidOrExpired();
-            }
-            if (verificationToken.isUsed()) {
-                throw new Exception.UserAlreadyConfirmed();
-            }
-                admin.setEnabled(true);
-                adminRepository.save(admin);
-                verificationToken.setUsed(true);
+        if (verificationToken.getExpiryDate().isBefore(Instant.now())) {
+            verificationToken.setUsed(true);
+            adminRepository.delete(admin);
+            throw new Exception.TokenNotValidOrExpired();
+        }
+        if (verificationToken.isUsed()) {
+            throw new Exception.UserAlreadyConfirmed();
+        }
+        admin.setEnabled(true);
+        adminRepository.save(admin);
+        verificationToken.setUsed(true);
 
-            adminVerificationTokenRepository.save(verificationToken);
+        adminVerificationTokenRepository.save(verificationToken);
 
     }
 
@@ -160,16 +160,16 @@ public class AdminServiceImpl implements AdminService {
 
         PasswordResetToken passwordResetToken = passwordResetTokenRepository.findByToken(token);
         if (passwordResetToken != null) {
-            if (passwordResetToken.getExpiryDate().isBefore(Instant.now())) {
-                passwordResetToken.setUsed(true);
-            }
-            if (!passwordResetToken.isUsed()) {
-                passwordResetTokenRepository.save(passwordResetToken);
-            } else {
-                throw new Exception.TokenNotValidOrExpired();
-            }
-        } else {
             throw new Exception.UserNotFoundException();
         }
+        if (passwordResetToken.isUsed()) {
+            throw new Exception.TokenNotValidOrExpired();
+        }
+        if (passwordResetToken.getExpiryDate().isBefore(Instant.now())) {
+            throw new Exception.TokenNotValidOrExpired();
+        }
+        passwordResetToken.setUsed(true);
+        passwordResetTokenRepository.save(passwordResetToken);
     }
 }
+

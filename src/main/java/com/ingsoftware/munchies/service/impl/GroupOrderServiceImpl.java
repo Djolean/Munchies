@@ -4,8 +4,8 @@ import com.ingsoftware.munchies.controller.request.GroupOrderRequestDTO;
 import com.ingsoftware.munchies.controller.response.GroupOrderResponseDTO;
 import com.ingsoftware.munchies.exception.Exception;
 import com.ingsoftware.munchies.mapper.GroupOrderMapper;
-import com.ingsoftware.munchies.model.entity.GroupOrder;
-import com.ingsoftware.munchies.model.entity.Item;
+import com.ingsoftware.munchies.model.GroupOrder;
+import com.ingsoftware.munchies.model.Item;
 import com.ingsoftware.munchies.repository.GroupOrderRepository;
 import com.ingsoftware.munchies.repository.ItemRepository;
 import com.ingsoftware.munchies.repository.RestaurantRepository;
@@ -13,6 +13,7 @@ import com.ingsoftware.munchies.service.GroupOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.Duration;
 import java.time.Instant;
 
@@ -47,6 +48,7 @@ public class GroupOrderServiceImpl implements GroupOrderService {
     }
 
     private Double calculateTotalPrice(GroupOrder groupOrder) {
+
         double price = itemRepository.findAllByGroupOrder(groupOrder).stream()
                 .mapToDouble(Item::getPrice)
                 .sum();
@@ -73,5 +75,5 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 
         return String.format("%02d:%02d", minutes, seconds);
     }
- 
+
 }

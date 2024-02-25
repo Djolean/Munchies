@@ -2,8 +2,8 @@ package com.ingsoftware.munchies.mapper;
 
 import com.ingsoftware.munchies.controller.request.ItemRequestDTO;
 import com.ingsoftware.munchies.controller.response.ItemResponseDTO;
-import com.ingsoftware.munchies.model.entity.GroupOrder;
-import com.ingsoftware.munchies.model.entity.Item;
+import com.ingsoftware.munchies.model.GroupOrder;
+import com.ingsoftware.munchies.model.Item;
 import org.springframework.stereotype.Component;
 
 
@@ -33,5 +33,4 @@ public class ItemMapper {
                 .price(request.getPrice())
                 .build();
     }
-
 }

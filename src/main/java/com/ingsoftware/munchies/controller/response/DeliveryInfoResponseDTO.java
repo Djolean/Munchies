@@ -1,7 +1,10 @@
 package com.ingsoftware.munchies.controller.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 
@@ -12,9 +15,12 @@ import java.time.Instant;
 public class DeliveryInfoResponseDTO {
 
     private String deliveryId;
-    private String deliveryTime;
-    private BigDecimal additionalCharges;
-    private Instant createdDate;
-    private Instant lastModifiedDate;
 
+    private String deliveryTime;
+
+    private BigDecimal additionalCharges;
+
+    private Instant createdDate;
+
+    private Instant lastModifiedDate;
 }

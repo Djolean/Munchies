@@ -1,7 +1,8 @@
-package com.ingsoftware.munchies.model.entity;
+package com.ingsoftware.munchies.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.Instant;
 import java.util.UUID;

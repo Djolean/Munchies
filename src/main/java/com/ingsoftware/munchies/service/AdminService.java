@@ -6,28 +6,28 @@ import jakarta.mail.MessagingException;
 
 import java.util.List;
 
-public interface AdminService{
+public interface AdminService {
 
-     AdminResponseDTO addAdmin(AdminRequestDTO request) throws MessagingException;
+    AdminResponseDTO addAdmin(AdminRequestDTO request) throws MessagingException;
 
-     AdminResponseDTO getLoggedInAdmin();
+    AdminResponseDTO getLoggedInAdmin();
 
-     List<AdminResponseDTO> findAll();
+    List<AdminResponseDTO> findAll();
 
-     void updateAdmin(String id, AdminRequestDTO request);
+    void updateAdmin(String id, AdminRequestDTO request);
 
-     AdminResponseDTO getAdminDetails();
+    AdminResponseDTO getAdminDetails();
 
-     void deleteAdmin(String id);
+    void deleteAdmin(String id);
 
-     AdminResponseDTO findById(String id);
+    AdminResponseDTO findById(String id);
 
-     void verifyAccount(String token);
+    void verifyAccount(String token);
 
-     void verifyPasswordReset(String token, String newPassword);
+    void verifyPasswordReset(String token, String newPassword);
 
-     void verifyPasswordReset(String token);
+    void verifyPasswordReset(String token);
 
-     void initiatePasswordReset(String email) throws MessagingException;
+    void initiatePasswordReset(String email) throws MessagingException;
 
 }

@@ -44,7 +44,10 @@ public class SecurityConfiguration {
                             "/webjars/**",
                             "/swagger-resources/**",
                             "/api/v1/auth/**",
-                            "/rest/main/**"
+                            "/rest/main/**",
+                            "/rest/allRestaurants",
+                            "/rest/saveRestaurant",
+                            "/rest/add"
                     )
                     .permitAll();
             auth.anyRequest().authenticated();
@@ -54,7 +57,7 @@ public class SecurityConfiguration {
         security.httpBasic(Customizer.withDefaults());
         security.formLogin(Customizer.withDefaults());
         security.formLogin(form -> form
-                .loginPage("/rest/main/login") //for thymeleaf change to /login
+                .loginPage("/login") //for Angular change to /rest/main/login
                 .permitAll()
                 .loginProcessingUrl("/process-login")
                 .defaultSuccessUrl("/restaurants")
@@ -80,8 +83,8 @@ public class SecurityConfiguration {
         corsConfiguration.setAllowedMethods(List.of("GET", "POST"));
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setAllowedHeaders(List.of("Content-Type", "Accept", "remember-me", "Authorization", "Access-Control-Allow-Origin" +
-                                "Accept", "Origin", "Content-Type", "Depth", "User-Agent", "If-Modified-Since" +
-                                "Cache-Control", "Authorization", "X-Req", "X-File-Size", "X-Requested-With", "X-File-Name"));
+                "Accept", "Origin", "Content-Type", "Depth", "User-Agent", "If-Modified-Since" +
+                "Cache-Control", "Authorization", "X-Req", "X-File-Size", "X-Requested-With", "X-File-Name"));
         corsConfiguration.setMaxAge(3600L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);

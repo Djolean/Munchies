@@ -1,19 +1,18 @@
 package com.ingsoftware.munchies.service.impl;
 
 
-import com.ingsoftware.munchies.model.entity.Admin;
-import com.ingsoftware.munchies.model.entity.AdminVerificationToken;
-import com.ingsoftware.munchies.model.entity.PasswordResetToken;
+import com.ingsoftware.munchies.model.Admin;
+import com.ingsoftware.munchies.model.AdminVerificationToken;
+import com.ingsoftware.munchies.model.PasswordResetToken;
+import com.ingsoftware.munchies.service.EmailService;
+import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-
-import com.ingsoftware.munchies.service.EmailService;
-import jakarta.mail.MessagingException;
-import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Group Order</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
@@ -43,40 +43,40 @@
             </dl>
             <hr class="my-4">
 
-            <div th:if="${timeout > 0}" class="col">
+            <div class="col" th:if="${timeout > 0}">
                 <h3 class="mb-4 d-flex justify-content-between align-items-center">
                     Add items to order
                 </h3>
 
-                <form th:action="@{'/item/save/' + ${groupOrderId}}" method="post" class="row">
+                <form class="row" method="post" th:action="@{'/item/save/' + ${groupOrderId}}">
                     <div class="col-md-4">
                         <label for="employeeName">Employee Name:</label>
-                        <input type="text" id="employeeName" name="employeeName" class="form-control" required>
+                        <input class="form-control" id="employeeName" name="employeeName" required type="text">
                     </div>
 
                     <div class="col-md-4">
                         <label for="itemName">Item Name:</label>
-                        <input type="text" id="itemName" name="itemName" class="form-control" required>
+                        <input class="form-control" id="itemName" name="itemName" required type="text">
                     </div>
 
                     <div class="col-md-4">
                         <label for="price">Price:</label>
-                        <input type="text" id="price" name="price" class="form-control" required>
+                        <input class="form-control" id="price" name="price" required type="text">
                     </div>
 
                     <div class="mx-auto text-center mt-3">
-                        <button type="submit" class="btn btn-success mt-3">Add to Order</button>
+                        <button class="btn btn-success mt-3" type="submit">Add to Order</button>
                     </div>
                 </form>
             </div>
-            <p th:unless="${timeout > 0}" class="alert alert-danger">Time Expired!</p>
+            <p class="alert alert-danger" th:unless="${timeout > 0}">Time Expired!</p>
 
             <hr class="my-4">
 
             <h3 class="mb-4 d-flex justify-content-between align-items-center">
                 All orders
             </h3>
-            <input type="hidden" th:value="*{groupOrder.groupOrderId}" id="id" class="id">
+            <input class="id" id="id" th:value="*{groupOrder.groupOrderId}" type="hidden">
             <div id="itemsTable" th:fragment="reloadTable">
                 <table class="table">
                     <thead>
@@ -97,16 +97,16 @@
                 </table>
 
                 <p th:if="${timeout > 0}" th:text="'Time remaining: ' + ${formatted}" th:value="${formatted}"></p>
-                <p th:unless="${timeout > 0}" th:text="'Time remaining: ' + ${formatted}" >Time expired</p>
+                <p th:text="'Time remaining: ' + ${formatted}" th:unless="${timeout > 0}">Time expired</p>
 
 
                 <p th:text="'Delivery charges: ' + ${groupOrder.restaurant.deliveryInfo.additionalCharges}"></p>
-            <p class="font-weight-bold" th:text="'Total: ' + ${groupOrder.totalPrice}"></p>
+                <p class="font-weight-bold" th:text="'Total: ' + ${groupOrder.totalPrice}"></p>
             </div>
-            </div>
+        </div>
     </div>
 </div>
-<a th:href="@{/restaurants}" class="btn btn-secondary">Back</a>
+<a class="btn btn-secondary" th:href="@{/restaurants}">Back</a>
 
 <script>
     function reload() {

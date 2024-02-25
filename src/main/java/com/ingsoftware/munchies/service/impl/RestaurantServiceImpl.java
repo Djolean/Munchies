@@ -5,8 +5,8 @@ import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
 import com.ingsoftware.munchies.exception.Exception;
 import com.ingsoftware.munchies.mapper.GroupOrderMapper;
 import com.ingsoftware.munchies.mapper.RestaurantMapper;
-import com.ingsoftware.munchies.model.entity.DeliveryInfo;
-import com.ingsoftware.munchies.model.entity.Restaurant;
+import com.ingsoftware.munchies.model.DeliveryInfo;
+import com.ingsoftware.munchies.model.Restaurant;
 import com.ingsoftware.munchies.repository.GroupOrderRepository;
 import com.ingsoftware.munchies.repository.RestaurantRepository;
 import com.ingsoftware.munchies.service.GroupOrderService;
@@ -99,7 +99,6 @@ public class RestaurantServiceImpl implements RestaurantService {
         mapper.mapToEntityUpdate(request, restaurant);
         restaurantRepository.save(restaurant);
     }
-
 
 
     public String generateShortName(String name) {

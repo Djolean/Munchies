@@ -14,7 +14,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @OpenAPIDefinition(info = @Info(title = "Restaurant APIS", version = "1.0", description = "Restaurant management Apis"))
 public class MunchiesApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MunchiesApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MunchiesApplication.class, args);
+    }
 }

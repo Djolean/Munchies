@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>User Confirmation</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-light d-flex align-items-center justify-content-center" style="height: 100vh;">
@@ -11,7 +11,7 @@
 <div class="container text-center p-4 bg-white rounded shadow">
     <h2 class="text-primary">User Confirmed</h2>
     <p>Welcome! Your account has been confirmed.</p>
-    <a th:href="@{/restaurants}" class="btn btn-primary">Go to Restaurants</a>
+    <a class="btn btn-primary" th:href="@{/restaurants}">Go to Restaurants</a>
 </div>
 </body>
 

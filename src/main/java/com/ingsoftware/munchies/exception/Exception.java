@@ -26,7 +26,9 @@ public interface Exception {
 
     class GroupOrderNotFoundException extends RuntimeException {
 
-        public GroupOrderNotFoundException() {super("Group order not found!"); }
+        public GroupOrderNotFoundException() {
+            super("Group order not found!");
+        }
     }
 
     class RestaurantNotFoundException extends RuntimeException {
@@ -42,36 +44,42 @@ public interface Exception {
             super("Group order is still active!");
         }
     }
+
     class RequestNotFoundException extends RuntimeException {
 
         public RequestNotFoundException() {
             super("Bad request, endpoint doesn't exist!");
         }
     }
+
     class ServerErrorException extends RuntimeException {
 
         public ServerErrorException() {
             super("Internal server error!");
         }
     }
+
     class GroupOrderNotActiveException extends RuntimeException {
 
         public GroupOrderNotActiveException() {
             super("Group order not active!");
         }
     }
+
     class UserAlreadyConfirmed extends RuntimeException {
 
         public UserAlreadyConfirmed() {
             super("User is already confirmed!");
         }
     }
+
     class UserNotConfirmedYet extends RuntimeException {
 
         public UserNotConfirmedYet() {
             super("User is not confirmed yet!");
         }
     }
+
     class TokenNotValidOrExpired extends RuntimeException {
 
         public TokenNotValidOrExpired() {
@@ -90,5 +98,4 @@ public interface Exception {
         private LocalDateTime timestamp;
         private String message;
     }
-
 }

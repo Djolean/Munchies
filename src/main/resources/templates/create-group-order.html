@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Create Group Order</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-light">
@@ -11,7 +11,7 @@
 <div class="container mt-5 mb-5">
     <h2 class="text-center mb-4">Create Group Order</h2>
 
-    <form th:action="@{'/restaurant/'+${restaurantId}+'/group-order/create'}" th:object="${groupOrder}" method="post">
+    <form method="post" th:action="@{'/restaurant/'+${restaurantId}+'/group-order/create'}" th:object="${groupOrder}">
 
         <div class="form-group">
             <h4 th:text="${restaurants.restaurantName}"></h4>
@@ -19,21 +19,24 @@
 
         <div class="form-group">
             <label for="creatorName">Creator Name: </label>
-            <input type="text" name="creatorName" class="form-control" id="creatorName" th:field="*{creatorName}" th:required="required">
-            <small th:if="${#fields.hasErrors('creatorName')}" th:errors="*{creatorName}" class="text-danger"></small>
+            <input class="form-control" id="creatorName" name="creatorName" th:field="*{creatorName}" th:required="required"
+                   type="text">
+            <small class="text-danger" th:errors="*{creatorName}" th:if="${#fields.hasErrors('creatorName')}"></small>
         </div>
 
         <div class="form-group">
             <label for="groupOrderTimeout">Timeout (minutes):</label>
-            <input type="text" name="groupOrderTimeout" class="form-control" id="groupOrderTimeout" th:field="*{groupOrderTimeout}" th:required="required">
+            <input class="form-control" id="groupOrderTimeout" name="groupOrderTimeout" th:field="*{groupOrderTimeout}"
+                   th:required="required" type="text">
             <small class="form-text text-muted">Timeout must be 10 minutes or greater.</small>
-            <small th:if="${#fields.hasErrors('groupOrderTimeout')}" th:errors="*{getGroupOrderTimeout}" class="text-danger"></small>
+            <small class="text-danger" th:errors="*{getGroupOrderTimeout}"
+                   th:if="${#fields.hasErrors('groupOrderTimeout')}"></small>
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button class="btn btn-primary" type="submit">Submit</button>
     </form>
     <div class="text-center mt-3">
-        <a href="http://localhost:8080/restaurants" onclick="back()" class="btn btn-secondary">Back</a>
+        <a class="btn btn-secondary" href="http://localhost:8080/restaurants" onclick="back()">Back</a>
     </div>
 </div>
 

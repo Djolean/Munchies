@@ -2,7 +2,7 @@ package com.ingsoftware.munchies.mapper;
 
 import com.ingsoftware.munchies.controller.request.AdminRequestDTO;
 import com.ingsoftware.munchies.controller.response.AdminResponseDTO;
-import com.ingsoftware.munchies.model.entity.Admin;
+import com.ingsoftware.munchies.model.Admin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +11,6 @@ import java.time.Instant;
 @Component
 @RequiredArgsConstructor
 public class AdminMapper {
-
 
     public AdminResponseDTO mapToDTO(final Admin admin) {
 
@@ -26,7 +25,6 @@ public class AdminMapper {
                 .build();
     }
 
-
     public Admin mapToEntity(final AdminRequestDTO request) {
 
         return Admin.builder()
@@ -39,9 +37,9 @@ public class AdminMapper {
 
     public Admin mapToEntityUpdate(final Admin admin, final AdminRequestDTO request) {
 
-            admin.setAdminName(request.getAdminName());
-            admin.setAdminEmail(admin.getAdminEmail());
-            admin.setLastModifiedDate(Instant.now());
+        admin.setAdminName(request.getAdminName());
+        admin.setAdminEmail(admin.getAdminEmail());
+        admin.setLastModifiedDate(Instant.now());
 
         return admin;
     }

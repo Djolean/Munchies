@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Restaurant Detailed View</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-light">
@@ -34,7 +34,8 @@
                 <dd class="col-sm-9" th:text="${#dates.format(restaurant.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></dd>
 
                 <dt class="col-sm-3">Last Modified Date:</dt>
-                <dd class="col-sm-9" th:text="${#dates.format(restaurant.lastModifiedDate, 'yyyy-MM-dd HH:mm:ss')}"></dd>
+                <dd class="col-sm-9"
+                    th:text="${#dates.format(restaurant.lastModifiedDate, 'yyyy-MM-dd HH:mm:ss')}"></dd>
 
                 <dt class="col-sm-3">Short Name:</dt>
                 <dd class="col-sm-9" th:text="${restaurant.shortName}"></dd>
@@ -54,21 +55,24 @@
                 <dd class="col-sm-9" th:text="${restaurant.deliveryInfo.additionalCharges}"></dd>
 
                 <dt class="col-sm-3">Delivery Created Date:</dt>
-                <dd class="col-sm-9" th:text="${#dates.format(restaurant.deliveryInfo.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></dd>
+                <dd class="col-sm-9"
+                    th:text="${#dates.format(restaurant.deliveryInfo.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></dd>
 
                 <dt class="col-sm-3">Delivery Last Modified Date:</dt>
-                <dd class="col-sm-9" th:text="${#dates.format(restaurant.deliveryInfo.lastModifiedDate, 'yyyy-MM-dd HH:mm:ss')}"></dd>
+                <dd class="col-sm-9"
+                    th:text="${#dates.format(restaurant.deliveryInfo.lastModifiedDate, 'yyyy-MM-dd HH:mm:ss')}"></dd>
             </dl>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+<div aria-hidden="true" aria-labelledby="deleteConfirmationModalLabel" class="modal fade" id="deleteConfirmationModal"
+     role="dialog" tabindex="-1">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirmation</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -76,9 +80,10 @@
                 Are you sure you want to delete this restaurant?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <form th:method="DELETE" th:action="@{/delete-restaurant/{id}(id=${restaurant.restaurantId})}" th:object="${restaurant}">
-                <button type="submit" class="btn btn-danger" th:text="Delete"></button>
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Cancel</button>
+                <form th:action="@{/delete-restaurant/{id}(id=${restaurant.restaurantId})}" th:method="DELETE"
+                      th:object="${restaurant}">
+                    <button class="btn btn-danger" th:text="Delete" type="submit"></button>
                 </form>
             </div>
         </div>
@@ -86,11 +91,11 @@
 </div>
 
 <div class="text-center mt-3">
-    <a th:href="@{/update-restaurant/{id}(id=${restaurant.restaurantId})}" class="btn btn-primary btn-lg mx-2">Edit</a>
-    <a href="#" class="btn btn-danger btn-lg mx-2" onclick="confirmDelete()">Delete</a>
+    <a class="btn btn-primary btn-lg mx-2" th:href="@{/update-restaurant/{id}(id=${restaurant.restaurantId})}">Edit</a>
+    <a class="btn btn-danger btn-lg mx-2" href="#" onclick="confirmDelete()">Delete</a>
 </div>
 <div class="text-center mt-3">
-    <a th:href="@{/restaurants}" class="btn btn-secondary">Back</a>
+    <a class="btn btn-secondary" th:href="@{/restaurants}">Back</a>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
