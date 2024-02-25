@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>404 Not Found</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 
@@ -13,7 +13,7 @@
         <h1 class="display-1 text-danger">404</h1>
         <p class="lead">Page Not Found</p>
         <p th:text="${error}">The page you are looking does not exist.</p>
-        <a href="/restaurants" class="btn btn-primary">Go to Home</a>
+        <a class="btn btn-primary" href="/restaurants">Go to Home</a>
     </div>
 </div>
 

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Update Admin</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -11,36 +11,36 @@
 <div class="container mt-4">
     <h2>Update Admin</h2>
 
-    <form th:object="${admin}"  th:action="@{/update-admin/{id}(id=${id})}" th:method="PUT">
+    <form th:action="@{/update-admin/{id}(id=${id})}" th:method="PUT" th:object="${admin}">
 
         <div class="form-group">
-            <input type="hidden" id="adminId" th:field="*{adminId}" class="form-control"/>
-            <small th:if="${#fields.hasErrors('adminId')}" th:errors="*{adminId}" class="text-danger"></small>
+            <input class="form-control" id="adminId" th:field="*{adminId}" type="hidden"/>
+            <small class="text-danger" th:errors="*{adminId}" th:if="${#fields.hasErrors('adminId')}"></small>
         </div>
 
         <div class="form-group">
             <label for="adminName">Admin Name:</label>
-            <input type="text" id="adminName" th:field="*{adminName}" class="form-control"/>
-            <small th:if="${#fields.hasErrors('adminName')}" th:errors="*{adminName}" class="text-danger"></small>
+            <input class="form-control" id="adminName" th:field="*{adminName}" type="text"/>
+            <small class="text-danger" th:errors="*{adminName}" th:if="${#fields.hasErrors('adminName')}"></small>
         </div>
 
         <div class="form-group">
             <label for="adminEmail">Admin Email:</label>
-            <input type="text" id="adminEmail" th:field="*{adminEmail}" class="form-control"/>
-            <small th:if="${#fields.hasErrors('adminEmail')}" th:errors="*{adminEmail}" class="text-danger"></small>
+            <input class="form-control" id="adminEmail" th:field="*{adminEmail}" type="text"/>
+            <small class="text-danger" th:errors="*{adminEmail}" th:if="${#fields.hasErrors('adminEmail')}"></small>
         </div>
 
         <div class="form-group">
             <label for="password">Password:</label>
-            <input type="password" id="password" th:field="*{password}" class="form-control"/>
-            <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></small>
+            <input class="form-control" id="password" th:field="*{password}" type="password"/>
+            <small class="text-danger" th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></small>
         </div>
 
-        <button type="submit" class="btn btn-primary">Update Admin</button>
+        <button class="btn btn-primary" type="submit">Update Admin</button>
     </form>
 
     <div class="text-center mt-3">
-        <a th:href="@{/admins}" class="btn btn-secondary">Back</a>
+        <a class="btn btn-secondary" th:href="@{/admins}">Back</a>
     </div>
 </div>
 

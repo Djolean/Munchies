@@ -1,4 +1,4 @@
-package com.ingsoftware.munchies.model.entity;
+package com.ingsoftware.munchies.model;
 
 import jakarta.persistence.*;
 import lombok.*;

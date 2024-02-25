@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 public class ItemRestController {
 
     private final ItemService itemService;
+
     @Operation(summary = "Add item to group order")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully added item to group order"),

@@ -3,8 +3,8 @@
 
 <head>
     <title>Admin List</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -14,9 +14,8 @@
         <div class="col-md-12">
             <h2 class="text-center">Admin List</h2>
 
-            <a th:href="@{/create-admin}" class="btn btn-primary mb-3 mt-3">Add
+            <a class="btn btn-primary mb-3 mt-3" th:href="@{/create-admin}">Add
                 Admin</a>
-
 
 
             <table class="table table-bordered">
@@ -24,7 +23,7 @@
                 <tr>
                     <th>Admin Name</th>
                     <th>E-mail</th>
-<!--                    <th>Password</th>-->
+                    <!--                    <th>Password</th>-->
                     <th>Date Created</th>
                     <th>Modified Date</th>
                     <th>Actions</th>
@@ -33,17 +32,20 @@
                 <tbody>
                 <tr th:each="admin : ${admins}">
                     <a th:if="${admin.enabled == true}">
-                    <td th:text="${admin.adminName}"></td>
-                    <td th:text="${admin.adminEmail}"></td>
-<!--                    <td th:text="${#strings.repeat('•', admin.password.length())}" >th:text="${admin.password}"</td>-->
-                    <td th:text="${#dates.format(admin.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                    <td th:text="${#dates.format(admin.lastModifiedDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                    <td class="d-flex justify-content-between">
-                        <form th:method="DELETE" th:action="@{/delete-admin/{id}(id=${admin.adminId})}" th:object="${admin}">
-                            <button type="submit" class="btn btn-danger" th:text="Delete"></button>
-                        </form>
-                        <a th:href="@{/update-admin/{id}(id=${admin.adminId})}" class="btn btn-primary ml-2">Edit</a>
-                    </td> </a>
+                        <td th:text="${admin.adminName}"></td>
+                        <td th:text="${admin.adminEmail}"></td>
+                        <!--                    <td th:text="${#strings.repeat('•', admin.password.length())}" >th:text="${admin.password}"</td>-->
+                        <td th:text="${#dates.format(admin.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                        <td th:text="${#dates.format(admin.lastModifiedDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                        <td class="d-flex justify-content-between">
+                            <form th:action="@{/delete-admin/{id}(id=${admin.adminId})}" th:method="DELETE"
+                                  th:object="${admin}">
+                                <button class="btn btn-danger" th:text="Delete" type="submit"></button>
+                            </form>
+                            <a class="btn btn-primary ml-2"
+                               th:href="@{/update-admin/{id}(id=${admin.adminId})}">Edit</a>
+                        </td>
+                    </a>
                 </tr>
                 </tbody>
             </table>
@@ -52,7 +54,7 @@
     </div>
 </div>
 <div class="text-center mt-3">
-    <a th:href="@{/restaurants}" class="btn btn-secondary">Back</a>
+    <a class="btn btn-secondary" th:href="@{/restaurants}">Back</a>
 </div>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -22,13 +22,13 @@ public class RestaurantController {
 
     @GetMapping("/restaurants")
     public String getAllRestaurants(
-            @RequestParam(defaultValue = "0") String pageNum,
-            @RequestParam(defaultValue = "5") String pageSize,
+            @RequestParam(defaultValue = "0") int pageNum,
+            @RequestParam(defaultValue = "5") int pageSize,
             @RequestParam(defaultValue = "asc") String sortOrder,
             @RequestParam(defaultValue = "restaurantName") String sortBy,
             Model model) {
 
-        Page<RestaurantResponseDTO> restaurants = restaurantService.findAll(Integer.parseInt(pageNum), Integer.parseInt(pageSize), sortOrder, sortBy);
+        Page<RestaurantResponseDTO> restaurants = restaurantService.findAll(pageNum, pageSize, sortOrder, sortBy);
         model.addAttribute("restaurants", restaurants);
         model.addAttribute("pageSize", pageSize);
         model.addAttribute("pageNum", pageNum);

@@ -23,7 +23,6 @@ public class SlackAppConfig {
                 .singleTeamBotToken(botToken)
                 .signingSecret(signingSecret)
                 .build();
-
     }
 
     @Bean

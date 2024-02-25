@@ -1,4 +1,4 @@
-package com.ingsoftware.munchies.model.entity;
+package com.ingsoftware.munchies.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -45,6 +45,6 @@ public class Restaurant {
     @Column(nullable = false)
     private String shortName;
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL,  orphanRemoval = true)
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GroupOrder> groupOrders = new ArrayList<>();
 }

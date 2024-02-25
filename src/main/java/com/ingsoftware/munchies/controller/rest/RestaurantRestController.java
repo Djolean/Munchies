@@ -8,19 +8,21 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/rest")
 @RequiredArgsConstructor
 @Tag(name = "Restaurant API")
 @SecurityRequirement(name = "basicAuth")
+@CrossOrigin(origins = "http://localhost:4200")
 public class RestaurantRestController {
 
     private final RestaurantService restaurantService;
@@ -42,6 +44,12 @@ public class RestaurantRestController {
         return ResponseEntity.ok(restaurants);
     }
 
+    @GetMapping("/allRestaurants")
+    public ResponseEntity<List<RestaurantResponseDTO>> getAllRestaurants() {
+        List<RestaurantResponseDTO> restaurants = restaurantService.findAllSlack();
+        return ResponseEntity.ok().body(restaurants);
+    }
+
     @Operation(summary = "Get restaurant by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully fetched restaurant data"),
@@ -57,15 +65,16 @@ public class RestaurantRestController {
             @ApiResponse(responseCode = "200", description = "Successfully added new restaurant"),
             @ApiResponse(responseCode = "400", description = "Bad request, validation failed")
     })
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<Object> saveRestaurant(@Valid @RequestBody RestaurantRequestDTO request,
-                                               BindingResult result) {
+                                                 BindingResult result) {
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().build();
         }
         restaurantService.addRestaurant(request);
         return ResponseEntity.ok().build();
     }
+
     @Operation(summary = "Update an existing restaurant")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully updated restaurant"),
@@ -81,6 +90,7 @@ public class RestaurantRestController {
         restaurantService.updateRestaurant(request, id);
         return ResponseEntity.ok().build();
     }
+
     @Operation(summary = "Delete restaurant by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully deleted restaurant"),

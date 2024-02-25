@@ -1,7 +1,7 @@
 package com.ingsoftware.munchies.repository;
 
-import com.ingsoftware.munchies.model.entity.GroupOrder;
-import com.ingsoftware.munchies.model.entity.Restaurant;
+import com.ingsoftware.munchies.model.GroupOrder;
+import com.ingsoftware.munchies.model.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

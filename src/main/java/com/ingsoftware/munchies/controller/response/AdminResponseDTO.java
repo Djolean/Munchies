@@ -1,6 +1,9 @@
 package com.ingsoftware.munchies.controller.response;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
@@ -11,11 +14,16 @@ import java.time.Instant;
 public class AdminResponseDTO {
 
     private String adminId;
-    private String adminName;
-    private String adminEmail;
-    private String password;
-    private Instant createdDate;
-    private Instant lastModifiedDate;
-    private boolean isEnabled;
 
+    private String adminName;
+
+    private String adminEmail;
+
+    private String password;
+
+    private Instant createdDate;
+
+    private Instant lastModifiedDate;
+
+    private boolean isEnabled;
 }

@@ -1,9 +1,11 @@
-package com.ingsoftware.munchies.model.entity;
+package com.ingsoftware.munchies.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.*;
+
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter

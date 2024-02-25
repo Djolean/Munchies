@@ -2,8 +2,8 @@ package com.ingsoftware.munchies.mapper;
 
 import com.ingsoftware.munchies.controller.request.GroupOrderRequestDTO;
 import com.ingsoftware.munchies.controller.response.GroupOrderResponseDTO;
-import com.ingsoftware.munchies.model.entity.GroupOrder;
-import com.ingsoftware.munchies.model.entity.Restaurant;
+import com.ingsoftware.munchies.model.GroupOrder;
+import com.ingsoftware.munchies.model.Restaurant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -35,5 +35,4 @@ public class GroupOrderMapper {
                 .restaurant(restaurant)
                 .build();
     }
-
 }

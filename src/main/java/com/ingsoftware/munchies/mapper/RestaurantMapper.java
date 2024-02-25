@@ -3,8 +3,8 @@ package com.ingsoftware.munchies.mapper;
 import com.ingsoftware.munchies.controller.request.RestaurantRequestDTO;
 import com.ingsoftware.munchies.controller.response.DeliveryInfoResponseDTO;
 import com.ingsoftware.munchies.controller.response.RestaurantResponseDTO;
-import com.ingsoftware.munchies.model.entity.DeliveryInfo;
-import com.ingsoftware.munchies.model.entity.Restaurant;
+import com.ingsoftware.munchies.model.DeliveryInfo;
+import com.ingsoftware.munchies.model.Restaurant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -65,6 +65,7 @@ public class RestaurantMapper {
 
         return restaurant;
     }
+
     private DeliveryInfoResponseDTO mapDeliveryInfoToDTO(final DeliveryInfo deliveryInfo) {
 
         DeliveryInfoResponseDTO response = new DeliveryInfoResponseDTO();
@@ -79,7 +80,7 @@ public class RestaurantMapper {
     }
 
     private DeliveryInfo mapToDeliveryInfoEntity(final RestaurantRequestDTO request, final DeliveryInfo deliveryInfo) {
-        
+
         deliveryInfo.setDeliveryId(deliveryInfo.getDeliveryId());
         deliveryInfo.setDeliveryTime(request.getDeliveryTime());
         deliveryInfo.setAdditionalCharges(request.getAdditionalCharges());
@@ -87,5 +88,4 @@ public class RestaurantMapper {
         deliveryInfo.setLastModifiedDate(Instant.now());
         return deliveryInfo;
     }
-
 }

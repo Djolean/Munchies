@@ -1,6 +1,5 @@
 package com.ingsoftware.munchies.controller.rest;
 
-import com.ingsoftware.munchies.repository.AdminRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class MainRestController {
 
     SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
-    private final AdminRepository adminRepository;
 
     @Operation(summary = "Get home page content")
     @GetMapping("/homePage")
